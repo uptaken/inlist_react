@@ -45,10 +45,15 @@ export default function Profile({ route, navigation }){
         <ScrollView>
           <View style={{ backgroundColor: base.color.grey4 }}>
             <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                <Text>{base.i18n.t("change_profile")}</Text>
-                <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
-              </View>
+              <TouchableNativeFeedback
+                useForeground
+                background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+                onPress={() => navigation.navigate('ChangeProfile')}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
+                  <Text>{base.i18n.t("change_profile")}</Text>
+                  <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
+                </View>
+              </TouchableNativeFeedback>
 
               <TouchableNativeFeedback
                 useForeground

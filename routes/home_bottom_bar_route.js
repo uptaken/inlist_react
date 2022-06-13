@@ -6,6 +6,7 @@ import Base from '../src/utils/base'
 
 import Home from '../src/home/index'
 import Profile from '../src/profile/profile'
+import Order from '../src/order/order'
 
 const BottomTab = createBottomTabNavigator()
 export default function HomeBottomBar(){
@@ -24,7 +25,7 @@ export default function HomeBottomBar(){
       },
       {
         name: "OrderTab",
-        component: Home,
+        component: Order,
         label: base.i18n.t("order"),
         icon: ({focused, tintColor}) => {
           return <Icon name='home' size={base.size.icon} color={!focused ? base.color.grey2 : base.color.primary}/>

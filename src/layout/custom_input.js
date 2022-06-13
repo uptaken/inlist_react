@@ -78,8 +78,9 @@ export default function CustomInput(props){
             rowTextStyle={styles.dropdown1RowTxtStyle}/>
         :
           <TextInput
-            style={{ borderWidth: base.size.border, borderColor: base.color.grey1, borderRadius: base.size.size_1, padding: base.size.size_1, marginTop: base.size.size_1, }}
+            style={{ borderWidth: base.size.border, borderColor: base.color.grey1, borderRadius: base.size.size_1, padding: base.size.size_1, marginTop: base.size.size_1, backgroundColor: (props.enabled != null && props.enabled) || props.enabled == null ? base.color.white : base.color.grey5 }}
             onChangeText={value => props.on_change_text(value)}
+            editable={(props.enabled != null && props.enabled) || props.enabled == null}
             secureTextEntry={props.type != null && props.type === 'password'}
             keyboardType={keyboard_type}
             value={props.value}/>

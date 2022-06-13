@@ -16,61 +16,57 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import moment from 'moment';
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
-import CustomCard from '../layout/custom_card';
 import CustomInput from '../layout/custom_input';
-import HomeListItem from './list_item';
+import OrderHeader from './header';
+import OrderListItem from './list_item';
 
-export default function HomeList(props){
+export default function Order({ route, navigation }){
   var base = new Base()
   const [arr, set_arr] = useState([
     {
       id: '1',
-      status: 'available',
       url_image: require("../../assets/book_1.png"),
-      publisher: 'Oh Su Hyang',
-      title: 'Bicara Itu Ada Seninya',
+      date: moment(),
+      status: '7 Hari sebelum Pengembalian',
     },
     {
       id: '2',
-      status: 'available',
-      url_image: require("../../assets/book_2.png"),
-      publisher: 'Mark Manson',
-      title: 'Sebuah Seni Untuk Bersikap Bodo Amat',
+      url_image: require("../../assets/book_1.png"),
+      date: moment().add(1, 'd'),
+      status: '7 Hari sebelum Pengembalian',
     },
     {
       id: '3',
-      status: 'available',
       url_image: require("../../assets/book_1.png"),
-      publisher: 'Andrea Hirata',
-      title: 'Laskar Pelangi',
+      date: moment().add(2, 'd'),
+      status: '7 Hari sebelum Pengembalian',
     },
     {
       id: '4',
-      status: 'available',
-      url_image: require("../../assets/book_2.png"),
-      publisher: 'Oh Su Hyang',
-      title: 'Bicara Itu Ada Seninya',
+      url_image: require("../../assets/book_1.png"),
+      date: moment().add(3, 'd'),
+      status: '7 Hari sebelum Pengembalian',
     },
   ])
 
   function on_clicked(index){
-    props.navigation.navigate('ProductDetail', {data: arr[index]})
+
   }
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ }}>
-        <Text style={{ fontSize: base.size.size_5 }}>{props.title}</Text>
+
+      <View style={{ flex: 1, }}>
+        <OrderHeader/>
 
         <FlatList
           style={{ marginTop: base.size.size_1 }}
           data={arr}
-          horizontal
-          renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
+          renderItem={({ item, index }) => <OrderListItem data={item} on_press={() => on_clicked(index)}/>}
           keyExtractor={item => item.id}/>
       </View>
     </TouchableWithoutFeedback>

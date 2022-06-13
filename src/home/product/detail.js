@@ -21,6 +21,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
 import Base from '../../utils/base';
 import CustomButton from '../../layout/custom_button';
 import CustomInput from '../../layout/custom_input';
+import CustomBadge from '../../layout/custom_badge';
 import CustomNavigation from '../../layout/custom_navigation';
 import ProductInfo from './info';
 import HomeList from '../list';
@@ -69,8 +70,10 @@ export default function ProductDetail({ route, navigation }){
           navigation={navigation}/>
 
         <View style={{ flex: 1, padding: base.size.size_3 }}>
-          <View>
-            <Text>{data.status}</Text>
+          <View style={{ alignItems: 'flex-start', }}>
+            <CustomBadge
+              text={data.status}
+              style_template="primary"/>
             <Text>{data.title}</Text>
             <Text>{data.publisher}</Text>
           </View>

@@ -26,6 +26,7 @@ import ForgetPassword from './src/auth/forget_password'
 import ProductDetail from './src/home/product/detail'
 
 import ChangePassword from './src/profile/change_password'
+import ChangeProfile from './src/profile/change_profile'
 
 import Base from './src/utils/base';
 
@@ -106,6 +107,13 @@ export default function App() {
     {
       name: "ChangePassword",
       component: ChangePassword,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "ChangeProfile",
+      component: ChangeProfile,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),

@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,47 +22,91 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
 import CustomInput from '../layout/custom_input';
+import CustomNavigation from '../layout/custom_navigation';
+import MediaPickerModal from '../layout/modal/media_picker_modal';
 import ProfileHeader from './header';
 
-export default function Profile({ route, navigation }){
+export default function ChangeProfile({ route, navigation }){
   var base = new Base()
-  const [data, set_data] = useState({
-    name: 'asdsad'
-  })
-  const [version, set_version] = useState('1.0')
+  const [data, set_data] = useState({})
+  const [name, set_name] = useState('')
+  const [email, set_email] = useState('')
+  const [username, set_username] = useState('')
+  const [division, set_division] = useState('')
+  const [image, set_image] = useState(require("../../assets/register_success.png"))
+  const [media_picker_show, set_media_picker_show] = useState(false)
+
+  async function submit(){
+    if(name === '')
+      base.show_error(base.i18n.t("name_empty"))
+    else{
+      navigation.goBack()
+    }
+  }
+
+  function on_get_response(response){
+    set_image(response)
+  }
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-
       <View style={{ flex: 1, }}>
-        <ProfileHeader data={data}/>
+        <MediaPickerModal is_show={media_picker_show}
+          on_change_show={(is_show) => set_media_picker_show(is_show)}
+          on_get_response={response => on_get_response(response)}/>
+
+        <CustomNavigation
+          style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
+          title={base.i18n.t("change_profile")}
+          text_color={base.color.white}
+          navigation={navigation}/>
 
         <ScrollView>
-          <View style={{ backgroundColor: base.color.grey4 }}>
-            <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                <Text>{base.i18n.t("change_profile")}</Text>
-                <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
+          <View style={{ padding: base.size.size_5 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+              <View>
+                <Image source={image} style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.medium_image / 2, overflow: "hidden", }}/>
               </View>
 
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                <Text>{base.i18n.t("change_password")}</Text>
-                <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
-              </View>
+              <CustomButton
+                style={{ alignSelf: 'center', }}
+                title={base.i18n.t("change_photo")}
+                color={base.color.primary}
+                textColor={base.color.white}
+                on_press={() => set_media_picker_show(true)} />
             </View>
 
-            <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                <Text>{base.i18n.t("logout")}</Text>
-              </View>
+            <CustomInput
+              name={base.i18n.t("name")}
+              on_change_text={value => set_name(value)}
+              value={name}/>
 
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                <Text>{base.i18n.t("app_version")}</Text>
-                <Text>{version}</Text>
-              </View>
-            </View>
+            <CustomInput
+              name={base.i18n.t("email")}
+              enabled={false}
+              on_change_text={value => set_email(value)}
+              value={email}/>
+
+            <CustomInput
+              name={base.i18n.t("username")}
+              enabled={false}
+              on_change_text={value => set_username(value)}
+              value={username}/>
+
+            <CustomInput
+              name={base.i18n.t("division")}
+              enabled={false}
+              on_change_text={value => set_division(value)}
+              value={division}/>
           </View>
         </ScrollView>
+
+        <View style={{ padding: base.size.size_5 }}>
+          <CustomButton title={base.i18n.t("submit")}
+            color={base.color.primary}
+            textColor={base.color.white}
+            on_press={() => submit()} />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
