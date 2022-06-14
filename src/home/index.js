@@ -26,14 +26,14 @@ import HomeList from './list';
 export default function Home({ route, navigation }){
   var base = new Base()
 
-  // useEffect(() => {
-  //   async function get_token(){
-  //     var token = await AsyncStorage.getItem('token')
-  //     if(token == null)
-  //       navigation.navigate('Login')
-  //   }
-  //   get_token()
-  // }, [])
+  useEffect(() => {
+    async function get_token(){
+      var token = await AsyncStorage.getItem('token')
+      if(token == null)
+        navigation.navigate('Login')
+    }
+    get_token()
+  }, [])
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>

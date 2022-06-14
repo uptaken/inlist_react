@@ -25,6 +25,10 @@ import ForgetPassword from './src/auth/forget_password'
 
 import ProductDetail from './src/home/product/detail'
 
+import OrderDetail from './src/order/detail/detail'
+
+import SearchListPage from './src/search/search_list_page'
+
 import ChangePassword from './src/profile/change_password'
 import ChangeProfile from './src/profile/change_profile'
 
@@ -114,6 +118,20 @@ export default function App() {
     {
       name: "ChangeProfile",
       component: ChangeProfile,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "OrderDetail",
+      component: OrderDetail,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "SearchListPage",
+      component: SearchListPage,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),

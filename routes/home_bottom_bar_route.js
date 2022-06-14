@@ -7,6 +7,7 @@ import Base from '../src/utils/base'
 import Home from '../src/home/index'
 import Profile from '../src/profile/profile'
 import Order from '../src/order/order'
+import Search from '../src/search/search'
 
 const BottomTab = createBottomTabNavigator()
 export default function HomeBottomBar(){
@@ -33,7 +34,7 @@ export default function HomeBottomBar(){
       },
       {
         name: "SearchTab",
-        component: Home,
+        component: Search,
         label: base.i18n.t("search"),
         icon: ({focused, tintColor}) => {
           return <Icon name='search' size={base.size.icon} color={!focused ? base.color.grey2 : base.color.primary}/>

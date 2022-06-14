@@ -95,7 +95,8 @@ export default function Address({ route, navigation }){
         <CustomNavigation
           style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
           title={base.i18n.t("register")}
-          navigation={navigation}/>
+          navigation={navigation}
+          padding={base.size.size_5}/>
 
         <ScrollView>
           <View style={{ paddingHorizontal: base.size.size_5 }}>

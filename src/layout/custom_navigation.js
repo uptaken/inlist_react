@@ -19,7 +19,7 @@ export default function CustomNavigation(props){
   var base = new Base()
 
   return (
-    <View style={[props.style, { flexDirection: 'row', alignItems: 'center', padding: base.size.size_3 }]}>
+    <View style={[props.style, { flexDirection: 'row', alignItems: 'center', padding: props.padding != null ? props.padding : base.size.size_3 }]}>
       {
         (props.with_back == null || (props.with_back != null && props.with_back)) &&
         <TouchableNativeFeedback

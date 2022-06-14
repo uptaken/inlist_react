@@ -26,7 +26,7 @@ import CustomCard from '../layout/custom_card';
 import CustomInput from '../layout/custom_input';
 import CustomBadge from '../layout/custom_badge';
 
-export default function OrderListItem(props){
+export default function SearchListItem(props){
   var base = new Base()
 
   return (
@@ -36,18 +36,23 @@ export default function OrderListItem(props){
       onPress={() => props.on_press()}>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <View style={{ flexDirection: 'row', }}>
-          <Image source={props.data.url_image} style={{ width: base.size.title, height: base.size.title }}/>
+          <Image source={props.data.url_image} style={{ width: base.size.toolbar, height: base.size.medium_image }}/>
 
-          <View style={{ marginLeft: base.size.size_1 }}>
-            <Text style={{ fontSize: base.size.size_3 }}>{props.data.id}</Text>
-            <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.date.format('DD/MM/YYYY')}</Text>
+          <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3 }}>
+            <View style={{  }}>
+              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.title}</Text>
+              <Text style={{ fontSize: base.size.size_3 }}>{props.data.publisher}</Text>
+              <Text style={{ fontSize: base.size.size_3 }}>{props.data.publisher} | {props.data.publisher}</Text>
+            </View>
+
+            <CustomBadge
+              on_press={() => {}}
+              text={props.data.status}
+              style_template="primary"/>
           </View>
         </View>
 
-        <CustomBadge
-          on_press={() => {}}
-          text={props.data.status}
-          style_template="primary"/>
+
       </View>
     </TouchableNativeFeedback>
   );

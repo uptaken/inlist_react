@@ -69,35 +69,60 @@ export default function ProductDetail({ route, navigation }){
           text_color={base.color.white}
           navigation={navigation}/>
 
-        <View style={{ flex: 1, padding: base.size.size_3 }}>
-          <View style={{ alignItems: 'flex-start', }}>
-            <CustomBadge
-              text={data.status}
-              style_template="primary"/>
-            <Text>{data.title}</Text>
-            <Text>{data.publisher}</Text>
-          </View>
+        <ScrollView>
+          <View style={{ flex: 1, padding: base.size.size_3 }}>
+            <View style={{ alignItems: 'flex-start', }}>
+              <CustomBadge
+                text={data.status}
+                style_template="primary"/>
+              <Text>{data.title}</Text>
+              <Text>{data.publisher}</Text>
+            </View>
 
-          <View style={{ marginTop: base.size.size_3 }}>
-            <TabView
-              navigationState={{ index, routes }}
-              renderScene={({ route, jumpTo }) => <ProductInfo data={data}/>}
-              onIndexChange={setIndex}
-              renderTabBar={props =>
-                <TabBar
-                  {...props}
-                  indicatorStyle={{ backgroundColor: base.color.primary }}
-                  style={{ backgroundColor: base.color.white, }}
-                  activeColor={base.color.primary}
-                  inactiveColor={base.color.grey3}/>
-              }
-              style={{  }}/>
-          </View>
+            <View style={{ marginTop: base.size.size_3 }}>
+              <TabView
+                navigationState={{ index, routes }}
+                renderScene={({ route, jumpTo }) => <ProductInfo data={data}/>}
+                onIndexChange={setIndex}
+                renderTabBar={props =>
+                  <TabBar
+                    {...props}
+                    indicatorStyle={{ backgroundColor: base.color.primary }}
+                    style={{ backgroundColor: base.color.white, }}
+                    activeColor={base.color.primary}
+                    inactiveColor={base.color.grey3}/>
+                }
+                style={{  }}/>
+            </View>
 
-          <View style={{ marginTop: base.size.size_3 }}>
-            <HomeList
-              title={base.i18n.t("related_product")}
-              navigation={navigation}/>
+            <View style={{ marginTop: base.size.size_3 }}>
+              <HomeList
+                title={base.i18n.t("related_product")}
+                navigation={navigation}/>
+            </View>
+          </View>
+        </ScrollView>
+
+        <View style={{ padding: base.size.size_5 }}>
+          <CustomButton title={base.i18n.t("next")}
+            color={base.color.primary}
+            textColor={base.color.white}
+            on_press={() => {}} />
+
+          <View style={{ marginTop: base.size.size_3, flexDirection: 'row',  }}>
+            <CustomButton title={base.i18n.t("cite_this")}
+              color={base.color.white}
+              textColor={base.color.primary}
+              borderColor={base.color.primary}
+              style={{ flex: 1, marginRight: base.size.size_1 }}
+              on_press={() => {}} />
+
+            <CustomButton title={base.i18n.t("export_record")}
+              color={base.color.white}
+              textColor={base.color.primary}
+              borderColor={base.color.primary}
+              style={{ flex: 1, marginLeft: base.size.size_1 }}
+              on_press={() => {}} />
           </View>
         </View>
       </View>

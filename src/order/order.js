@@ -32,29 +32,97 @@ export default function Order({ route, navigation }){
       url_image: require("../../assets/book_1.png"),
       date: moment(),
       status: '7 Hari sebelum Pengembalian',
+      return_date: moment(),
+      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
+      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
+      detail: [
+        {
+          id: '1',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+        {
+          id: '2',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+      ],
     },
     {
       id: '2',
       url_image: require("../../assets/book_1.png"),
       date: moment().add(1, 'd'),
+      return_date: moment().add(1, 'd'),
+      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
+      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
       status: '7 Hari sebelum Pengembalian',
+      detail: [
+        {
+          id: '1',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+        {
+          id: '2',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+      ],
     },
     {
       id: '3',
       url_image: require("../../assets/book_1.png"),
       date: moment().add(2, 'd'),
+      return_date: moment().add(2, 'd'),
+      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
+      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
       status: '7 Hari sebelum Pengembalian',
+      detail: [
+        {
+          id: '1',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+        {
+          id: '2',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+      ],
     },
     {
       id: '4',
       url_image: require("../../assets/book_1.png"),
       date: moment().add(3, 'd'),
+      return_date: moment().add(3, 'd'),
+      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
+      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
       status: '7 Hari sebelum Pengembalian',
+      detail: [
+        {
+          id: '1',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+        {
+          id: '2',
+          url_image: require("../../assets/book_1.png"),
+          title: 'Bicara Itu Ada Seninya',
+          publisher: 'Oh Su Hyang',
+        },
+      ],
     },
   ])
 
   function on_clicked(index){
-
+    navigation.navigate('OrderDetail', {data: arr[index]})
   }
 
   return (

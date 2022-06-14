@@ -35,18 +35,21 @@ export default function ForgetPassword({ route, navigation }){
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5,  }}>
+      <View style={{ flex: 1, justifyContent: "space-between", }}>
         <View style={{ marginTop: base.size.size_5, }}>
           <CustomNavigation title={base.i18n.t("forget_password")}
-            navigation={navigation}/>
+            navigation={navigation}
+            padding={base.size.size_5}/>
 
-          <CustomInput
-            name={base.i18n.t("email")}
-            on_change_text={value => set_email(value)}
-            value={email}/>
+          <View style={{ padding: base.size.size_5, }}>
+            <CustomInput
+              name={base.i18n.t("email")}
+              on_change_text={value => set_email(value)}
+              value={email}/>
+          </View>
         </View>
 
-        <View>
+        <View style={{ padding: base.size.size_5, }}>
           <CustomButton title={base.i18n.t("submit")}
             color={base.color.primary}
             textColor={base.color.white}

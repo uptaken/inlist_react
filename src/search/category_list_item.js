@@ -34,20 +34,10 @@ export default function OrderListItem(props){
       useForeground
       background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
       onPress={() => props.on_press()}>
-      <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-        <View style={{ flexDirection: 'row', }}>
-          <Image source={props.data.url_image} style={{ width: base.size.title, height: base.size.title }}/>
+      <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', }}>
+        <Text style={{ fontSize: base.size.size_3 }}>{props.data.name}</Text>
 
-          <View style={{ marginLeft: base.size.size_1 }}>
-            <Text style={{ fontSize: base.size.size_3 }}>{props.data.id}</Text>
-            <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.date.format('DD/MM/YYYY')}</Text>
-          </View>
-        </View>
-
-        <CustomBadge
-          on_press={() => {}}
-          text={props.data.status}
-          style_template="primary"/>
+        <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
       </View>
     </TouchableNativeFeedback>
   );

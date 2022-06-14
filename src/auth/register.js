@@ -26,36 +26,39 @@ export default function Register({ route, navigation }){
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5, }}>
+      <View style={{ flex: 1, justifyContent: "space-between", }}>
         <View style={{ marginTop: base.size.size_5, }}>
           <CustomNavigation title={base.i18n.t("register")}
             navigation={navigation}
+            padding={base.size.size_5}
             with_back={false}/>
 
-          <CustomCard
-            color={base.color.grey1}
-            on_press={() => {}}
-            borderColor={base.color.grey1}
-            style={{ marginTop: base.size.size_5 }}>
-            <View>
-              <Text style={{ color: base.color.black1, fontWeight: 'bold' }}>{base.i18n.t("condition")}</Text>
-              <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("condition_detail")}</Text>
-            </View>
-          </CustomCard>
+          <View style={{ padding: base.size.size_5, }}>
+            <CustomCard
+              color={base.color.grey1}
+              on_press={() => {}}
+              borderColor={base.color.grey1}
+              style={{ marginTop: base.size.size_5 }}>
+              <View>
+                <Text style={{ color: base.color.black1, fontWeight: 'bold' }}>{base.i18n.t("condition")}</Text>
+                <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("condition_detail")}</Text>
+              </View>
+            </CustomCard>
 
-          <CustomCard
-            color={base.color.grey1}
-            on_press={() => {}}
-            borderColor={base.color.grey1}
-            style={{ marginTop: base.size.size_5 }}>
-            <View>
-              <Text style={{ color: base.color.black1, fontWeight: 'bold' }}>{base.i18n.t("rules")}</Text>
-              <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("rules_detail")}</Text>
-            </View>
-          </CustomCard>
+            <CustomCard
+              color={base.color.grey1}
+              on_press={() => {}}
+              borderColor={base.color.grey1}
+              style={{ marginTop: base.size.size_5 }}>
+              <View>
+                <Text style={{ color: base.color.black1, fontWeight: 'bold' }}>{base.i18n.t("rules")}</Text>
+                <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("rules_detail")}</Text>
+              </View>
+            </CustomCard>
+          </View>
         </View>
 
-        <View>
+        <View style={{ padding: base.size.size_5, }}>
           <CustomButton title={base.i18n.t("register")}
             color={base.color.primary}
             textColor={base.color.white}
