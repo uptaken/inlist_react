@@ -37,13 +37,17 @@ export default function OrderHeader(props){
 
         <View style={{ marginTop: base.size.size_3 }}>
           <CustomCard
-            padding={base.size.size_1}
+            padding={0}
+            paddingHorizontal={base.size.size_3}
             color={base.color.white}
-            on_press={() => {}}
             borderColor={base.color.white}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name="magnify" size={base.size.icon} color={base.color.black1}/>
-              <Text style={{ color: base.color.black1, marginLeft: base.size.size_1 }}>{base.i18n.t("search")}</Text>
+
+              <TextInput style={{ color: base.color.black1, marginLeft: base.size.size_1, flex: 1, }}
+                onChangeText={value => props.on_search(value)}
+                value={props.search}
+                placeholder={base.i18n.t("search")}/>
             </View>
           </CustomCard>
         </View>

@@ -27,6 +27,10 @@ import ProductDetail from './src/home/product/detail'
 
 import OrderDetail from './src/order/detail/detail'
 
+import Cart from './src/cart/cart'
+import Checkout from './src/cart/checkout'
+import CartSuccess from './src/cart/success'
+
 import SearchListPage from './src/search/search_list_page'
 
 import ChangePassword from './src/profile/change_password'
@@ -132,6 +136,27 @@ export default function App() {
     {
       name: "SearchListPage",
       component: SearchListPage,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "Cart",
+      component: Cart,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "Checkout",
+      component: Checkout,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "CartSuccess",
+      component: CartSuccess,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),

@@ -48,18 +48,33 @@ export default function ProductDetail({ route, navigation }){
       title: base.i18n.t("marc"),
     },
   ])
-  // const [_renderScene] = useState(
-  //   SceneMap({
-  //     info: ProductInfo,
-  //     exemplar: ProductInfo,
-  //     digital_content: ProductInfo,
-  //     marc: ProductInfo,
-  //   })
-  // )
 
   useEffect(() => {
     set_data(route.params.data)
   }, [])
+
+  async function add_to_cart(){
+    var arr_cart = await AsyncStorage.getItem('arr_cart')
+    arr_cart = arr_cart == null ? [] : JSON.parse(arr_cart)
+
+    var flag = false
+    for(let cart of arr_cart){
+      if(cart.product.id === data.id){
+        cart.amount++
+        flag = true
+        break
+      }
+    }
+
+    if(!flag){
+      arr_cart.push({
+        amount: 1,
+        product: data,
+      })
+    }
+    await AsyncStorage.setItem('arr_cart', JSON.stringify(arr_cart))
+    navigation.navigate('Cart')
+  }
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
@@ -74,6 +89,7 @@ export default function ProductDetail({ route, navigation }){
             <View style={{ alignItems: 'flex-start', }}>
               <CustomBadge
                 text={data.status}
+                on_press={() => {}}
                 style_template="primary"/>
               <Text>{data.title}</Text>
               <Text>{data.publisher}</Text>
@@ -104,10 +120,10 @@ export default function ProductDetail({ route, navigation }){
         </ScrollView>
 
         <View style={{ padding: base.size.size_5 }}>
-          <CustomButton title={base.i18n.t("next")}
+          <CustomButton title={base.i18n.t("add_to_cart")}
             color={base.color.primary}
             textColor={base.color.white}
-            on_press={() => {}} />
+            on_press={() => add_to_cart()} />
 
           <View style={{ marginTop: base.size.size_3, flexDirection: 'row',  }}>
             <CustomButton title={base.i18n.t("cite_this")}

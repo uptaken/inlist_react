@@ -11,6 +11,7 @@ export default {
   "icon": 24,
   "title": 30,
   "toolbar": 50,
-  "large_image": 200,
+  "small_image": 70,
   "medium_image": 100,
+  "large_image": 200,
 }

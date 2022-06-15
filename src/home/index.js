@@ -39,7 +39,8 @@ export default function Home({ route, navigation }){
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
       <View style={{ flex: 1, }}>
-        <HomeHeader/>
+        <HomeHeader
+          navigation={navigation}/>
 
         <ScrollView>
           <View style={{ padding: base.size.size_5 }}>

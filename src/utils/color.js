@@ -9,7 +9,9 @@ export default {
   grey4: '#F2F2F2',
   grey5: '#F0F0F0',
   grey6: '#999999',
+  grey7: '#AAAAAA',
   black: '#151522',
   black1: '#000000',
   white: '#FFFFFF',
+  red: '#DB4545',
 }

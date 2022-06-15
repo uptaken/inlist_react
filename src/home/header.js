@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,12 +36,23 @@ export default function HomeHeader(props){
           </View>
 
           <View style={{ flexDirection: 'row' }}>
-            <View>
-              <Icon name="cart" size={base.size.icon} color={base.color.white}/>
-            </View>
-            <View style={{ marginLeft: base.size.size_1 }}>
-              <Icon name="bell" size={base.size.icon} color={base.color.white}/>
-            </View>
+            <TouchableNativeFeedback
+              useForeground
+              background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+              onPress={() => props.navigation.navigate('Cart')}>
+              <View>
+                <Icon name="cart" size={base.size.icon} color={base.color.white}/>
+              </View>
+            </TouchableNativeFeedback>
+
+            <TouchableNativeFeedback
+              useForeground
+              background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+              onPress={() => {}}>
+              <View style={{ marginLeft: base.size.size_1 }}>
+                <Icon name="bell" size={base.size.icon} color={base.color.white}/>
+              </View>
+            </TouchableNativeFeedback>
           </View>
         </View>
 
@@ -48,7 +60,7 @@ export default function HomeHeader(props){
           <CustomCard
             padding={base.size.size_1}
             color={base.color.white}
-            on_press={() => {}}
+            on_press={() => props.navigation.navigate('SearchTab')}
             borderColor={base.color.white}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name="magnify" size={base.size.icon} color={base.color.black1}/>
