@@ -15,6 +15,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 
 import Base from '../../utils/base';
@@ -76,7 +77,7 @@ export default function AddressLiving({ route, navigation }){
   const [rw, set_rw] = useState("")
   const [toggle_condition, set_toggle_condition] = useState(false)
 
-  function next(){
+  async function next(){
     if(address === '')
       base.show_error(base.i18n.t("address_empty"))
     else if(selected_village.id == null)
@@ -86,6 +87,24 @@ export default function AddressLiving({ route, navigation }){
     else if(rw === '')
       base.show_error(base.i18n.t("rw_empty"))
     else{
+      var data = await AsyncStorage.getItem('register_data')
+      data = JSON.parse(data)
+
+      data.address_living = {
+        address: address,
+        village: selected_village,
+        rt: rt,
+        rw: rw,
+        is_same_address: toggle_condition,
+      }
+      if(toggle_condition)
+        data.address = {
+          address: address,
+          village: selected_village,
+          rt: rt,
+          rw: rw,
+        }
+      await AsyncStorage.setItem('register_data', JSON.stringify(data))
       navigation.navigate(!toggle_condition ? 'Address' : 'DetailAddress', {
         num_step: 3,
       })

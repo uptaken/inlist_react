@@ -28,7 +28,7 @@ export default function PleaseWaitModal(props){
       visible={props.is_show}
       animationType="fade">
       <View style={{ backgroundColor : '#000000B3', flex : 1, justifyContent : 'center' }}>
-        <View style={{ margin : base.size["size-5"], backgroundColor : 'white', radius : 4, padding: base.size["size-5"] }}>
+        <View style={{ margin : base.size.size_5, backgroundColor : 'white', radius : 4, padding: base.size.size_5 }}>
           <Text>{base.i18n.t("please_wait_label")}</Text>
         </View>
       </View>

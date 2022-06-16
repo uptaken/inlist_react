@@ -29,8 +29,8 @@ export default function ProductInfo(props){
 
   return (
     <View style={{  }}>
-      <Text>{base.i18n.t("edition") + ': ' + props.data.title}</Text>
-      <Text>{base.i18n.t("publisher") + ': ' + props.data.publisher}</Text>
+      <Text>{base.i18n.t("edition") + ': ' + props.data.Edition}</Text>
+      <Text>{base.i18n.t("publisher") + ': ' + props.data.Publisher}</Text>
     </View>
   );
 }

@@ -29,24 +29,27 @@ export default function Search({ route, navigation }){
   var base = new Base()
   const [sort, set_sort] = useState({})
   const [search, set_search] = useState('')
-  const [arr_category, set_arr_category] = useState([
-    {
-      id: '1',
-      name: 'Bisnis',
-    },
-    {
-      id: '2',
-      name: 'Kategori Buku 1',
-    },
-    {
-      id: '3',
-      name: 'Kategori Buku 1',
-    },
-    {
-      id: '4',
-      name: 'Kategori Buku 1',
-    },
-  ])
+  const [arr_category, set_arr_category] = useState([])
+
+  useEffect(() => {
+    get_category_data()
+  }, [])
+
+  async function get_category_data(){
+    var response = await base.request(base.url_api + '/product/category')
+
+    if(response.status === 'success'){
+      var arr = []
+      for(let x in response.data.data)
+        arr.push({
+          id: x,
+          name: response.data.data[x].subject
+        })
+      set_arr_category(arr)
+    }
+    else
+      base.show_error(response.message)
+  }
 
   function on_clicked(index){
     navigation.navigate('SearchListPage', {data: arr_category[index]})
@@ -69,13 +72,14 @@ export default function Search({ route, navigation }){
               <FlatList
                 style={{ marginTop: base.size.size_1 }}
                 data={arr_category}
-                renderItem={({ item, index }) => <CategoryListItem data={item} on_press={() => on_clicked(index)}/>}
+                renderItem={({ item, index }) => <CategoryListItem data={item} key={index} on_press={() => on_clicked(index)}/>}
                 keyExtractor={item => item.id}/>
             </View>
             :
             <SearchList
               navigation={navigation}
-              sort={sort}/>
+              sort={sort}
+              search={search}/>
           }
         </View>
       </View>

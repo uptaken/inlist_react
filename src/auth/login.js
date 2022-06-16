@@ -19,12 +19,14 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Base from '../utils/base';
+import PleaseWaitModal from "../layout/modal/please_wait_modal"
 import CustomButton from '../layout/custom_button';
 import CustomInput from '../layout/custom_input';
 
 export default function Login({ route, navigation }){
   const [email, set_email] = useState("")
   const [password, set_password] = useState("")
+  const [is_please_wait, set_is_please_wait] = useState(false)
   var base = new Base()
 
   useEffect(() => {
@@ -40,48 +42,70 @@ export default function Login({ route, navigation }){
     else if(password === '')
       base.show_error(base.i18n.t("password_empty"))
     else{
-      await AsyncStorage.setItem('token', 'ashdjkas')
-      navigation.navigate('Home')
+      set_is_please_wait(true)
+      var response = await base.request(base.url_api + '/auth/login', 'post', {
+        email: email,
+        password: password,
+      })
+
+      set_is_please_wait(false)
+      setTimeout(async () => {
+        if(response.status === 'success'){
+          await AsyncStorage.setItem('token', response.token)
+          navigation.navigate('Home')
+        }
+        else
+          base.show_error(response.message)
+      }, 100)
     }
   }
 
+  function on_register(){
+    set_email('')
+    set_password('')
+    navigation.navigate('Register')
+  }
+
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5, marginTop: base.size['icon'] }}>
-        <View>
-          <Text style={{ fontSize: base.size.size_7, fontWeight: "bold" }}>{base.i18n.t("login")}</Text>
+    <View style={{ flex: 1 }}>
+      <PleaseWaitModal is_show={is_please_wait}/>
+      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+        <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5, marginTop: base.size['icon'] }}>
+          <View>
+            <Text style={{ fontSize: base.size.size_7, fontWeight: "bold" }}>{base.i18n.t("login")}</Text>
 
-          <CustomInput
-            type="email"
-            name={base.i18n.t("email")}
-            on_change_text={value => set_email(value)}
-            value={email}/>
+            <CustomInput
+              type="email"
+              name={base.i18n.t("email")}
+              on_change_text={value => set_email(value)}
+              value={email}/>
 
-          <CustomInput
-            type="password"
-            name={base.i18n.t("password")}
-            on_change_text={value => set_password(value)}
-            value={password}/>
+            <CustomInput
+              type="password"
+              name={base.i18n.t("password")}
+              on_change_text={value => set_password(value)}
+              value={password}/>
 
-          <TouchableOpacity style={{ marginTop: base.size.size_5 }} onPress={() => navigation.navigate("ForgetPassword")}>
-            <Text style={{ fontSize: base.size.size_5, color: base.color.primary }}>{base.i18n.t("forget_password")}</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={{ marginTop: base.size.size_5 }} onPress={() => navigation.navigate("ForgetPassword")}>
+              <Text style={{ fontSize: base.size.size_5, color: base.color.primary }}>{base.i18n.t("forget_password")}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <CustomButton title={base.i18n.t("login")}
+              color={base.color.primary}
+              textColor={base.color.white}
+              on_press={() => submit()} />
+
+            <CustomButton title={base.i18n.t("register")}
+              color={base.color.white}
+              textColor={base.color.primary}
+              borderColor={base.color.primary}
+              style={{ marginTop: base.size.size_3 }}
+              on_press={() => on_register()} />
+          </View>
         </View>
-
-        <View>
-          <CustomButton title={base.i18n.t("login")}
-            color={base.color.primary}
-            textColor={base.color.white}
-            on_press={() => submit()} />
-
-          <CustomButton title={base.i18n.t("register")}
-            color={base.color.white}
-            textColor={base.color.primary}
-            borderColor={base.color.primary}
-            style={{ marginTop: base.size.size_3 }}
-            on_press={() => navigation.navigate('Register')} />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

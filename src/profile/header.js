@@ -41,7 +41,7 @@ export default function ProfileHeader(props){
           <View style={{ marginTop: base.size.size_5, }}>
             <Image source={require("../../assets/register_success.png")} style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.medium_image / 2, overflow: "hidden", }}/>
 
-            <Text style={{ color: base.color.primary, fontSize: base.size.size_7, marginTop: base.size.size_1, }}>{props.data.name}</Text>
+            <Text style={{ color: base.color.primary, fontSize: base.size.size_7, marginTop: base.size.size_1, }}>{props.data.Fullname}</Text>
           </View>
         </View>
       </View>

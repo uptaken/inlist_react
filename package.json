@@ -29,6 +29,7 @@
     "react-native-screens": "^2.17.1",
     "react-native-select-dropdown": "^2.0.3",
     "react-native-snackbar": "^2.4.0",
+    "react-native-swiper-flatlist": "^3.0.16",
     "react-native-tab-view": "^2.15.2",
     "react-native-vector-icons": "^9.1.0"
   },

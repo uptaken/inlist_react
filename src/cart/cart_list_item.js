@@ -43,9 +43,9 @@ export default function CartListItem(props){
 
           <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3 }}>
             <View style={{  }}>
-              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.product.title}</Text>
-              <Text style={{ fontSize: base.size.size_3 }}>{props.data.product.publisher}</Text>
-              <Text style={{ fontSize: base.size.size_3 }}>{props.data.product.publisher} | {props.data.product.publisher}</Text>
+              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.product.Title}</Text>
+              <Text style={{ fontSize: base.size.size_3 }}>{props.data.product.Author}</Text>
+              <Text style={{ fontSize: base.size.size_3 }}>{props.data.product.Publisher} | {props.data.product.PublishYear}</Text>
             </View>
 
             <View>

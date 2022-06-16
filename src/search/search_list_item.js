@@ -40,15 +40,18 @@ export default function SearchListItem(props){
 
           <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3 }}>
             <View style={{  }}>
-              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.title}</Text>
-              <Text style={{ fontSize: base.size.size_3 }}>{props.data.publisher}</Text>
-              <Text style={{ fontSize: base.size.size_3 }}>{props.data.publisher} | {props.data.publisher}</Text>
+              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.Title}</Text>
+              <Text style={{ fontSize: base.size.size_3 }}>{props.data.Author}</Text>
+              <Text style={{ fontSize: base.size.size_3 }}>{props.data.Publisher} | {props.data.PublishYear}</Text>
             </View>
 
-            <CustomBadge
-              on_press={() => {}}
-              text={props.data.status}
-              style_template="primary"/>
+            {
+              props.data.status != null &&
+              <CustomBadge
+                text={props.data.status}
+                on_press={() => {}}
+                style_template="primary"/>
+            }
           </View>
         </View>
 

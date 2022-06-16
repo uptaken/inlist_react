@@ -27,37 +27,30 @@ import SearchListItem from './search_list_item';
 
 export default function SearchList(props){
   var base = new Base()
-  const [arr, set_arr] = useState([
-    {
-      id: '1',
-      status: 'available',
-      url_image: require("../../assets/book_1.png"),
-      publisher: 'Oh Su Hyang',
-      title: 'Bicara Itu Ada Seninya',
-    },
-    {
-      id: '2',
-      status: 'available',
-      url_image: require("../../assets/book_2.png"),
-      publisher: 'Mark Manson',
-      title: 'Sebuah Seni Untuk Bersikap Bodo Amat',
-    },
-    {
-      id: '3',
-      status: 'available',
-      url_image: require("../../assets/book_1.png"),
-      publisher: 'Andrea Hirata',
-      title: 'Laskar Pelangi',
-    },
-    {
-      id: '4',
-      status: 'available',
-      url_image: require("../../assets/book_2.png"),
-      publisher: 'Oh Su Hyang',
-      title: 'Bicara Itu Ada Seninya',
-    },
-  ])
+  const [arr, set_arr] = useState([])
   const [sort, set_sort] = useState({})
+  var timeout = null
+
+  useEffect(() => {
+    if(timeout != null)
+      clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      get_data()
+    }, base.search_wait_time)
+  }, [props.search, props.subject])
+
+  async function get_data(){
+    var response = await base.request(base.url_api + '/product', 'get', {
+      search: props.search != null ? props.search : '',
+      subject: props.subject != null ? props.subject : '',
+    })
+
+    if(response.status === 'success'){
+      set_arr(response.data.data)
+    }
+    else
+      base.show_error(response.message)
+  }
 
   function on_clicked(index){
     props.navigation.navigate('ProductDetail', {data: arr[index]})
@@ -81,7 +74,7 @@ export default function SearchList(props){
       <FlatList
         style={{  }}
         data={arr}
-        renderItem={({ item, index }) => <SearchListItem data={item} on_press={() => on_clicked(index)}/>}
+        renderItem={({ item, index }) => <SearchListItem data={item} key={index} on_press={() => on_clicked(index)}/>}
         keyExtractor={item => item.id}/>
     </View>
   );

@@ -1,5 +1,6 @@
 import Snackbar from "react-native-snackbar";
 import DeviceInfo from 'react-native-device-info'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
 
 import I18n from "./i18n"
@@ -7,14 +8,15 @@ import Size from "./size"
 import Color from "./color"
 
 export default class Base{
-  host = ""
-  url_api = this.host + ""
+  host = "https://inlist.quantumtri.com"
+  url_api = this.host + "/api"
   version = ""
   i18n = I18n
   size = Size
   color = Color
   locale_string = "id-ID"
   wait_time = 50
+  search_wait_time = 1500
 
   constructor(){
     this.version = DeviceInfo.getVersion()
@@ -23,24 +25,31 @@ export default class Base{
   async request(url, method = 'get', data = {}, with_modal = true, onUploadProgress = response => {}){
     axios.defaults.headers.common['Accept'] = 'application/json'
 
+    var header = {
+      "Content-Type": "application/json",
+    }
+    var token = await AsyncStorage.getItem('token')
+    if(token != null && token != '')
+      header['Authorization'] = token
+
     var response
     if(method == 'get'){
       for(let x in data)
         url += (url.includes('?') ? '&' : '?') + x + "=" + (Array.isArray(data[x]) ? JSON.stringify(data[x]) : data[x])
-      response = await axios.get(url)
+
+      response = await axios.get(url, {
+        headers: header,
+      })
+
     }
     else if(method == 'post')
       response = await axios.post(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: header,
         onUploadProgress
       })
     else if(method == 'put')
       response = await axios.put(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: header,
         onUploadProgress
       })
     else if(method == 'delete')

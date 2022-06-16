@@ -76,6 +76,8 @@ export default function ProductDetail({ route, navigation }){
     navigation.navigate('Cart')
   }
 
+
+
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, }}>
@@ -87,12 +89,15 @@ export default function ProductDetail({ route, navigation }){
         <ScrollView>
           <View style={{ flex: 1, padding: base.size.size_3 }}>
             <View style={{ alignItems: 'flex-start', }}>
-              <CustomBadge
-                text={data.status}
-                on_press={() => {}}
-                style_template="primary"/>
-              <Text>{data.title}</Text>
-              <Text>{data.publisher}</Text>
+              {
+                data.status != null &&
+                <CustomBadge
+                  text={data.status}
+                  on_press={() => {}}
+                  style_template="primary"/>
+              }
+              <Text>{data.Title}</Text>
+              <Text>{data.Author}</Text>
             </View>
 
             <View style={{ marginTop: base.size.size_3 }}>
@@ -112,9 +117,16 @@ export default function ProductDetail({ route, navigation }){
             </View>
 
             <View style={{ marginTop: base.size.size_3 }}>
-              <HomeList
-                title={base.i18n.t("related_product")}
-                navigation={navigation}/>
+              {
+                data.ID != null &&
+                <HomeList
+                  type="related"
+                  subject={data.Subject}
+                  not_id={data.ID}
+                  title={base.i18n.t("related_product")}
+                  navigation={navigation}/>
+              }
+
             </View>
           </View>
         </ScrollView>

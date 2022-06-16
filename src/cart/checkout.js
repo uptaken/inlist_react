@@ -26,11 +26,7 @@ import CheckoutListItem from './checkout_list_item';
 
 export default function Checkout({ route, navigation }){
   var base = new Base()
-  const [user, set_user] = useState({
-    name: 'test',
-    address: 'jalan test 10',
-    phone: '12345'
-  })
+  const [user, set_user] = useState({})
   const [arr, set_arr] = useState([])
   const [return_date, set_return_date] = useState(moment().add(14, 'd'))
 
@@ -41,8 +37,19 @@ export default function Checkout({ route, navigation }){
 
       set_arr(arr_cart)
     }
+    get_user_data()
     get_arr_cart()
   }, [])
+
+  async function get_user_data(){
+    var response = await base.request(base.url_api + '/auth/profile')
+
+    if(response.status === 'success'){
+      set_user(response.data)
+    }
+    else
+      base.show_error(response.message)
+  }
 
   async function submit(){
     await AsyncStorage.removeItem('arr_cart')
@@ -75,8 +82,8 @@ export default function Checkout({ route, navigation }){
               </View>
 
               <View style={{ marginTop: base.size.size_3 }}>
-                <Text>{base.i18n.t("borrower_name")} {user.name}</Text>
-                <Text>{base.i18n.t("borrower_address")} {user.address}</Text>
+                <Text>{base.i18n.t("borrower_name")} {user.Fullname}</Text>
+                <Text>{base.i18n.t("borrower_address")} {user.EmailAddress}</Text>
               </View>
             </View>
 

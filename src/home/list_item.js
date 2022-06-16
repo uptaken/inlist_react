@@ -37,8 +37,8 @@ export default function HomeListItem(props){
         <Image source={props.data.url_image} style={{ width: base.size.medium_image, height: base.size.large_image }}/>
 
         <View style={{ marginTop: base.size.size_1 }}>
-          <Text style={{ fontSize: base.size.size_3 }}>{props.data.publisher}</Text>
-          <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.title}</Text>
+          <Text style={{ fontSize: base.size.size_3 }}>{props.data.Publisher != null && props.data.Publisher != '' ? props.data.Publisher : base.i18n.t("no_publisher")}</Text>
+          <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.Title}</Text>
         </View>
       </View>
     </TouchableNativeFeedback>

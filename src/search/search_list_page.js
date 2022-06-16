@@ -40,7 +40,8 @@ export default function SearchListPage({ route, navigation }){
 
       <SearchList
         navigation={navigation}
-        sort={sort}/>
+        sort={sort}
+        subject={route.params.data.name}/>
     </View>
   );
 }

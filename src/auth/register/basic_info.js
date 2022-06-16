@@ -15,7 +15,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Base from '../../utils/base';
 import CustomButton from '../../layout/custom_button';
@@ -42,16 +42,26 @@ export default function BasicInfo({ route, navigation }){
     },
   ])
 
-  function next(){
+  async function next(){
     if(selected_id_type.id == null)
       base.show_error(base.i18n.t("id_type_not_choosen"))
     else if(full_name === '')
       base.show_error(base.i18n.t("full_name_empty"))
+    else if(email === '')
+      base.show_error(base.i18n.t("email_empty"))
     else if(password === '')
       base.show_error(base.i18n.t("password_empty"))
     else if(id_no === '')
       base.show_error(base.i18n.t("id_no_empty"))
     else{
+      var data = {
+        id_type: selected_id_type,
+        full_name: full_name,
+        password: password,
+        email: email,
+        id_no: id_no,
+      }
+      await AsyncStorage.setItem('register_data', JSON.stringify(data))
       navigation.navigate('AddressLiving')
     }
   }

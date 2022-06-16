@@ -15,6 +15,7 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 
 import Base from '../../utils/base';
@@ -75,7 +76,7 @@ export default function Address({ route, navigation }){
   const [rt, set_rt] = useState("")
   const [rw, set_rw] = useState("")
 
-  function next(){
+  async function next(){
     if(address === '')
       base.show_error(base.i18n.t("address_empty"))
     else if(selected_village.id == null)
@@ -85,6 +86,16 @@ export default function Address({ route, navigation }){
     else if(rw === '')
       base.show_error(base.i18n.t("rw_empty"))
     else{
+      var data = await AsyncStorage.getItem('register_data')
+      data = JSON.parse(data)
+
+      data.address = {
+        address: address,
+        village: selected_village,
+        rt: rt,
+        rw: rw,
+      }
+      await AsyncStorage.setItem('register_data', JSON.stringify(data))
       navigation.navigate('DetailAddress')
     }
   }
