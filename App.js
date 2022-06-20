@@ -10,7 +10,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { View } from 'react-native';
+import { View, StatusBar, } from 'react-native';
 
 import HomeBottomBar from './routes/home_bottom_bar_route'
 
@@ -198,6 +198,8 @@ export default function App() {
       return base.i18n.t("profile")
   }
 
+  StatusBar.setBarStyle('light-content', true)
+  StatusBar.setBackgroundColor(base.color.primary)
   return (
     <NavigationContainer>
       <Stack.Navigator

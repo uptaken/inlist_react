@@ -53,29 +53,31 @@ export default function Home({ route, navigation }){
           navigation={navigation}/>
 
         <ScrollView>
-          <View style={{ padding: base.size.size_5 }}>
-            <View style={{ height: base.size.large_image }}>
+          <View style={{ }}>
+            <View style={{ height: base.size.custom_image1,  }}>
               <SwiperFlatList
                 showPagination
                 data={arr_banner}>
                 {
-                  arr_banner.map((data, index) => <Image source={data.url_image} key={index} style={{ width: width, height: base.size.large_image, resizeMode: 'contain' }}/>)
+                  arr_banner.map((data, index) => <Image source={data.url_image} key={index} style={{ width: width, height: base.size.custom_image1, }}/>)
                 }
               </SwiperFlatList>
             </View>
 
-            <View>
-              <HomeList
-                type="most_loaned"
-                title={base.i18n.t("most_borrowed_collection")}
-                navigation={navigation}/>
-            </View>
+            <View style={{ paddingHorizontal: base.size.size_5, marginTop: base.size.size_3 }}>
+              <View style={{  }}>
+                <HomeList
+                  type="most_loaned"
+                  title={base.i18n.t("most_borrowed_collection")}
+                  navigation={navigation}/>
+              </View>
 
-            <View style={{ marginTop: base.size.size_3 }}>
-              <HomeList
-                type="newest"
-                title={base.i18n.t("new_collection")}
-                navigation={navigation}/>
+              <View style={{ marginTop: base.size.size_3 }}>
+                <HomeList
+                  type="newest"
+                  title={base.i18n.t("new_collection")}
+                  navigation={navigation}/>
+              </View>
             </View>
           </View>
         </ScrollView>
