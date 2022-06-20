@@ -35,7 +35,7 @@ export default function OrderListItem(props){
       background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
       onPress={() => props.on_press()}>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', }}>
-        <Text style={{ fontSize: base.size.size_3 }}>{props.data.name}</Text>
+        <Text style={{ fontSize: base.size.size_3, flexShrink: 1 }} numberOfLines={2}>{props.data.name}</Text>
 
         <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
       </View>

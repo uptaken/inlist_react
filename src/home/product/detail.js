@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,6 +25,7 @@ import CustomInput from '../../layout/custom_input';
 import CustomBadge from '../../layout/custom_badge';
 import CustomNavigation from '../../layout/custom_navigation';
 import ProductInfo from './info';
+import ProductExemplar from './exemplar';
 import HomeList from '../list';
 
 export default function ProductDetail({ route, navigation }){
@@ -34,18 +36,22 @@ export default function ProductDetail({ route, navigation }){
     {
       key: 'info',
       title: base.i18n.t("info"),
+      component: <ProductInfo data={data}/>,
     },
     {
       key: 'exemplar',
       title: base.i18n.t("exemplar"),
+      component: <ProductInfo data={data}/>,
     },
     {
       key: 'digital_content',
       title: base.i18n.t("digital_content"),
+      component: <ProductInfo data={data}/>,
     },
     {
       key: 'marc',
       title: base.i18n.t("marc"),
+      component: <ProductInfo data={data}/>,
     },
   ])
 
@@ -88,22 +94,33 @@ export default function ProductDetail({ route, navigation }){
 
         <ScrollView>
           <View style={{ flex: 1, padding: base.size.size_3 }}>
-            <View style={{ alignItems: 'flex-start', }}>
+            <Image source={data.CoverURL} style={{ width: '100%', height: base.size.large_image, resizeMode: 'contain' }}/>
+
+            <View style={{ alignItems: 'flex-start', marginTop: base.size.size_7 }}>
               {
                 data.status != null &&
                 <CustomBadge
                   text={data.status}
                   on_press={() => {}}
-                  style_template="primary"/>
+                  style_template={data.status === 'available' ? 'primary' : 'danger'}/>
               }
-              <Text>{data.Title}</Text>
+              <Text style={{ fontSize: base.size.size_7, fontWeight: 'bold' }}>{data.Title}</Text>
               <Text>{data.Author}</Text>
             </View>
 
-            <View style={{ marginTop: base.size.size_3 }}>
+            <View style={{ marginTop: base.size.size_7 }}>
               <TabView
                 navigationState={{ index, routes }}
-                renderScene={({ route, jumpTo }) => <ProductInfo data={data}/>}
+                renderScene={({ route, jumpTo }) => {
+                  if(route.key === 'info')
+                    return <ProductInfo data={data}/>
+                  else if(route.key === 'exemplar')
+                    return <ProductExemplar data={data}/>
+                  else if(route.key === 'digital_content')
+                    return <ProductInfo data={data}/>
+                  else if(route.key === 'marc')
+                    return <ProductInfo data={data}/>
+                }}
                 onIndexChange={setIndex}
                 renderTabBar={props =>
                   <TabBar
@@ -116,7 +133,7 @@ export default function ProductDetail({ route, navigation }){
                 style={{  }}/>
             </View>
 
-            <View style={{ marginTop: base.size.size_3 }}>
+            <View style={{ marginTop: base.size.size_7 }}>
               {
                 data.ID != null &&
                 <HomeList

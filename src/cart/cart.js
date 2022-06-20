@@ -78,7 +78,7 @@ export default function Cart({ route, navigation }){
                   on_set_ref={(ref) => (arr_ref[index] = ref)}
                   on_swiped={() => on_swiped(index)}/>
               }
-              keyExtractor={item => item.id}/>
+              keyExtractor={item => item.ID.toString()}/>
             :
             <Text style={{ textAlign: 'center', }}>{base.i18n.t("no_data_found")}</Text>
           }

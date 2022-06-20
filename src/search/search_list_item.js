@@ -36,11 +36,11 @@ export default function SearchListItem(props){
       onPress={() => props.on_press()}>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <View style={{ flexDirection: 'row', }}>
-          <Image source={props.data.url_image} style={{ width: base.size.toolbar, height: base.size.medium_image }}/>
+          <Image source={props.data.CoverURL} style={{ width: base.size.toolbar, height: base.size.medium_image }}/>
 
-          <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3 }}>
-            <View style={{  }}>
-              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.Title}</Text>
+          <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3, flexShrink: 1 }}>
+            <View style={{ flexShrink: 1, }}>
+              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', flexShrink: 1 }} numberOfLines={1}>{props.data.Title}</Text>
               <Text style={{ fontSize: base.size.size_3 }}>{props.data.Author}</Text>
               <Text style={{ fontSize: base.size.size_3 }}>{props.data.Publisher} | {props.data.PublishYear}</Text>
             </View>
@@ -50,7 +50,7 @@ export default function SearchListItem(props){
               <CustomBadge
                 text={props.data.status}
                 on_press={() => {}}
-                style_template="primary"/>
+                style_template={props.data.status === 'available' ? 'primary' : 'danger'}/>
             }
           </View>
         </View>

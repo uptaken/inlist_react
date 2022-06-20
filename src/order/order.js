@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,102 +27,40 @@ import OrderListItem from './list_item';
 
 export default function Order({ route, navigation }){
   var base = new Base()
-  const [arr, set_arr] = useState([
-    {
-      id: '1',
-      url_image: require("../../assets/book_1.png"),
-      date: moment(),
-      status: '7 Hari sebelum Pengembalian',
-      return_date: moment(),
-      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      detail: [
-        {
-          id: '1',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-        {
-          id: '2',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-      ],
-    },
-    {
-      id: '2',
-      url_image: require("../../assets/book_1.png"),
-      date: moment().add(1, 'd'),
-      return_date: moment().add(1, 'd'),
-      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      status: '7 Hari sebelum Pengembalian',
-      detail: [
-        {
-          id: '1',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-        {
-          id: '2',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-      ],
-    },
-    {
-      id: '3',
-      url_image: require("../../assets/book_1.png"),
-      date: moment().add(2, 'd'),
-      return_date: moment().add(2, 'd'),
-      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      status: '7 Hari sebelum Pengembalian',
-      detail: [
-        {
-          id: '1',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-        {
-          id: '2',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-      ],
-    },
-    {
-      id: '4',
-      url_image: require("../../assets/book_1.png"),
-      date: moment().add(3, 'd'),
-      return_date: moment().add(3, 'd'),
-      borrowed_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      return_location: 'Perpustakaan Surabaya Kota\nJl. Iman Bonjol No. 1\n(031) 123 5678',
-      status: '7 Hari sebelum Pengembalian',
-      detail: [
-        {
-          id: '1',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-        {
-          id: '2',
-          url_image: require("../../assets/book_1.png"),
-          title: 'Bicara Itu Ada Seninya',
-          publisher: 'Oh Su Hyang',
-        },
-      ],
-    },
-  ])
+  const [arr, set_arr] = useState([])
+
+  useEffect(() => {
+
+    get_data()
+  }, [])
+
+  async function get_data(){
+    var response = await base.request(base.url_api + '/loan', 'get')
+
+    if(response.status === 'success'){
+      for(let data of response.data.data){
+        var cover_url = ''
+        var due_date = null
+        for(let item of data.collection_loan_item){
+          item.collection.product.CoverURL = require('../../assets/no_image_book.png')
+          cover_url = item.collection.product.CoverURL
+          item.due_date = moment(item.due_date, 'YYYY-MM-DD HH:mm:ss')
+          due_date = moment(item.due_date, 'YYYY-MM-DD HH:mm:ss')
+        }
+        data.CoverURL = cover_url
+        data.create_date = moment(data.create_date, 'YYYY-MM-DD HH:mm:ss')
+        data.status = due_date.diff(moment(), 'days') + " Hari sebelum Pengembalian"
+      }
+      set_arr(response.data.data)
+    }
+    else
+      base.show_error(response.message)
+  }
 
   function on_clicked(index){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      navigation.goBack()
+    })
     navigation.navigate('OrderDetail', {data: arr[index]})
   }
 
@@ -135,7 +74,7 @@ export default function Order({ route, navigation }){
           style={{ marginTop: base.size.size_1 }}
           data={arr}
           renderItem={({ item, index }) => <OrderListItem data={item} on_press={() => on_clicked(index)}/>}
-          keyExtractor={item => item.id}/>
+          keyExtractor={item => item.ID.toString()}/>
       </View>
     </TouchableWithoutFeedback>
   );

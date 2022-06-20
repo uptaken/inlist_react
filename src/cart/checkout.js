@@ -52,16 +52,21 @@ export default function Checkout({ route, navigation }){
   }
 
   async function submit(){
-    await AsyncStorage.removeItem('arr_cart')
-
-    navigation.navigate('CartSuccess', {
-      data: {
-        user: user,
-        id: '12345',
-        return_date: return_date,
-        detail: arr,
-      }
+    var response = await base.request(base.url_api + '/loan', 'post', {
+      arr_detail: arr,
     })
+
+    if(response.status === 'success'){
+      await AsyncStorage.removeItem('arr_cart')
+
+      response.data.due_date = moment(response.data.due_date, 'YYYY-MM-DD HH:mm:ss')
+      navigation.navigate('CartSuccess', {
+        data: response.data
+      })
+    }
+    else
+      base.show_error(response.message)
+
   }
 
   return (

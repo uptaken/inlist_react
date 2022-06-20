@@ -52,6 +52,9 @@ export default function Search({ route, navigation }){
   }
 
   function on_clicked(index){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      navigation.goBack()
+    })
     navigation.navigate('SearchListPage', {data: arr_category[index]})
   }
 

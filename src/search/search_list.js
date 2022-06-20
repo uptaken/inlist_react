@@ -46,6 +46,9 @@ export default function SearchList(props){
     })
 
     if(response.status === 'success'){
+      for(let data of response.data.data)
+        data.CoverURL = require('../../assets/no_image_book.png')
+
       set_arr(response.data.data)
     }
     else
@@ -53,6 +56,9 @@ export default function SearchList(props){
   }
 
   function on_clicked(index){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      props.navigation.goBack()
+    })
     props.navigation.navigate('ProductDetail', {data: arr[index]})
   }
 
@@ -75,7 +81,7 @@ export default function SearchList(props){
         style={{  }}
         data={arr}
         renderItem={({ item, index }) => <SearchListItem data={item} key={index} on_press={() => on_clicked(index)}/>}
-        keyExtractor={item => item.id}/>
+        keyExtractor={item => item.ID.toString()}/>
     </View>
   );
 }

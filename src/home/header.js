@@ -49,7 +49,7 @@ export default function HomeHeader(props){
               useForeground
               background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
               onPress={() => {}}>
-              <View style={{ marginLeft: base.size.size_1 }}>
+              <View style={{ marginLeft: base.size.size_7 }}>
                 <Icon name="bell" size={base.size.icon} color={base.color.white}/>
               </View>
             </TouchableNativeFeedback>

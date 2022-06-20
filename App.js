@@ -14,6 +14,8 @@ import { View } from 'react-native';
 
 import HomeBottomBar from './routes/home_bottom_bar_route'
 
+import Splash from './src/splash'
+
 import Login from './src/auth/login'
 import Register from './src/auth/register'
 import BasicInfo from './src/auth/register/basic_info'
@@ -43,6 +45,12 @@ export default function App() {
   var base = new Base()
 
   arr = [
+    {
+      name: "Splash",
+      component: Splash,
+      header_shown: false,
+      header_transparent: true,
+    },
     {
       name: "Home",
       component: HomeBottomBar,

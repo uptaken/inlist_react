@@ -15,6 +15,7 @@ import {
   Keyboard,
   Dimensions,
   Image,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,8 +27,7 @@ import CustomInput from '../layout/custom_input';
 import HomeHeader from './header';
 import HomeList from './list';
 
-import book_1 from '../../assets/book_1.png';
-import book_2 from '../../assets/book_2.png';
+import banner from '../../assets/banner.png';
 
 export default function Home({ route, navigation }){
   var base = new Base()
@@ -35,29 +35,14 @@ export default function Home({ route, navigation }){
   const [arr_banner, set_arr_banner] = useState([
     {
       id: '1',
-      url_image: book_1,
-    },
-    {
-      id: '2',
-      url_image: book_2,
-    },
-    {
-      id: '3',
-      url_image: book_1,
-    },
-    {
-      id: '4',
-      url_image: book_2,
+      url_image: banner,
     },
   ])
 
   useEffect(() => {
-    async function get_token(){
-      var token = await AsyncStorage.getItem('token')
-      if(token == null)
-        navigation.navigate('Login')
-    }
-    get_token()
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      BackHandler.exitApp()
+    })
   }, [])
 
   return (
@@ -81,6 +66,7 @@ export default function Home({ route, navigation }){
 
             <View>
               <HomeList
+                type="most_loaned"
                 title={base.i18n.t("most_borrowed_collection")}
                 navigation={navigation}/>
             </View>

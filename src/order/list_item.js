@@ -36,11 +36,11 @@ export default function OrderListItem(props){
       onPress={() => props.on_press()}>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <View style={{ flexDirection: 'row', }}>
-          <Image source={props.data.url_image} style={{ width: base.size.title, height: base.size.title }}/>
+          <Image source={props.data.CoverURL} style={{ width: base.size.title, height: base.size.title }}/>
 
           <View style={{ marginLeft: base.size.size_1 }}>
-            <Text style={{ fontSize: base.size.size_3 }}>{props.data.id}</Text>
-            <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.date.format('DD/MM/YYYY')}</Text>
+            <Text style={{ fontSize: base.size.size_3 }}>{props.data.ID}</Text>
+            <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.create_date.format('DD/MM/YYYY')}</Text>
           </View>
         </View>
 

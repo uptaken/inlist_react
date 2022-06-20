@@ -64,7 +64,12 @@ export default function Profile({ route, navigation }){
               <TouchableNativeFeedback
                 useForeground
                 background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-                onPress={() => navigation.navigate('ChangeProfile', {data: data,})}>
+                onPress={() => {
+                  BackHandler.addEventListener('hardwareBackPress', function () {
+                    navigation.goBack()
+                  })
+                  navigation.navigate('ChangeProfile', {data: data,})
+                }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
                   <Text>{base.i18n.t("change_profile")}</Text>
                   <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
@@ -74,7 +79,12 @@ export default function Profile({ route, navigation }){
               <TouchableNativeFeedback
                 useForeground
                 background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-                onPress={() => navigation.navigate('ChangePassword')}>
+                onPress={() => {
+                  BackHandler.addEventListener('hardwareBackPress', function () {
+                    navigation.goBack()
+                  })
+                  navigation.navigate('ChangePassword')
+                }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
                   <Text>{base.i18n.t("change_password")}</Text>
                   <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>

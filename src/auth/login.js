@@ -30,10 +30,9 @@ export default function Login({ route, navigation }){
   var base = new Base()
 
   useEffect(() => {
-    // BackHandler.addEventListener('hardwareBackPress', function () {
-    //   // BackHandler.exitApp()
-    //   console.log('asjdhjask')
-    // })
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      BackHandler.exitApp()
+    })
   }, [])
 
   async function submit(){

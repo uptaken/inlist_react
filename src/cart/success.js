@@ -36,16 +36,16 @@ export default function CartSuccess({ route, navigation }){
           </View>
 
           <View style={{ marginTop: base.size.toolbar, paddingLeft: base.size.size_7, }}>
-            <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', }}>{route.params.data.id}</Text>
+            <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', }}>{route.params.data.ID}</Text>
 
             <View style={{ marginTop: base.size.size_5 }}>
               <Text style={{ fontSize: base.size.size_3, }}>{base.i18n.t("borrower_name")}</Text>
-              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', }}>{route.params.data.user.name}</Text>
+              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', }}>{route.params.data.member.Fullname}</Text>
             </View>
 
             <View style={{ marginTop: base.size.size_3 }}>
               <Text style={{ fontSize: base.size.size_3, }}>{base.i18n.t("return_date")}</Text>
-              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', }}>{route.params.data.return_date.format('DD MMMM YYYY')}</Text>
+              <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', }}>{route.params.data.due_date.format('DD MMMM YYYY')}</Text>
             </View>
           </View>
         </View>

@@ -34,7 +34,7 @@ export default function CustomBadge(props){
             borderWidth: base.size.border,
           }
         ]}>
-        <Text style={[props.style_template != null ? styles[props.style_template] : {}, {fontSize: base.size.size_3, }]}>{props.text}</Text>
+        <Text style={[props.style_template != null ? styles[props.style_template] : {}, {fontSize: base.size.size_3, }]}>{props.is_translate != null && props.is_translate ? base.i18n.t(props.text) : props.text}</Text>
       </View>
     </TouchableNativeFeedback>
   );
@@ -46,5 +46,10 @@ const styles = StyleSheet.create({
     backgroundColor: base.color.primaryLight,
     borderColor: base.color.primaryLight,
     color: base.color.primary
+  },
+  danger: {
+    backgroundColor: base.color.primaryLight,
+    borderColor: base.color.primaryLight,
+    color: base.color.red
   },
 })

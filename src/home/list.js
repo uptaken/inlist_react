@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,6 +42,8 @@ export default function HomeList(props){
     })
 
     if(response.status === 'success'){
+      for(let data of response.data.data)
+        data.CoverURL = require('../../assets/no_image_book.png')
       set_arr(response.data.data)
     }
     else
@@ -54,6 +57,8 @@ export default function HomeList(props){
     })
 
     if(response.status === 'success'){
+      for(let data of response.data.data)
+        data.CoverURL = require('../../assets/no_image_book.png')
       set_arr(response.data.data)
     }
     else
@@ -61,11 +66,14 @@ export default function HomeList(props){
   }
 
   function on_clicked(index){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      props.navigation.goBack()
+    })
     props.navigation.navigate('ProductDetail', {data: arr[index]})
   }
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback style={{  }} onPress={() => Keyboard.dismiss()}>
       <View style={{ }}>
         <Text style={{ fontSize: base.size.size_5 }}>{props.title}</Text>
 
@@ -73,8 +81,9 @@ export default function HomeList(props){
           style={{ marginTop: base.size.size_1 }}
           data={arr}
           horizontal
+          showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
-          keyExtractor={item => item.id}/>
+          keyExtractor={item => item.ID.toString()}/>
       </View>
     </TouchableWithoutFeedback>
   );

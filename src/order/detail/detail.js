@@ -48,16 +48,16 @@ export default function OrderDetail({ route, navigation }){
 
             <FlatList
               style={{ marginTop: base.size.size_1 }}
-              data={data.detail}
+              data={data.collection_loan_item}
               renderItem={({ item, index }) => <OrderDetailItem data={item}/>}
-              keyExtractor={item => item.id}/>
+              keyExtractor={item => item.ID.toString()}/>
           </View>
 
           <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
             <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_location")}</Text>
 
             <View>
-              <Text>{data.borrowed_location}</Text>
+              <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
             </View>
           </View>
 
@@ -67,12 +67,12 @@ export default function OrderDetail({ route, navigation }){
             <View style={{ alignItems: 'flex-start', }}>
               <CustomBadge
                 on_press={() => {}}
-                text={data.return_date != null ? data.return_date.format('DD MMMM YYYY') : ''}
+                text={data.collection_loan_item != null ? data.collection_loan_item[0].due_date.format('DD MMMM YYYY') : '-'}
                 style_template="primary"/>
 
               <View style={{ marginTop: base.size.size_1 }}>
                 <Text style={{ color: base.color.grey6 }}>{base.i18n.t("return_location")}</Text>
-                <Text>{data.return_location}</Text>
+                <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
               </View>
             </View>
           </View>
