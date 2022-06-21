@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { BackHandler, } from 'react-native'
 
 import Base from '../src/utils/base'
 
@@ -58,11 +59,11 @@ export default function HomeBottomBar(){
         showIcon: true,
         headerShown: false,
         keyboardHidesTabBar: true,
-        // style: {
-        //   backgroundColor: theme.colors.black70p_hex,
-        // },
         activeTintColor: base.color.primary,
         inactiveTintColor : base.color.grey2,
+        tabBarItemStyle:{
+          margin: base.size.half,
+        }
       }}>
       {
         arr.map((data, index) => (
@@ -70,6 +71,11 @@ export default function HomeBottomBar(){
             key={index}
             name={data.name}
             component={data.component}
+            listeners={{
+              tabPress: e => {
+                base.set_primary_status_bar()
+              },
+            }}
             options={{
               tabBarLabel: data.label,
               tabBarIcon: data.icon,

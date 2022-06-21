@@ -10,9 +10,12 @@ export default {
   "border": 1,
   "icon": 24,
   "title": 30,
+  "large_title": 40,
   "toolbar": 50,
   "small_image": 70,
   "medium_image": 100,
   "custom_image1": 150,
+  "custom_image2": 120,
+  "custom_image3": 180,
   "large_image": 200,
 }

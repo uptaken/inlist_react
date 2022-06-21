@@ -24,10 +24,14 @@ import CustomNavigation from '../layout/custom_navigation';
 export default function Register({ route, navigation }){
   var base = new Base()
 
+  useEffect(() => {
+    base.set_white_status_bar()
+  }, [])
+
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, justifyContent: "space-between", }}>
-        <View style={{ marginTop: base.size.size_5, }}>
+        <View style={{ marginTop: base.size.large_title, }}>
           <CustomNavigation title={base.i18n.t("register")}
             navigation={navigation}
             padding={base.size.size_5}
@@ -40,7 +44,7 @@ export default function Register({ route, navigation }){
               borderColor={base.color.grey1}
               style={{ marginTop: base.size.size_5 }}>
               <View>
-                <Text style={{ color: base.color.black1, fontWeight: 'bold' }}>{base.i18n.t("condition")}</Text>
+                <Text style={{ color: base.color.black1, fontWeight: 'bold', fontSize: base.size.size_5, }}>{base.i18n.t("condition")}</Text>
                 <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("condition_detail")}</Text>
               </View>
             </CustomCard>
@@ -51,7 +55,7 @@ export default function Register({ route, navigation }){
               borderColor={base.color.grey1}
               style={{ marginTop: base.size.size_5 }}>
               <View>
-                <Text style={{ color: base.color.black1, fontWeight: 'bold' }}>{base.i18n.t("rules")}</Text>
+                <Text style={{ color: base.color.black1, fontWeight: 'bold', fontSize: base.size.size_5, }}>{base.i18n.t("rules")}</Text>
                 <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("rules_detail")}</Text>
               </View>
             </CustomCard>
@@ -68,6 +72,7 @@ export default function Register({ route, navigation }){
             color={base.color.white}
             textColor={base.color.primary}
             borderColor=""
+            no_border={true}
             style={{ marginTop: base.size.size_3 }}
             on_press={() => navigation.goBack()} />
         </View>

@@ -27,6 +27,10 @@ export default function ForgetPassword({ route, navigation }){
   const [email, set_email] = useState("")
   const [is_please_wait, set_is_please_wait] = useState(false)
 
+  useEffect(() => {
+    base.set_white_status_bar()
+  }, [])
+
   async function submit(){
     if(email === '')
       base.show_error(base.i18n.t("email_empty"))
@@ -52,7 +56,7 @@ export default function ForgetPassword({ route, navigation }){
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1, justifyContent: "space-between", }}>
-          <View style={{ marginTop: base.size.size_5, }}>
+          <View style={{ marginTop: base.size.large_title, }}>
             <CustomNavigation title={base.i18n.t("forget_password")}
               navigation={navigation}
               padding={base.size.size_5}/>

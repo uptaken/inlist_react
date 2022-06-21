@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
+  BackHandler,
   DeviceEventEmitter,
   TouchableOpacity,
 } from 'react-native';
@@ -44,6 +45,12 @@ export default function ChangeProfile({ route, navigation }){
     set_email(route.params.data.EmailAddress)
     set_username(route.params.data.username)
     set_division(route.params.data.Fullname)
+
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      route.params.on_setup_backhandler()
+      navigation.goBack()
+      return true
+    })
   }, [])
 
   async function submit(){

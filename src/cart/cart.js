@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -37,6 +38,12 @@ export default function Cart({ route, navigation }){
       set_arr(arr_cart)
     }
     get_arr_cart()
+
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      route.params.on_setup_backhandler()
+      navigation.goBack()
+      return true
+    })
   }, [])
 
   useEffect(() => {
@@ -78,7 +85,7 @@ export default function Cart({ route, navigation }){
                   on_set_ref={(ref) => (arr_ref[index] = ref)}
                   on_swiped={() => on_swiped(index)}/>
               }
-              keyExtractor={item => item.ID.toString()}/>
+              keyExtractor={item => item.id.toString()}/>
             :
             <Text style={{ textAlign: 'center', }}>{base.i18n.t("no_data_found")}</Text>
           }

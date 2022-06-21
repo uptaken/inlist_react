@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -56,6 +57,11 @@ export default function ProductDetail({ route, navigation }){
   ])
 
   useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      route.params.on_setup_backhandler()
+      navigation.goBack()
+      return true
+    })
     set_data(route.params.data)
   }, [])
 
@@ -74,6 +80,7 @@ export default function ProductDetail({ route, navigation }){
 
     if(!flag){
       arr_cart.push({
+        id: arr_cart.length + 1,
         amount: 1,
         product: data,
       })
@@ -126,9 +133,19 @@ export default function ProductDetail({ route, navigation }){
                   <TabBar
                     {...props}
                     indicatorStyle={{ backgroundColor: base.color.primary }}
-                    style={{ backgroundColor: base.color.white, }}
+                    style={{ backgroundColor: base.color.white, fontSize: base.size.size_1, }}
                     activeColor={base.color.primary}
-                    inactiveColor={base.color.grey3}/>
+                    inactiveColor={base.color.grey3}
+                    renderLabel={({ route }) => (
+                     <View>
+                       <Text style={{
+                         fontSize: base.size.size_4,
+                         textAlign: 'center',
+                         color: route.key === props.navigationState.routes[props.navigationState.index].key ? base.color.primary : base.color.grey3}}>
+                           {route.title}
+                       </Text>
+                     </View>
+                   )}/>
                 }
                 style={{  }}/>
             </View>

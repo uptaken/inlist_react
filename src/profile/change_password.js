@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   DeviceEventEmitter,
   TouchableOpacity,
 } from 'react-native';
@@ -32,6 +33,14 @@ export default function ChangePassword({ route, navigation }){
   const [new_password, set_new_password] = useState('')
   const [confirm_password, set_confirm_password] = useState('')
   const [is_please_wait, set_is_please_wait] = useState(false)
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      route.params.on_setup_backhandler()
+      navigation.goBack()
+      return true
+    })
+  }, [])
 
   async function submit(){
     if(old_password === '')

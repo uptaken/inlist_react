@@ -33,8 +33,8 @@ export default function HomeListItem(props){
       useForeground
       background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
       onPress={() => props.on_press()}>
-      <View style={{ paddingHorizontal: base.size.size_3, alignItems: 'center', width: base.size.large_image }}>
-        <Image source={props.data.CoverURL} style={{ width: base.size.medium_image, height: base.size.large_image, resizeMode: 'contain' }}/>
+      <View style={{ paddingHorizontal: base.size.size_3, alignItems: 'center', width: base.size.custom_image1 }}>
+        <Image source={props.data.CoverURL} style={{ width: base.size.custom_image2, height: base.size.custom_image3 }}/>
 
         <View style={{ marginTop: base.size.size_1, width: '100%', }}>
           <Text style={{ fontSize: base.size.size_3 }}>{props.data.Publisher != null && props.data.Publisher != '' ? props.data.Publisher : base.i18n.t("no_publisher")}</Text>

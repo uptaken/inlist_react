@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   TouchableNativeFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
   DeviceEventEmitter,
 } from 'react-native';
@@ -33,9 +34,24 @@ export default function Profile({ route, navigation }){
   const [version, set_version] = useState('1.0')
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action and update data
+      setup_backhandler()
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
     get_data()
     DeviceEventEmitter.addListener("profile.refresh_data", () => get_data())
+    return unsubscribe;
   }, [])
+
+  function setup_backhandler(){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      navigation.navigate('HomeTab')
+      return true
+    })
+  }
 
   async function get_data(){
     var response = await base.request(base.url_api + '/auth/profile')
@@ -55,7 +71,7 @@ export default function Profile({ route, navigation }){
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
-      <View style={{ flex: 1, }}>
+      <View style={{ flex: 1, backgroundColor: base.color.white, }}>
         <ProfileHeader data={data}/>
 
         <ScrollView>
@@ -65,10 +81,7 @@ export default function Profile({ route, navigation }){
                 useForeground
                 background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
                 onPress={() => {
-                  BackHandler.addEventListener('hardwareBackPress', function () {
-                    navigation.goBack()
-                  })
-                  navigation.navigate('ChangeProfile', {data: data,})
+                  navigation.navigate('ChangeProfile', {data: data, on_setup_backhandler: () => setup_backhandler()})
                 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
                   <Text>{base.i18n.t("change_profile")}</Text>
@@ -80,10 +93,7 @@ export default function Profile({ route, navigation }){
                 useForeground
                 background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
                 onPress={() => {
-                  BackHandler.addEventListener('hardwareBackPress', function () {
-                    navigation.goBack()
-                  })
-                  navigation.navigate('ChangePassword')
+                  navigation.navigate('ChangePassword', {on_setup_backhandler: () => setup_backhandler()})
                 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
                   <Text>{base.i18n.t("change_password")}</Text>

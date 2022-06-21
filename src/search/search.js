@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,8 +33,23 @@ export default function Search({ route, navigation }){
   const [arr_category, set_arr_category] = useState([])
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action and update data
+      setup_backhandler()
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
     get_category_data()
+    return unsubscribe;
   }, [])
+
+  function setup_backhandler(){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      navigation.navigate('HomeTab')
+      return true
+    })
+  }
 
   async function get_category_data(){
     var response = await base.request(base.url_api + '/product/category')
@@ -52,16 +68,13 @@ export default function Search({ route, navigation }){
   }
 
   function on_clicked(index){
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      navigation.goBack()
-    })
     navigation.navigate('SearchListPage', {data: arr_category[index]})
   }
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
-      <View style={{ flex: 1, }}>
+      <View style={{ flex: 1, backgroundColor: base.color.white, }}>
         <SearchHeader
           on_search={value => set_search(value)}
           search={search}/>

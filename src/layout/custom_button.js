@@ -25,7 +25,15 @@ export default function CustomButton(props){
       onPress={() => props.on_press()}
       disabled={props.is_disabled != null ? props.is_disabled : false}
       style={{ borderRadius : (props.borderRadius != null ? props.borderRadius : base.size.size_1) }}>
-      <View style={[props.style, { backgroundColor : props.color, padding : (props.icon != null ? base.size.size_1 : base.size.size_3), borderRadius : (props.borderRadius != null ? props.borderRadius : base.size.size_1), alignItems : 'center', borderWidth: base.size.border, borderColor : (props.borderColor != null ? props.borderColor : base.color.primary), }]}>
+      <View style={[
+        props.style,
+        {
+          backgroundColor : props.color,
+          padding : (props.icon != null ? base.size.size_1 : base.size.size_3),
+          borderRadius : (props.borderRadius != null ? props.borderRadius : base.size.size_1),
+          alignItems : 'center',
+          borderWidth: props.no_border == null || (props.no_border != null && !props.no_border) ? base.size.border : 0, 
+          borderColor : (props.borderColor != null ? props.borderColor : base.color.primary), }]}>
         <View style={{flexDirection : 'row'}}>
           {
             props.icon != null &&

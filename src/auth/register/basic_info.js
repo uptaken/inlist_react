@@ -42,6 +42,10 @@ export default function BasicInfo({ route, navigation }){
     },
   ])
 
+  useEffect(() => {
+    base.set_white_status_bar()
+  }, [])
+
   async function next(){
     if(selected_id_type.id == null)
       base.show_error(base.i18n.t("id_type_not_choosen"))
@@ -68,7 +72,7 @@ export default function BasicInfo({ route, navigation }){
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, marginTop: base.size.size_5, }}>
+      <View style={{ flex: 1, marginTop: base.size.large_title, }}>
         <CustomNavigation
           style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
           title={base.i18n.t("register")}

@@ -2,6 +2,7 @@ import Snackbar from "react-native-snackbar";
 import DeviceInfo from 'react-native-device-info'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
+import { StatusBar, BackHandler, } from 'react-native';
 
 import I18n from "./i18n"
 import Size from "./size"
@@ -61,6 +62,20 @@ export default class Base{
     }
 
     return response.data
+  }
+
+  set_white_status_bar(){
+    StatusBar.setBarStyle('dark-content', true)
+    StatusBar.setBackgroundColor(this.color.white)
+  }
+
+  set_primary_status_bar(){
+    StatusBar.setBarStyle('light-content', true)
+    StatusBar.setBackgroundColor(this.color.primary)
+  }
+
+  exit_app(){
+    BackHandler.exitApp()
   }
 
   add_array(arr, set_state, data = {}){

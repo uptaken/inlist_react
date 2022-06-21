@@ -35,7 +35,7 @@ export default function CustomNavigation(props){
 
       {
         props.title !== '' &&
-        <Text style={{ fontSize: base.size.size_7, fontWeight: "bold", flex: 1, color: props.text_color != null ? props.text_color : base.color.black }}>{props.title}</Text>
+        <Text style={{ fontSize: base.size.icon, fontWeight: "bold", flex: 1, color: props.text_color != null ? props.text_color : base.color.black }}>{props.title}</Text>
       }
 
     </View>

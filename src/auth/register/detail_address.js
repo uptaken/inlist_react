@@ -36,6 +36,10 @@ export default function DetailAddress({ route, navigation }){
   const [toggle_condition, set_toggle_condition] = useState(false)
   const [is_please_wait, set_is_please_wait] = useState(false)
 
+  useEffect(() => {
+    base.set_white_status_bar()
+  }, [])
+
   async function submit(){
     if(!toggle_condition)
       base.show_error(base.i18n.t("please_check_condition"))
@@ -78,7 +82,7 @@ export default function DetailAddress({ route, navigation }){
     <View style={{ flex: 1 }}>
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-        <View style={{ flex: 1, marginTop: base.size.size_5, }}>
+        <View style={{ flex: 1, marginTop: base.size.large_title, }}>
           <CustomNavigation
             style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
             title={base.i18n.t("register")}

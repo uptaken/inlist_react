@@ -66,10 +66,7 @@ export default function HomeList(props){
   }
 
   function on_clicked(index){
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      props.navigation.goBack()
-    })
-    props.navigation.navigate('ProductDetail', {data: arr[index]})
+    props.on_detail_clicked(arr[index])
   }
 
   return (

@@ -30,9 +30,23 @@ export default function Order({ route, navigation }){
   const [arr, set_arr] = useState([])
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action and update data
+      setup_backhandler()
+    });
 
+    // Return the function to unsubscribe from the event so it gets removed on unmount
     get_data()
+    return unsubscribe;
   }, [])
+
+  function setup_backhandler(){
+    BackHandler.addEventListener('hardwareBackPress', function () {
+      navigation.navigate('HomeTab')
+      return true
+    })
+  }
 
   async function get_data(){
     var response = await base.request(base.url_api + '/loan', 'get')
@@ -67,7 +81,7 @@ export default function Order({ route, navigation }){
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
-      <View style={{ flex: 1, }}>
+      <View style={{ flex: 1, backgroundColor: base.color.white, }}>
         <OrderHeader/>
 
         <FlatList

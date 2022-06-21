@@ -30,9 +30,13 @@ export default function Login({ route, navigation }){
   var base = new Base()
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      BackHandler.exitApp()
-    })
+    base.set_white_status_bar()
+
+    // const back_handler = BackHandler.addEventListener('hardwareBackPress', function () {
+    //   BackHandler.exitApp()
+    // })
+    //
+    // return () => back_handler.remove()
   }, [])
 
   async function submit(){
@@ -50,8 +54,9 @@ export default function Login({ route, navigation }){
       set_is_please_wait(false)
       setTimeout(async () => {
         if(response.status === 'success'){
+          base.set_primary_status_bar()
           await AsyncStorage.setItem('token', response.token)
-          navigation.navigate('Home')
+          navigation.navigate('HomeTab')
         }
         else
           base.show_error(response.message)
@@ -69,9 +74,9 @@ export default function Login({ route, navigation }){
     <View style={{ flex: 1 }}>
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-        <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5, marginTop: base.size['icon'] }}>
+        <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5, marginTop: base.size.large_title }}>
           <View>
-            <Text style={{ fontSize: base.size.size_7, fontWeight: "bold" }}>{base.i18n.t("login")}</Text>
+            <Text style={{ fontSize: base.size.icon, fontWeight: "bold" }}>{base.i18n.t("login")}</Text>
 
             <CustomInput
               type="email"
