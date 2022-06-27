@@ -34,7 +34,7 @@ export default function ProfileHeader(props){
         <View style={{ padding: base.size.size_5, }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
             <View style={{ }}>
-              <Text style={{ color: base.color.white, fontSize: base.size.size_7 }}>{base.i18n.t("profile")}</Text>
+              <Text style={{ color: base.color.white, fontSize: base.size.icon }}>{base.i18n.t("profile")}</Text>
             </View>
           </View>
 

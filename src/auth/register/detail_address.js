@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../../utils/base';
 import PleaseWaitModal from "../../layout/modal/please_wait_modal"
@@ -80,6 +81,7 @@ export default function DetailAddress({ route, navigation }){
 
   return (
     <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1, marginTop: base.size.large_title, }}>

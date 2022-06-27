@@ -39,17 +39,22 @@ export default function Home({ route, navigation }){
       url_image: banner,
     },
   ])
+  const [arr_cart, set_arr_cart] = useState([])
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      // The screen is focused
-      // Call any action and update data
       setup_backhandler()
+      get_cart()
     });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [])
+
+  async function get_cart(){
+    var arr_cart_temp = await AsyncStorage.getItem('arr_cart')
+    arr_cart_temp = arr_cart_temp == null ? [] : JSON.parse(arr_cart_temp)
+    set_arr_cart(arr_cart_temp)
+  }
 
   function setup_backhandler(){
     BackHandler.addEventListener('hardwareBackPress', function () {
@@ -59,7 +64,7 @@ export default function Home({ route, navigation }){
   }
 
   function on_detail_clicked(data){
-    navigation.navigate('ProductDetail', {data: data, on_setup_backhandler: () => setup_backhandler()})
+    navigation.navigate('ProductDetail', {data: data})
   }
 
   return (
@@ -68,6 +73,7 @@ export default function Home({ route, navigation }){
       <View style={{ flex: 1, backgroundColor: base.color.white, }}>
         <HomeHeader
           navigation={navigation}
+          total_new={arr_cart.length}
           on_setup_backhandler={() => setup_backhandler()}/>
 
         <ScrollView>

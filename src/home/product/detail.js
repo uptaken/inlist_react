@@ -57,12 +57,15 @@ export default function ProductDetail({ route, navigation }){
   ])
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      route.params.on_setup_backhandler()
-      navigation.goBack()
-      return true
-    })
-    set_data(route.params.data)
+    const unsubscribe = navigation.addListener('focus', () => {
+      BackHandler.addEventListener('hardwareBackPress', function () {
+        navigation.goBack()
+        return true
+      })
+      set_data(route.params.data)
+    });
+
+    return unsubscribe;
   }, [])
 
   async function add_to_cart(){
@@ -71,25 +74,23 @@ export default function ProductDetail({ route, navigation }){
 
     var flag = false
     for(let cart of arr_cart){
-      if(cart.product.id === data.id){
+      if(cart.product.ID === data.ID){
         cart.amount++
         flag = true
         break
       }
     }
 
-    if(!flag){
+
+    if(!flag)
       arr_cart.push({
         id: arr_cart.length + 1,
         amount: 1,
         product: data,
       })
-    }
     await AsyncStorage.setItem('arr_cart', JSON.stringify(arr_cart))
     navigation.navigate('Cart')
   }
-
-
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
@@ -107,6 +108,7 @@ export default function ProductDetail({ route, navigation }){
               {
                 data.status != null &&
                 <CustomBadge
+                  is_translate={true}
                   text={data.status}
                   on_press={() => {}}
                   style_template={data.status === 'available' ? 'primary' : 'danger'}/>

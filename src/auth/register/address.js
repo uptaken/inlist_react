@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../../utils/base';
 import CustomButton from '../../layout/custom_button';
@@ -105,76 +106,79 @@ export default function Address({ route, navigation }){
   }
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, marginTop: base.size.large_title, }}>
-        <CustomNavigation
-          style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
-          title={base.i18n.t("register")}
-          navigation={navigation}
-          padding={base.size.size_5}/>
+    <View style={{ flex: 1, }}>
+      <Snackbar id="root_app"/>
+      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+        <View style={{ flex: 1, marginTop: base.size.large_title, }}>
+          <CustomNavigation
+            style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
+            title={base.i18n.t("register")}
+            navigation={navigation}
+            padding={base.size.size_5}/>
 
-        <ScrollView>
-          <View style={{ paddingHorizontal: base.size.size_5 }}>
-            <Step style={{ marginTop: base.size.size_5 }} num="3" title={base.i18n.t("address")}/>
-
-            <CustomInput
-              name={base.i18n.t("address")}
-              on_change_text={value => set_address(value)}
-              value={address}/>
-
-            <CustomInput
-              type="select"
-              arr={arr_province}
-              name={base.i18n.t("province")}
-              on_selected={index => set_selected_province(arr_province[index])}
-              value={selected_province}/>
-
-            <CustomInput
-              type="select"
-              arr={arr_city}
-              name={base.i18n.t("city")}
-              on_selected={index => set_selected_city(arr_city[index])}
-              value={selected_city}/>
-
-            <CustomInput
-              type="select"
-              arr={arr_sub_district}
-              name={base.i18n.t("sub_district")}
-              on_selected={index => set_selected_sub_district(arr_sub_district[index])}
-              value={selected_sub_district}/>
-
-            <CustomInput
-              type="select"
-              arr={arr_village}
-              name={base.i18n.t("village")}
-              on_selected={index => set_selected_village(arr_village[index])}
-              value={selected_village}/>
-
-            <View style={{ flexDirection: 'row', }}>
-              <CustomInput
-                type="number"
-                style={{ flex: 1, marginRight: base.size.size_1 }}
-                name={base.i18n.t("rt")}
-                on_change_text={value => set_rt(value)}
-                value={rt}/>
+          <ScrollView>
+            <View style={{ paddingHorizontal: base.size.size_5 }}>
+              <Step style={{ marginTop: base.size.size_5 }} num="3" title={base.i18n.t("address")}/>
 
               <CustomInput
-                type="number"
-                style={{ flex: 1, marginLeft: base.size.size_1 }}
-                name={base.i18n.t("rw")}
-                on_change_text={value => set_rw(value)}
-                value={rw}/>
+                name={base.i18n.t("address")}
+                on_change_text={value => set_address(value)}
+                value={address}/>
+
+              <CustomInput
+                type="select"
+                arr={arr_province}
+                name={base.i18n.t("province")}
+                on_selected={index => set_selected_province(arr_province[index])}
+                value={selected_province}/>
+
+              <CustomInput
+                type="select"
+                arr={arr_city}
+                name={base.i18n.t("city")}
+                on_selected={index => set_selected_city(arr_city[index])}
+                value={selected_city}/>
+
+              <CustomInput
+                type="select"
+                arr={arr_sub_district}
+                name={base.i18n.t("sub_district")}
+                on_selected={index => set_selected_sub_district(arr_sub_district[index])}
+                value={selected_sub_district}/>
+
+              <CustomInput
+                type="select"
+                arr={arr_village}
+                name={base.i18n.t("village")}
+                on_selected={index => set_selected_village(arr_village[index])}
+                value={selected_village}/>
+
+              <View style={{ flexDirection: 'row', }}>
+                <CustomInput
+                  type="number"
+                  style={{ flex: 1, marginRight: base.size.size_1 }}
+                  name={base.i18n.t("rt")}
+                  on_change_text={value => set_rt(value)}
+                  value={rt}/>
+
+                <CustomInput
+                  type="number"
+                  style={{ flex: 1, marginLeft: base.size.size_1 }}
+                  name={base.i18n.t("rw")}
+                  on_change_text={value => set_rw(value)}
+                  value={rw}/>
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
 
-        <View style={{ marginTop: base.size.size_3, marginHorizontal: base.size.size_5, marginBottom: base.size.size_5 }}>
-          <CustomButton title={base.i18n.t("next")}
-            color={base.color.primary}
-            textColor={base.color.white}
-            on_press={() => next()} />
+          <View style={{ marginTop: base.size.size_3, marginHorizontal: base.size.size_5, marginBottom: base.size.size_5 }}>
+            <CustomButton title={base.i18n.t("next")}
+              color={base.color.primary}
+              textColor={base.color.white}
+              on_press={() => next()} />
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

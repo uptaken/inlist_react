@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -52,7 +53,7 @@ export default function Search({ route, navigation }){
   }
 
   async function get_category_data(){
-    var response = await base.request(base.url_api + '/product/category')
+    var response = await base.request(base.url_api + '/product/category?subject=g')
 
     if(response.status === 'success'){
       var arr = []
@@ -72,33 +73,36 @@ export default function Search({ route, navigation }){
   }
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+    <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
+      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
-      <View style={{ flex: 1, backgroundColor: base.color.white, }}>
-        <SearchHeader
-          on_search={value => set_search(value)}
-          search={search}/>
+        <View style={{ flex: 1, backgroundColor: base.color.white, }}>
+          <SearchHeader
+            on_search={value => set_search(value)}
+            search={search}/>
 
-        <View style={{ }}>
-          {
-            search === '' ?
-            <View>
-              <Text style={{ color: base.color.grey2, fontSize: base.size.size_5, marginTop: base.size.size_5, marginHorizontal: base.size.size_5 }}>{base.i18n.t("search_by_category")}</Text>
+          <View style={{ }}>
+            {
+              search === '' ?
+              <View>
+                <Text style={{ color: base.color.grey2, fontSize: base.size.size_5, marginTop: base.size.size_5, marginHorizontal: base.size.size_5 }}>{base.i18n.t("search_by_category")}</Text>
 
-              <FlatList
-                style={{ marginTop: base.size.size_1 }}
-                data={arr_category}
-                renderItem={({ item, index }) => <CategoryListItem data={item} key={index} on_press={() => on_clicked(index)}/>}
-                keyExtractor={item => item.id}/>
-            </View>
-            :
-            <SearchList
-              navigation={navigation}
-              sort={sort}
-              search={search}/>
-          }
+                <FlatList
+                  style={{ marginTop: base.size.size_1 }}
+                  data={arr_category}
+                  renderItem={({ item, index }) => <CategoryListItem data={item} key={index} on_press={() => on_clicked(index)}/>}
+                  keyExtractor={item => item.id}/>
+              </View>
+              :
+              <SearchList
+                navigation={navigation}
+                sort={sort}
+                search={search}/>
+            }
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

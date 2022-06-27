@@ -50,7 +50,7 @@ export default function ProductExemplar(props){
   }, [])
 
   return (
-    <View style={{ flex: 1, }}>
+    <View style={{ flex: 1, padding: base.size.size_3, backgroundColor: base.color.grey9, }}>
       <CustomTable
         data_head={head}
         data_row={data}/>

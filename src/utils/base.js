@@ -1,4 +1,5 @@
 import Snackbar from "react-native-snackbar";
+import {showSnackBar} from '@prince8verma/react-native-snackbar'
 import DeviceInfo from 'react-native-device-info'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
@@ -33,6 +34,7 @@ export default class Base{
     if(token != null && token != '')
       header['Authorization'] = token
 
+
     var response
     if(method == 'get'){
       for(let x in data)
@@ -41,7 +43,6 @@ export default class Base{
       response = await axios.get(url, {
         headers: header,
       })
-
     }
     else if(method == 'post')
       response = await axios.post(url, data, {
@@ -97,9 +98,16 @@ export default class Base{
   }
 
   show_error(message = ""){
-    Snackbar.show({
-      text: message,
-      duration: Snackbar.LENGTH_SHORT,
+    showSnackBar({
+      message: message,
+      textColor: '#FFF',      // message text color
+      position: 'top',  // enum(top/bottom).
+      confirmText: '', // button text.
+      duration: 2000,   // (in ms), duartion for which snackbar is visible.
     })
+    // Snackbar.show({
+    //   text: message,
+    //   duration: Snackbar.LENGTH_SHORT,
+    // })
   }
 }

@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,6 +32,15 @@ export default function OrderDetail({ route, navigation }){
 
   useEffect(() => {
     set_data(route.params.data)
+    const unsubscribe = navigation.addListener('focus', () => {
+      BackHandler.addEventListener('hardwareBackPress', function () {
+        navigation.goBack()
+        return true
+      })
+      set_data(route.params.data)
+    });
+
+    return unsubscribe;
   }, [])
 
   return (
@@ -42,7 +52,7 @@ export default function OrderDetail({ route, navigation }){
           text_color={base.color.black}
           navigation={navigation}/>
 
-        <View style={{ flex: 1, padding: base.size.size_3 }}>
+        <View style={{ flex: 1, paddingHorizontal: base.size.size_3, paddingVertical: base.size.title }}>
           <View style={{ alignItems: 'flex-start', }}>
             <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_detail")}</Text>
 
@@ -56,21 +66,21 @@ export default function OrderDetail({ route, navigation }){
           <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
             <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_location")}</Text>
 
-            <View>
+            <View style={{ marginTop: base.size.size_4 }}>
               <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
             </View>
           </View>
 
-          <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
+          <View style={{ alignItems: 'flex-start', marginTop: base.size.icon, }}>
             <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return")}</Text>
 
-            <View style={{ alignItems: 'flex-start', }}>
+            <View style={{ alignItems: 'flex-start', marginTop: base.size.size_4, }}>
               <CustomBadge
                 on_press={() => {}}
                 text={data.collection_loan_item != null ? data.collection_loan_item[0].due_date.format('DD MMMM YYYY') : '-'}
                 style_template="primary"/>
 
-              <View style={{ marginTop: base.size.size_1 }}>
+              <View style={{ marginTop: base.size.size_5 }}>
                 <Text style={{ color: base.color.grey6 }}>{base.i18n.t("return_location")}</Text>
                 <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
               </View>

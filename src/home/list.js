@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -70,18 +71,21 @@ export default function HomeList(props){
   }
 
   return (
-    <TouchableWithoutFeedback style={{  }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ }}>
-        <Text style={{ fontSize: base.size.size_5 }}>{props.title}</Text>
+    <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
+      <TouchableWithoutFeedback style={{  }} onPress={() => Keyboard.dismiss()}>
+        <View style={{ }}>
+          <Text style={{ fontSize: base.size.size_5 }}>{props.title}</Text>
 
-        <FlatList
-          style={{ marginTop: base.size.size_1 }}
-          data={arr}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
-          keyExtractor={item => item.ID.toString()}/>
-      </View>
-    </TouchableWithoutFeedback>
+          <FlatList
+            style={{ marginTop: base.size.size_1 }}
+            data={arr}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
+            keyExtractor={item => item.ID.toString()}/>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

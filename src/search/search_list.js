@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -56,14 +57,12 @@ export default function SearchList(props){
   }
 
   function on_clicked(index){
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      props.navigation.goBack()
-    })
     props.navigation.navigate('ProductDetail', {data: arr[index]})
   }
 
   return (
     <View>
+      <Snackbar id="root_app"/>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <Text style={{ color: base.color.grey2, }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
 

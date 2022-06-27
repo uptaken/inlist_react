@@ -17,6 +17,7 @@ import {
   BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import PleaseWaitModal from "../layout/modal/please_wait_modal"
@@ -56,7 +57,7 @@ export default function Login({ route, navigation }){
         if(response.status === 'success'){
           base.set_primary_status_bar()
           await AsyncStorage.setItem('token', response.token)
-          navigation.navigate('HomeTab')
+          navigation.navigate('Home')
         }
         else
           base.show_error(response.message)
@@ -72,6 +73,7 @@ export default function Login({ route, navigation }){
 
   return (
     <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1, justifyContent: "space-between", padding: base.size.size_5, marginTop: base.size.large_title }}>
@@ -110,6 +112,7 @@ export default function Login({ route, navigation }){
           </View>
         </View>
       </TouchableWithoutFeedback>
+
     </View>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icon1 from 'react-native-vector-icons/FontAwesome5'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import SelectDropdown from 'react-native-select-dropdown'
 
 import Base from '../utils/base';
@@ -22,6 +23,7 @@ export default function CustomInput(props){
   const [arr_label, set_arr_label] = useState([])
   const [selected_index, set_selected_index] = useState(0)
   const [keyboard_type, set_keyboard_type] = useState('default')
+  const [hidePass, setHidePass] = useState(true)
 
   useEffect(() => {
     if(props.arr != null){
@@ -77,13 +79,37 @@ export default function CustomInput(props){
             rowStyle={styles.dropdown1RowStyle}
             rowTextStyle={styles.dropdown1RowTxtStyle}/>
         :
-          <TextInput
-            style={{ borderWidth: base.size.border, borderColor: base.color.grey1, borderRadius: base.size.size_1, padding: base.size.size_1, marginTop: base.size.size_1, backgroundColor: (props.enabled != null && props.enabled) || props.enabled == null ? base.color.white : base.color.grey5 }}
-            onChangeText={value => props.on_change_text(value)}
-            editable={(props.enabled != null && props.enabled) || props.enabled == null}
-            secureTextEntry={props.type != null && props.type === 'password'}
-            keyboardType={keyboard_type}
-            value={props.value}/>
+          <View style={{
+            borderWidth: base.size.border,
+            borderColor: base.color.grey1,
+            borderRadius: base.size.size_1,
+            paddingHorizontal: base.size.size_1,
+            marginTop: base.size.size_1,
+            backgroundColor: (props.enabled != null && props.enabled) || props.enabled == null ? base.color.white : base.color.grey5,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+
+            <TextInput
+              onChangeText={value => props.on_change_text(value)}
+              editable={(props.enabled != null && props.enabled) || props.enabled == null}
+              secureTextEntry={props.type != null && props.type === 'password' && hidePass}
+              multiline={props.type != null && props.type === 'multiline'}
+              numberOfLines={props.maxLines != null ? props.maxLines : 1}
+              keyboardType={keyboard_type}
+              style={{ flex: 1, }}
+              value={props.value}/>
+
+            {
+              props.type === 'password' &&
+              <Icon2
+                name={hidePass ? 'eye-off' : 'eye'}
+                size={base.size.icon}
+                color="grey"
+                onPress={() => setHidePass(!hidePass)}/>
+            }
+
+          </View>
       }
     </View>
   );

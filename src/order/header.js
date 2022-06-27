@@ -31,7 +31,7 @@ export default function OrderHeader(props){
       <View style={{ padding: base.size.size_5, backgroundColor: base.color.primary }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
           <View style={{ }}>
-            <Text style={{ color: base.color.white, fontSize: base.size.size_7 }}>{base.i18n.t("order")}</Text>
+            <Text style={{ color: base.color.white, fontSize: base.size.icon }}>{base.i18n.t("order")}</Text>
           </View>
         </View>
 
@@ -44,7 +44,7 @@ export default function OrderHeader(props){
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon name="magnify" size={base.size.icon} color={base.color.black1}/>
 
-              <TextInput style={{ color: base.color.black1, marginLeft: base.size.size_1, flex: 1, }}
+              <TextInput style={{ color: base.color.black1, marginLeft: base.size.size_1, flex: 1, height: base.size.large_title, }}
                 onChangeText={value => props.on_search(value)}
                 value={props.search}
                 placeholder={base.i18n.t("search")}/>

@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -38,11 +39,10 @@ export default function Profile({ route, navigation }){
       // The screen is focused
       // Call any action and update data
       setup_backhandler()
+      get_data()
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
-    get_data()
-    DeviceEventEmitter.addListener("profile.refresh_data", () => get_data())
     return unsubscribe;
   }, [])
 
@@ -69,57 +69,60 @@ export default function Profile({ route, navigation }){
   }
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+    <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
+      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
-      <View style={{ flex: 1, backgroundColor: base.color.white, }}>
-        <ProfileHeader data={data}/>
+        <View style={{ flex: 1, backgroundColor: base.color.white, }}>
+          <ProfileHeader data={data}/>
 
-        <ScrollView>
-          <View style={{ backgroundColor: base.color.grey4 }}>
-            <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
-              <TouchableNativeFeedback
-                useForeground
-                background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-                onPress={() => {
-                  navigation.navigate('ChangeProfile', {data: data, on_setup_backhandler: () => setup_backhandler()})
-                }}>
+          <ScrollView>
+            <View style={{ backgroundColor: base.color.grey4 }}>
+              <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
+                <TouchableNativeFeedback
+                  useForeground
+                  background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+                  onPress={() => {
+                    navigation.navigate('ChangeProfile', {data: data})
+                  }}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
+                    <Text>{base.i18n.t("change_profile")}</Text>
+                    <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
+                  </View>
+                </TouchableNativeFeedback>
+
+                <TouchableNativeFeedback
+                  useForeground
+                  background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+                  onPress={() => {
+                    navigation.navigate('ChangePassword')
+                  }}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
+                    <Text>{base.i18n.t("change_password")}</Text>
+                    <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
+                  </View>
+                </TouchableNativeFeedback>
+              </View>
+
+              <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
+                <TouchableNativeFeedback
+                  useForeground
+                  background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+                  onPress={() => logout()}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
+                    <Text style={{ color: base.color.red }}>{base.i18n.t("logout")}</Text>
+                  </View>
+                </TouchableNativeFeedback>
+
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                  <Text>{base.i18n.t("change_profile")}</Text>
-                  <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
+                  <Text>{base.i18n.t("app_version")}</Text>
+                  <Text>{version}</Text>
                 </View>
-              </TouchableNativeFeedback>
-
-              <TouchableNativeFeedback
-                useForeground
-                background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-                onPress={() => {
-                  navigation.navigate('ChangePassword', {on_setup_backhandler: () => setup_backhandler()})
-                }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                  <Text>{base.i18n.t("change_password")}</Text>
-                  <Icon name="chevron-right" size={base.size.icon} color={base.color.black}/>
-                </View>
-              </TouchableNativeFeedback>
-            </View>
-
-            <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
-              <TouchableNativeFeedback
-                useForeground
-                background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-                onPress={() => logout()}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                  <Text style={{ color: base.color.red }}>{base.i18n.t("logout")}</Text>
-                </View>
-              </TouchableNativeFeedback>
-
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, }}>
-                <Text>{base.i18n.t("app_version")}</Text>
-                <Text>{version}</Text>
               </View>
             </View>
-          </View>
-        </ScrollView>
-      </View>
-    </TouchableWithoutFeedback>
+          </ScrollView>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

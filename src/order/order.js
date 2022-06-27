@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -72,24 +73,24 @@ export default function Order({ route, navigation }){
   }
 
   function on_clicked(index){
-    BackHandler.addEventListener('hardwareBackPress', function () {
-      navigation.goBack()
-    })
     navigation.navigate('OrderDetail', {data: arr[index]})
   }
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+    <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
+      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 
-      <View style={{ flex: 1, backgroundColor: base.color.white, }}>
-        <OrderHeader/>
+        <View style={{ flex: 1, backgroundColor: base.color.white, }}>
+          <OrderHeader/>
 
-        <FlatList
-          style={{ marginTop: base.size.size_1 }}
-          data={arr}
-          renderItem={({ item, index }) => <OrderListItem data={item} on_press={() => on_clicked(index)}/>}
-          keyExtractor={item => item.ID.toString()}/>
-      </View>
-    </TouchableWithoutFeedback>
+          <FlatList
+            style={{ marginTop: base.size.size_1 }}
+            data={arr}
+            renderItem={({ item, index }) => <OrderListItem data={item} on_press={() => on_clicked(index)}/>}
+            keyExtractor={item => item.ID.toString()}/>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

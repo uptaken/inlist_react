@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import PleaseWaitModal from "../layout/modal/please_wait_modal"
@@ -33,6 +34,7 @@ export default function ChangeProfile({ route, navigation }){
   var base = new Base()
   const [data, set_data] = useState({})
   const [name, set_name] = useState('')
+  const [address, set_address] = useState('')
   const [email, set_email] = useState('')
   const [username, set_username] = useState('')
   const [division, set_division] = useState('')
@@ -41,13 +43,13 @@ export default function ChangeProfile({ route, navigation }){
   const [is_please_wait, set_is_please_wait] = useState(false)
 
   useEffect(() => {
-    set_name(route.params.data.Fullname)
-    set_email(route.params.data.EmailAddress)
+    set_name(route.params.data.member.Fullname)
+    set_address(route.params.data.member.Address)
+    set_email(route.params.data.member.Email)
     set_username(route.params.data.username)
     set_division(route.params.data.Fullname)
 
     BackHandler.addEventListener('hardwareBackPress', function () {
-      route.params.on_setup_backhandler()
       navigation.goBack()
       return true
     })
@@ -60,12 +62,12 @@ export default function ChangeProfile({ route, navigation }){
       set_is_please_wait(true)
       var response = await base.request(base.url_api + '/auth/change-profile', 'put', {
         name: name,
+        address: address,
       })
 
       set_is_please_wait(false)
       setTimeout(async () => {
         if(response.status === 'success'){
-          DeviceEventEmitter.emit("profile.refresh_data", {});
           navigation.goBack()
         }
         else
@@ -81,6 +83,7 @@ export default function ChangeProfile({ route, navigation }){
 
   return (
     <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
         <View style={{ flex: 1, }}>
@@ -113,6 +116,13 @@ export default function ChangeProfile({ route, navigation }){
                 name={base.i18n.t("name")}
                 on_change_text={value => set_name(value)}
                 value={name}/>
+
+              <CustomInput
+                name={base.i18n.t("address")}
+                type="multiline"
+                maxLines={3}
+                on_change_text={value => set_address(value)}
+                value={address}/>
 
               <CustomInput
                 name={base.i18n.t("email")}

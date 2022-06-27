@@ -125,7 +125,7 @@ export default {
   availability: 'Ketersediaan',
   not_available: 'Not Available',
   available: 'Available',
-  full_name: 'Nama Lengkap',
+  address_empty: 'Alamat Kosong',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',

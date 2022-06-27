@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon1 from 'react-native-vector-icons/FontAwesome5'
 import { BackHandler, } from 'react-native'
 
 import Base from '../src/utils/base'
@@ -30,7 +31,7 @@ export default function HomeBottomBar(){
         component: Order,
         label: base.i18n.t("order"),
         icon: ({focused, tintColor}) => {
-          return <Icon name='home' size={base.size.icon} color={!focused ? base.color.grey2 : base.color.primary}/>
+          return <Icon1 name='file-alt' solid size={base.size.size_7} color={!focused ? base.color.grey2 : base.color.primary}/>
         },
       },
       {

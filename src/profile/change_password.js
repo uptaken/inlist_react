@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../utils/base';
 import PleaseWaitModal from "../layout/modal/please_wait_modal"
@@ -36,7 +37,6 @@ export default function ChangePassword({ route, navigation }){
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', function () {
-      route.params.on_setup_backhandler()
       navigation.goBack()
       return true
     })
@@ -61,7 +61,6 @@ export default function ChangePassword({ route, navigation }){
       set_is_please_wait(false)
       setTimeout(async () => {
         if(response.status === 'success'){
-          DeviceEventEmitter.emit("profile.refresh_data", {});
           navigation.goBack()
         }
         else
@@ -72,6 +71,7 @@ export default function ChangePassword({ route, navigation }){
 
   return (
     <View style={{ flex: 1 }}>
+      <Snackbar id="root_app"/>
       <PleaseWaitModal is_show={is_please_wait}/>
       <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
 

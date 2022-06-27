@@ -16,6 +16,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Snackbar from '@prince8verma/react-native-snackbar'
 
 import Base from '../../utils/base';
 import CustomButton from '../../layout/custom_button';
@@ -71,57 +72,60 @@ export default function BasicInfo({ route, navigation }){
   }
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, marginTop: base.size.large_title, }}>
-        <CustomNavigation
-          style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
-          title={base.i18n.t("register")}
-          navigation={navigation}
-          padding={base.size.size_5}/>
+    <View style={{ flex: 1, }}>
+      <Snackbar id="root_app"/>
+      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+        <View style={{ flex: 1, marginTop: base.size.large_title, }}>
+          <CustomNavigation
+            style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
+            title={base.i18n.t("register")}
+            navigation={navigation}
+            padding={base.size.size_5}/>
 
-        <ScrollView>
-          <View style={{ paddingHorizontal: base.size.size_5 }}>
-            <Step style={{ marginTop: base.size.size_5 }} num="1" title={base.i18n.t("basic_info")}/>
+          <ScrollView>
+            <View style={{ paddingHorizontal: base.size.size_5 }}>
+              <Step style={{ marginTop: base.size.size_5 }} num="1" title={base.i18n.t("basic_info")}/>
 
-            <CustomInput
-              name={base.i18n.t("full_name")}
-              on_change_text={value => set_full_name(value)}
-              value={full_name}/>
+              <CustomInput
+                name={base.i18n.t("full_name")}
+                on_change_text={value => set_full_name(value)}
+                value={full_name}/>
 
-            <CustomInput
-              type="email"
-              name={base.i18n.t("email")}
-              on_change_text={value => set_email(value)}
-              value={email}/>
+              <CustomInput
+                type="email"
+                name={base.i18n.t("email")}
+                on_change_text={value => set_email(value)}
+                value={email}/>
 
-            <CustomInput
-              type="password"
-              name={base.i18n.t("password")}
-              on_change_text={value => set_password(value)}
-              value={password}/>
+              <CustomInput
+                type="password"
+                name={base.i18n.t("password")}
+                on_change_text={value => set_password(value)}
+                value={password}/>
 
-            <CustomInput
-              type="select"
-              arr={arr_id_type}
-              name={base.i18n.t("id_type")}
-              on_selected={index => set_selected_id_type(arr_id_type[index])}
-              value={selected_id_type}/>
+              <CustomInput
+                type="select"
+                arr={arr_id_type}
+                name={base.i18n.t("id_type")}
+                on_selected={index => set_selected_id_type(arr_id_type[index])}
+                value={selected_id_type}/>
 
-            <CustomInput
-              type="number"
-              name={base.i18n.t("id_no")}
-              on_change_text={value => set_id_no(value)}
-              value={id_no}/>
+              <CustomInput
+                type="number"
+                name={base.i18n.t("id_no")}
+                on_change_text={value => set_id_no(value)}
+                value={id_no}/>
+            </View>
+          </ScrollView>
+
+          <View style={{ marginTop: base.size.size_3, marginHorizontal: base.size.size_5, marginBottom: base.size.size_5 }}>
+            <CustomButton title={base.i18n.t("next")}
+              color={base.color.primary}
+              textColor={base.color.white}
+              on_press={() => next()} />
           </View>
-        </ScrollView>
-
-        <View style={{ marginTop: base.size.size_3, marginHorizontal: base.size.size_5, marginBottom: base.size.size_5 }}>
-          <CustomButton title={base.i18n.t("next")}
-            color={base.color.primary}
-            textColor={base.color.white}
-            on_press={() => next()} />
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }
