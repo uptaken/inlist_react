@@ -42,6 +42,8 @@ export default function ProfileHeader(props){
             <Image source={require("../../assets/register_success.png")} style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.medium_image / 2, overflow: "hidden", }}/>
 
             <Text style={{ color: base.color.primary, fontSize: base.size.size_7, marginTop: base.size.size_1, }}>{props.data.Fullname}</Text>
+
+            <Text style={{ color: base.color.black, fontSize: base.size.size_5, marginTop: base.size.size_1, }}>{base.i18n.t("member_no")}: {props.data.member != null ? props.data.member.MemberNo : '-'}</Text>
           </View>
         </View>
       </View>

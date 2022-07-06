@@ -137,6 +137,13 @@ export default function Checkout({ route, navigation }){
               color={base.color.primary}
               textColor={base.color.white}
               on_press={() => submit()} />
+
+            <CustomButton title={base.i18n.t("cancel")}
+              style={{ marginTop: base.size.size_3 }}
+              color={base.color.red}
+              textColor={base.color.white}
+              borderColor={base.color.red}
+              on_press={() => navigation.navigate('Home')} />
           </View>
         </View>
       </TouchableWithoutFeedback>

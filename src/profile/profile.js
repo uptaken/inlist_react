@@ -30,7 +30,7 @@ import ProfileHeader from './header';
 export default function Profile({ route, navigation }){
   var base = new Base()
   const [data, set_data] = useState({
-    name: 'asdsad'
+    name: 'asdsad',
   })
   const [version, set_version] = useState('1.0')
 
