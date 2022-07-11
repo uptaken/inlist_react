@@ -33,11 +33,13 @@ export default function Login({ route, navigation }){
   useEffect(() => {
     base.set_white_status_bar()
 
-    // const back_handler = BackHandler.addEventListener('hardwareBackPress', function () {
-    //   BackHandler.exitApp()
-    // })
-    //
-    // return () => back_handler.remove()
+    const unsubscribe = navigation.addListener('focus', () => {
+      const back_handler = BackHandler.addEventListener('hardwareBackPress', function () {
+        BackHandler.exitApp()
+      })
+    });
+
+    return unsubscribe;
   }, [])
 
   async function submit(){

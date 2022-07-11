@@ -30,26 +30,28 @@ export default function MemberCard(props){
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <CustomCard
-        padding={0}
-        paddingHorizontal={0}>
-        <ImageBackground source={require("../../assets/member_card_bg.png")} resizeMode="cover" style={{ width: '100%' }}>
-          <View style={{ padding: base.size.size_7 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <View >
-                <Text style={{ fontSize: base.size.icon, color: base.color.white, fontWeight: 'bold', }}>{props.member != null ? props.member.Fullname : '-'}</Text>
-                <Text style={{ fontSize: base.size.size_5, color: base.color.white2 }}>{props.member != null ? props.member.MemberNo : '-'}</Text>
+      <View style={{ flex: 1, }}>
+        <CustomCard
+          padding={0}
+          paddingHorizontal={0}>
+          <ImageBackground source={require("../../assets/member_card_bg.png")} resizeMode="cover" style={{ width: '100%' }}>
+            <View style={{ padding: base.size.size_7 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View >
+                  <Text style={{ fontSize: base.size.icon, color: base.color.white, fontWeight: 'bold', }}>{props.member != null ? props.member.Fullname : '-'}</Text>
+                  <Text style={{ fontSize: base.size.size_5, color: base.color.white2 }}>{props.member != null ? props.member.MemberNo : '-'}</Text>
+                </View>
+
+                <Image source={require("../../assets/no_profile_picture.png")} style={{ height: base.size.small_image1, }}/>
               </View>
 
-              <Image source={require("../../assets/no_profile_picture.png")} style={{ height: base.size.small_image1, }}/>
+              <View style={{ marginTop: base.size.size_7, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ fontSize: base.size.size_3, color: base.color.white2 }}>{base.i18n.t("joined_since")} {props.member != null ? props.member.RegisterDateFormat.format('DD/MM/YYYY') : '-'}</Text>
+              </View>
             </View>
-
-            <View style={{ marginTop: base.size.size_7, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{ fontSize: base.size.size_3, color: base.color.white2 }}>{base.i18n.t("joined_since")} {props.member != null ? props.member.RegisterDateFormat.format('DD/MM/YYYY') : '-'}</Text>
-            </View>
-          </View>
-        </ImageBackground>
-      </CustomCard>
+          </ImageBackground>
+        </CustomCard>
+      </View>
     </TouchableWithoutFeedback>
   );
 }

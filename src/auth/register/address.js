@@ -33,26 +33,8 @@ export default function Address({ route, navigation }){
   const [selected_city, set_selected_city] = useState({})
   const [selected_sub_district, set_selected_sub_district] = useState({})
   const [selected_village, set_selected_village] = useState({})
-  const [arr_province, set_arr_province] = useState([
-    {
-      id: 'east_java',
-      name: base.i18n.t("east_java"),
-    },
-    {
-      id: 'west_java',
-      name: base.i18n.t("west_java"),
-    },
-  ])
-  const [arr_city, set_arr_city] = useState([
-    {
-      id: 'east_java',
-      name: base.i18n.t("east_java"),
-    },
-    {
-      id: 'west_java',
-      name: base.i18n.t("west_java"),
-    },
-  ])
+  const [arr_province, set_arr_province] = useState([])
+  const [arr_city, set_arr_city] = useState([])
   const [arr_sub_district, set_arr_sub_district] = useState([
     {
       id: 'east_java',
@@ -79,7 +61,38 @@ export default function Address({ route, navigation }){
 
   useEffect(() => {
     base.set_white_status_bar()
+    get_province_data()
   }, [])
+
+  useEffect(() => {
+    get_city_data()
+  }, [selected_province])
+
+  async function get_province_data(){
+    var response = await base.request(base.url_api + '/province')
+
+    if(response.status === 'success'){
+      for(let data of response.data.data){
+        data.name = data.NamaPropinsi
+      }
+      set_arr_province(response.data.data)
+    }
+    else
+      base.show_error(response.message)
+  }
+
+  async function get_city_data(){
+    var response = await base.request(base.url_api + '/city?province_id=' + selected_province.ID)
+
+    if(response.status === 'success'){
+      for(let data of response.data.data){
+        data.name = data.NamaKab
+      }
+      set_arr_city(response.data.data)
+    }
+    else
+      base.show_error(response.message)
+  }
 
   async function next(){
     if(address === '')

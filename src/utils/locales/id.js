@@ -133,7 +133,7 @@ export default {
   male: 'Laki-Laki',
   female: 'Perempuan',
   joined_since: 'Bergabung sejak',
-  full_name: 'Nama Lengkap',
+  not_email_format: 'Alamat email tidak dalam format email',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',

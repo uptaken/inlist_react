@@ -18,6 +18,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 import Snackbar from '@prince8verma/react-native-snackbar'
+import moment from 'moment';
 
 import Base from '../../utils/base';
 import PleaseWaitModal from "../../layout/modal/please_wait_modal"
@@ -44,8 +45,8 @@ export default function DetailAddress({ route, navigation }){
   async function submit(){
     if(!toggle_condition)
       base.show_error(base.i18n.t("please_check_condition"))
-    else if(home_phone === '')
-      base.show_error(base.i18n.t("home_phone_empty"))
+    // else if(home_phone === '')
+    //   base.show_error(base.i18n.t("home_phone_empty"))
     // else if(phone === '')
     //   base.show_error(base.i18n.t("phone_empty"))
     else if(name_institute === '')
@@ -71,6 +72,7 @@ export default function DetailAddress({ route, navigation }){
       setTimeout(async () => {
         if(response.status === 'success'){
           await AsyncStorage.removeItem('register_data')
+          response.data.RegisterDateFormat = moment(response.data.RegisterDateFormat, 'YYYY-MM-DD HH:mm:ss')
           navigation.navigate('RegisterSuccess', {member: response.data})
         }
         else

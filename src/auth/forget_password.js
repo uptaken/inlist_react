@@ -12,6 +12,7 @@ import {
   FlatList,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  BackHandler,
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
@@ -30,6 +31,14 @@ export default function ForgetPassword({ route, navigation }){
 
   useEffect(() => {
     base.set_white_status_bar()
+    const unsubscribe = navigation.addListener('focus', () => {
+      const back_handler = BackHandler.addEventListener('hardwareBackPress', function () {
+        navigation.goBack()
+        return true
+      })
+    });
+
+    return unsubscribe;
   }, [])
 
   async function submit(){

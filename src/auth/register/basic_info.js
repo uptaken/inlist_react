@@ -85,6 +85,8 @@ export default function BasicInfo({ route, navigation }){
       base.show_error(base.i18n.t("password_empty"))
     else if(id_no === '')
       base.show_error(base.i18n.t("id_no_empty"))
+    else if(!base.validate_email(email))
+      base.show_error(base.i18n.t("not_email_format"))
     else{
       var data = {
         id_type: selected_id_type,

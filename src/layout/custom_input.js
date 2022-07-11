@@ -115,6 +115,7 @@ export default function CustomInput(props){
   );
 };
 
+var base = new Base()
 const styles = StyleSheet.create({
   headerTitle: {color: '#000', fontWeight: 'bold', fontSize: 16},
   saveAreaViewContainer: {flex: 1, backgroundColor: '#FFF'},
@@ -135,10 +136,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#444',
   },
-  dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
+  dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left', fontSize: base.size.size_5},
   dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
   dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
-  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
+  dropdown1RowTxtStyle: {color: '#444', textAlign: 'left', fontSize: base.size.size_5},
   divider: {width: 12},
   dropdown2BtnStyle: {
     flex: 1,

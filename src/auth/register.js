@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
   TouchableOpacity,
 } from 'react-native';
 
@@ -26,6 +27,14 @@ export default function Register({ route, navigation }){
 
   useEffect(() => {
     base.set_white_status_bar()
+    const unsubscribe = navigation.addListener('focus', () => {
+      const back_handler = BackHandler.addEventListener('hardwareBackPress', function () {
+        navigation.goBack()
+        return true
+      })
+    });
+
+    return unsubscribe;
   }, [])
 
   return (
