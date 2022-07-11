@@ -46,14 +46,14 @@ export default function DetailAddress({ route, navigation }){
       base.show_error(base.i18n.t("please_check_condition"))
     else if(home_phone === '')
       base.show_error(base.i18n.t("home_phone_empty"))
-    else if(phone === '')
-      base.show_error(base.i18n.t("phone_empty"))
+    // else if(phone === '')
+    //   base.show_error(base.i18n.t("phone_empty"))
     else if(name_institute === '')
       base.show_error(base.i18n.t("name_institute_empty"))
     else if(address_institute === '')
       base.show_error(base.i18n.t("address_institute_empty"))
-    else if(phone_institute === '')
-      base.show_error(base.i18n.t("phone_institute_empty"))
+    // else if(phone_institute === '')
+    //   base.show_error(base.i18n.t("phone_institute_empty"))
     else{
       var data = await AsyncStorage.getItem('register_data')
       data = JSON.parse(data)
@@ -71,7 +71,7 @@ export default function DetailAddress({ route, navigation }){
       setTimeout(async () => {
         if(response.status === 'success'){
           await AsyncStorage.removeItem('register_data')
-          navigation.navigate('RegisterSuccess')
+          navigation.navigate('RegisterSuccess', {member: response.data})
         }
         else
           base.show_error(response.message)

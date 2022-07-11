@@ -21,6 +21,7 @@ import Base from '../../utils/base';
 import CustomButton from '../../layout/custom_button';
 import CustomCard from '../../layout/custom_card';
 import CustomNavigation from '../../layout/custom_navigation';
+import MemberCard from '../../profile/member_card';
 import Step from './step';
 
 export default function RegisterSuccess({ route, navigation }){
@@ -35,6 +36,9 @@ export default function RegisterSuccess({ route, navigation }){
           <Text style={{ fontSize: base.size.title, textAlign: 'center', marginTop: base.size.size_1, }}>{base.i18n.t("registration_success")}</Text>
 
           <Text style={{ fontSize: base.size.size_5, textAlign: 'center', marginTop: base.size.size_1, }}>{base.i18n.t("registration_success_detail")}</Text>
+
+          <MemberCard
+            member={route.params.member}/>
         </View>
 
         <View>

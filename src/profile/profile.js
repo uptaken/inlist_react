@@ -21,6 +21,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Snackbar from '@prince8verma/react-native-snackbar'
+import moment from 'moment'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -57,6 +58,7 @@ export default function Profile({ route, navigation }){
     var response = await base.request(base.url_api + '/auth/profile')
 
     if(response.status === 'success'){
+      response.data.member.RegisterDateFormat = moment(response.data.member.RegisterDate, 'YYYY-MM-DD HH:mm:ss')
       set_data(response.data)
     }
     else

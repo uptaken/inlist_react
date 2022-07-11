@@ -31,6 +31,8 @@ export default function BasicInfo({ route, navigation }){
   const [email, set_email] = useState("")
   const [password, set_password] = useState("")
   const [id_no, set_id_no] = useState("")
+  const [selected_gender, set_selected_gender] = useState({})
+  const [selected_occupation, set_selected_occupation] = useState({})
   const [selected_id_type, set_selected_id_type] = useState({})
   const [arr_id_type, set_arr_id_type] = useState([
     {
@@ -42,10 +44,35 @@ export default function BasicInfo({ route, navigation }){
       name: base.i18n.t("sim"),
     },
   ])
+  const [arr_gender, set_arr_gender] = useState([
+    {
+      id: '1',
+      name: base.i18n.t("male"),
+    },
+    {
+      id: '2',
+      name: base.i18n.t("female"),
+    },
+  ])
+  const [arr_occupation, set_arr_occupation] = useState([])
 
   useEffect(() => {
     base.set_white_status_bar()
+    get_occupation_data()
   }, [])
+
+  async function get_occupation_data(){
+    var response = await base.request(base.url_api + '/occupation')
+
+    if(response.status === 'success'){
+      for(let data of response.data.data){
+        data.name = data.Pekerjaan
+      }
+      set_arr_occupation(response.data.data)
+    }
+    else
+      base.show_error(response.message)
+  }
 
   async function next(){
     if(selected_id_type.id == null)
@@ -65,6 +92,8 @@ export default function BasicInfo({ route, navigation }){
         password: password,
         email: email,
         id_no: id_no,
+        gender: selected_gender,
+        occupation: selected_occupation,
       }
       await AsyncStorage.setItem('register_data', JSON.stringify(data))
       navigation.navigate('AddressLiving')
@@ -115,6 +144,20 @@ export default function BasicInfo({ route, navigation }){
                 name={base.i18n.t("id_no")}
                 on_change_text={value => set_id_no(value)}
                 value={id_no}/>
+
+              <CustomInput
+                type="select"
+                arr={arr_gender}
+                name={base.i18n.t("gender")}
+                on_selected={index => set_selected_gender(arr_gender[index])}
+                value={selected_gender}/>
+
+              <CustomInput
+                type="select"
+                arr={arr_occupation}
+                name={base.i18n.t("occupation")}
+                on_selected={index => set_selected_occupation(arr_occupation[index])}
+                value={selected_occupation}/>
             </View>
           </ScrollView>
 

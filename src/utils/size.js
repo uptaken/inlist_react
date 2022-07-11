@@ -13,6 +13,7 @@ export default {
   "large_title": 40,
   "toolbar": 50,
   "small_image": 70,
+  "small_image1": 82,
   "medium_image": 100,
   "custom_image1": 150,
   "custom_image2": 120,
