@@ -47,6 +47,8 @@ export default function Login({ route, navigation }){
       base.show_error(base.i18n.t("email_empty"))
     else if(password === '')
       base.show_error(base.i18n.t("password_empty"))
+    else if(!base.validate_email(email))
+      base.show_error(base.i18n.t("not_email_format"))
     else{
       set_is_please_wait(true)
       var response = await base.request(base.url_api + '/auth/login', 'post', {
@@ -57,6 +59,9 @@ export default function Login({ route, navigation }){
       set_is_please_wait(false)
       setTimeout(async () => {
         if(response.status === 'success'){
+          set_email('')
+          set_password('')
+
           base.set_primary_status_bar()
           await AsyncStorage.setItem('token', response.token)
           navigation.navigate('Home')

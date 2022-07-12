@@ -49,8 +49,9 @@ export default function RegisterSuccess({ route, navigation }){
 
           <Text style={{ fontSize: base.size.size_5, textAlign: 'center', marginTop: base.size.size_1, color: base.color.grey2 }}>{base.i18n.t("registration_success_detail")}</Text>
 
-          <View style={{ width: '100%', flexDirection: 'row', marginTop: base.size.icon, }}>
+          <View style={{ flexDirection: 'row', marginTop: base.size.icon, }}>
             <MemberCard
+              style={{ flex: 1 }}
               member={route.params.member}/>
           </View>
         </View>

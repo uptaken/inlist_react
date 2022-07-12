@@ -17,4 +17,5 @@ export default {
   white: '#FFFFFF',
   white2: '#FFFFFF',
   red: '#DB4545',
+  orange: '#F48116',
 }

@@ -198,7 +198,8 @@ export default function AddressLiving({ route, navigation }){
                   disabled={false}
                   value={toggle_condition}
                   onValueChange={(newValue) => set_toggle_condition(newValue)}/>
-                <Text style={{ fontSize: base.size.size_5 }}>{base.i18n.t("address_same_with_living")}</Text>
+                
+                <Text style={{ fontSize: base.size.size_5, flexShrink: 1 }}>{base.i18n.t("address_same_with_living")}</Text>
               </View>
             </View>
           </ScrollView>

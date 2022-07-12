@@ -59,6 +59,10 @@ export default function Profile({ route, navigation }){
 
     if(response.status === 'success'){
       response.data.member.RegisterDateFormat = moment(response.data.member.RegisterDate, 'YYYY-MM-DD HH:mm:ss')
+      if(response.data.member.PhotoUrl != null)
+        response.data.member.image_profile = {
+          uri: base.host + '/image/user?file_name=' + response.data.member.PhotoUrl + '&rnd=' + moment().format('X'),
+        }
       set_data(response.data)
     }
     else
@@ -67,6 +71,7 @@ export default function Profile({ route, navigation }){
 
   async function logout(){
     await AsyncStorage.removeItem('token')
+    await AsyncStorage.removeItem('arr_cart')
     navigation.navigate('Login')
   }
 

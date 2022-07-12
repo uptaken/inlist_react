@@ -48,6 +48,7 @@ export default function ChangeProfile({ route, navigation }){
     set_email(route.params.data.member.Email)
     set_username(route.params.data.username)
     set_division(route.params.data.Fullname)
+    set_image(route.params.data.member.image_profile)
 
     BackHandler.addEventListener('hardwareBackPress', function () {
       navigation.goBack()
@@ -63,6 +64,9 @@ export default function ChangeProfile({ route, navigation }){
       var response = await base.request(base.url_api + '/auth/change-profile', 'put', {
         name: name,
         address: address,
+        image: {
+          image: image.base64,
+        },
       })
 
       set_is_please_wait(false)

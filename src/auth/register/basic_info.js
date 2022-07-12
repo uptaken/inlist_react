@@ -34,14 +34,11 @@ export default function BasicInfo({ route, navigation }){
   const [selected_gender, set_selected_gender] = useState({})
   const [selected_occupation, set_selected_occupation] = useState({})
   const [selected_id_type, set_selected_id_type] = useState({})
+  const [image_profile, set_image_profile] = useState(require("../../../assets/no_profile_picture.png"))
   const [arr_id_type, set_arr_id_type] = useState([
     {
       id: 'ktp',
       name: base.i18n.t("ktp"),
-    },
-    {
-      id: 'sim',
-      name: base.i18n.t("sim"),
     },
   ])
   const [arr_gender, set_arr_gender] = useState([
@@ -96,6 +93,10 @@ export default function BasicInfo({ route, navigation }){
         id_no: id_no,
         gender: selected_gender,
         occupation: selected_occupation,
+        image_profile: image_profile,
+        image: {
+          image: image_profile.base64,
+        },
       }
       await AsyncStorage.setItem('register_data', JSON.stringify(data))
       navigation.navigate('AddressLiving')
@@ -160,6 +161,12 @@ export default function BasicInfo({ route, navigation }){
                 name={base.i18n.t("occupation")}
                 on_selected={index => set_selected_occupation(arr_occupation[index])}
                 value={selected_occupation}/>
+
+              <CustomInput
+                type="file"
+                name={base.i18n.t("image_profile")}
+                on_get_response={response => set_image_profile(response)}
+                value={image_profile}/>
             </View>
           </ScrollView>
 

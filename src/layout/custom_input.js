@@ -9,6 +9,7 @@ import {
   StatusBar,
   Button,
   TextInput,
+  Image,
   TouchableNativeFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -17,6 +18,8 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import SelectDropdown from 'react-native-select-dropdown'
 
 import Base from '../utils/base';
+import CustomButton from './custom_button';
+import MediaPickerModal from './modal/media_picker_modal';
 
 export default function CustomInput(props){
   var base = new Base()
@@ -24,6 +27,7 @@ export default function CustomInput(props){
   const [selected_index, set_selected_index] = useState(0)
   const [keyboard_type, set_keyboard_type] = useState('default')
   const [hidePass, setHidePass] = useState(true)
+  const [is_media_picker_show, set_is_media_picker_show] = useState(false)
 
   useEffect(() => {
     if(props.arr != null){
@@ -54,7 +58,16 @@ export default function CustomInput(props){
 
   return (
     <View style={[props.style, { marginTop: base.size.size_7 }]}>
+      {
+        props.type === 'file' &&
+        <MediaPickerModal
+          is_show={is_media_picker_show}
+          on_get_response={response => props.on_get_response(response)}
+          on_change_show={is_show => set_is_media_picker_show(is_show)}/>
+      }
+
       <Text style={{ fontSize: base.size.size_5 }}>{props.name}</Text>
+
       {
         props.type === 'select' ?
           <SelectDropdown
@@ -79,6 +92,17 @@ export default function CustomInput(props){
             rowStyle={styles.dropdown1RowStyle}
             rowTextStyle={styles.dropdown1RowTxtStyle}/>
         :
+          props.type === 'file' ?
+          <View>
+            <Image source={props.value} style={{ width: '100%', height: base.size.large_image, resizeMode: 'contain', marginBottom: base.size.size_7 }}/>
+
+            <CustomButton title={base.i18n.t("upload_photo")}
+              color={base.color.orange}
+              textColor={base.color.white}
+              borderColor={base.color.orange}
+              on_press={() => set_is_media_picker_show(true)} />
+          </View>
+          :
           <View style={{
             borderWidth: base.size.border,
             borderColor: base.color.grey1,

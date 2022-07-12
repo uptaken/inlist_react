@@ -73,7 +73,10 @@ export default function DetailAddress({ route, navigation }){
         if(response.status === 'success'){
           await AsyncStorage.removeItem('register_data')
           response.data.RegisterDateFormat = moment(response.data.RegisterDateFormat, 'YYYY-MM-DD HH:mm:ss')
-          navigation.navigate('RegisterSuccess', {member: response.data})
+          response.data.image_profile = {
+            uri: 'data:image/jpeg;base64,' + data.image_profile.base64,
+          }
+          navigation.navigate('RegisterSuccess', {member: response.data,})
         }
         else
           base.show_error(response.message)
@@ -125,13 +128,13 @@ export default function DetailAddress({ route, navigation }){
                 on_change_text={value => set_phone_institute(value)}
                 value={phone_institute}/>
 
-              <View style={{ marginVertical: base.size.size_5, flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ marginVertical: base.size.size_5, flexDirection: 'row', alignItems: 'center', }}>
                 <CheckBox
                   disabled={false}
                   value={toggle_condition}
                   onValueChange={(newValue) => set_toggle_condition(newValue)}/>
 
-                <Text style={{ fontSize: base.size.size_5 }}>{base.i18n.t("data_correct")}</Text>
+                <Text style={{ fontSize: base.size.size_5, flexShrink: 1 }}>{base.i18n.t("data_correct")}</Text>
               </View>
             </View>
           </ScrollView>
