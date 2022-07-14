@@ -27,19 +27,19 @@ export default function HomeBottomBar(){
         },
       },
       {
-        name: "OrderTab",
-        component: Order,
-        label: base.i18n.t("order"),
-        icon: ({focused, tintColor}) => {
-          return <Icon1 name='file-alt' solid size={base.size.size_7} color={!focused ? base.color.grey2 : base.color.primary}/>
-        },
-      },
-      {
         name: "SearchTab",
         component: Search,
         label: base.i18n.t("search"),
         icon: ({focused, tintColor}) => {
           return <Icon name='search' size={base.size.icon} color={!focused ? base.color.grey2 : base.color.primary}/>
+        },
+      },
+      {
+        name: "OrderTab",
+        component: Order,
+        label: base.i18n.t("order"),
+        icon: ({focused, tintColor}) => {
+          return <Icon1 name='file-alt' solid size={base.size.size_7} color={!focused ? base.color.grey2 : base.color.primary}/>
         },
       },
       {

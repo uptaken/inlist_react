@@ -32,6 +32,7 @@ export default function MemberCard(props){
     <View style={[props.style, {  }]}>
       <CustomCard
         padding={0}
+        no_border={true}
         paddingHorizontal={0}>
         <ImageBackground source={require("../../assets/member_card_bg.png")} resizeMode="cover" style={{ width: '100%' }}>
           <View style={{ padding: base.size.size_7 }}>

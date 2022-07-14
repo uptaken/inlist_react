@@ -22,7 +22,7 @@ export default {
   name_institute: 'Nama Institusi',
   address_institute: 'Alamat Institusi',
   phone_institute: 'Telpon Institusi',
-  ktp: 'KTP',
+  ktp: 'KTP / NIK',
   sim: 'SIM',
   full_name: 'Nama Lengkap',
   id_type: 'Tipe Identitas',

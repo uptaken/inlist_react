@@ -31,31 +31,10 @@ export default function AddressLiving({ route, navigation }){
   const [address, set_address] = useState("")
   const [selected_province, set_selected_province] = useState({})
   const [selected_city, set_selected_city] = useState({})
-  const [selected_sub_district, set_selected_sub_district] = useState({})
-  const [selected_village, set_selected_village] = useState({})
+  const [sub_district, set_sub_district] = useState('')
+  const [village, set_village] = useState('')
   const [arr_province, set_arr_province] = useState([])
   const [arr_city, set_arr_city] = useState([])
-  const [arr_sub_district, set_arr_sub_district] = useState([
-    {
-      id: 'east_java',
-      name: base.i18n.t("east_java"),
-    },
-    {
-      id: 'west_java',
-      name: base.i18n.t("west_java"),
-    },
-  ])
-  const [arr_village, set_arr_village] = useState([
-    {
-      id: 'east_java',
-      name: base.i18n.t("east_java"),
-    },
-    {
-      id: 'west_java',
-      name: base.i18n.t("west_java"),
-    },
-  ])
-
   const [rt, set_rt] = useState("")
   const [rw, set_rw] = useState("")
   const [toggle_condition, set_toggle_condition] = useState(false)
@@ -98,8 +77,8 @@ export default function AddressLiving({ route, navigation }){
   async function next(){
     if(address === '')
       base.show_error(base.i18n.t("address_empty"))
-    else if(selected_village.id == null)
-      base.show_error(base.i18n.t("village_not_choosen"))
+      else if(selected_city.id == null)
+        base.show_error(base.i18n.t("city_not_choosen"))
     else if(rt === '')
       base.show_error(base.i18n.t("rt_empty"))
     else if(rw === '')
@@ -110,7 +89,9 @@ export default function AddressLiving({ route, navigation }){
 
       data.address_living = {
         address: address,
-        village: selected_village,
+        city: selected_city,
+        sub_district: sub_district,
+        village: village,
         rt: rt,
         rw: rw,
         is_same_address: toggle_condition,
@@ -164,18 +145,14 @@ export default function AddressLiving({ route, navigation }){
                 value={selected_city}/>
 
               <CustomInput
-                type="select"
-                arr={arr_sub_district}
                 name={base.i18n.t("sub_district")}
-                on_selected={index => set_selected_sub_district(arr_sub_district[index])}
-                value={selected_sub_district}/>
+                on_change_text={value => set_sub_district(value)}
+                value={sub_district}/>
 
               <CustomInput
-                type="select"
-                arr={arr_village}
                 name={base.i18n.t("village")}
-                on_selected={index => set_selected_village(arr_village[index])}
-                value={selected_village}/>
+                on_change_text={value => set_village(value)}
+                value={village}/>
 
               <View style={{ flexDirection: 'row', }}>
                 <CustomInput
@@ -198,7 +175,7 @@ export default function AddressLiving({ route, navigation }){
                   disabled={false}
                   value={toggle_condition}
                   onValueChange={(newValue) => set_toggle_condition(newValue)}/>
-                
+
                 <Text style={{ fontSize: base.size.size_5, flexShrink: 1 }}>{base.i18n.t("address_same_with_living")}</Text>
               </View>
             </View>

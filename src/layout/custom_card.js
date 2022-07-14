@@ -35,7 +35,7 @@ export default function CustomCard(props){
               padding : props.padding != null ? props.padding : base.size.size_5,
               paddingHorizontal : props.paddingHorizontal != null ? props.paddingHorizontal : base.size.size_5,
               borderRadius : props.borderRadius != null ? props.borderRadius : base.size.size_1,
-              borderWidth: base.size.border,
+              borderWidth: props.no_border == null || (props.no_border != null && !props.no_border) ? base.size.border : 0,
               borderColor : props.borderColor != null ? props.borderColor : base.color.primary,
             },
           ]}>
@@ -50,7 +50,7 @@ export default function CustomCard(props){
             padding : props.padding != null ? props.padding : base.size.size_5,
             paddingHorizontal : props.paddingHorizontal != null ? props.paddingHorizontal : base.size.size_5,
             borderRadius : props.borderRadius != null ? props.borderRadius : base.size.size_1,
-            borderWidth: base.size.border,
+            borderWidth: props.no_border == null || (props.no_border != null && !props.no_border) ? base.size.border : 0,
             borderColor : props.borderColor != null ? props.borderColor : base.color.primary,
           }
         ]}>
