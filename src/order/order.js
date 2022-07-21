@@ -35,10 +35,11 @@ export default function Order({ route, navigation }){
       // The screen is focused
       // Call any action and update data
       setup_backhandler()
+      get_data()
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
-    get_data()
+    
     return unsubscribe;
   }, [])
 

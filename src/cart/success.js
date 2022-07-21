@@ -14,8 +14,11 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
+  Linking,
   TouchableOpacity,
 } from 'react-native';
+import { WebView } from 'react-native-webview';
+import moment from 'moment';
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -24,6 +27,19 @@ import CustomNavigation from '../layout/custom_navigation';
 
 export default function CartSuccess({ route, navigation }){
   var base = new Base()
+  const [url, set_url] = useState('')
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(url !== "")
+        set_url("")
+    }, base.webview_wait_time)
+  }, [url])
+
+  function download(){
+    base.show_error(base.i18n.t("download_now"))
+    set_url(base.host + "/export/loan?id=" + route.params.data.ID + "&rnd=" + moment().format("X"))
+  }
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
@@ -43,7 +59,7 @@ export default function CartSuccess({ route, navigation }){
               <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', }}>{route.params.data.member.Fullname}</Text>
             </View>
 
-            <View style={{ marginTop: base.size.size_3 }}>
+            <View style={{ marginTop: base.size.size_3, display: 'none', }}>
               <Text style={{ fontSize: base.size.size_3, }}>{base.i18n.t("return_date")}</Text>
               <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold', }}>{route.params.data.due_date.format('DD MMMM YYYY')}</Text>
             </View>
@@ -51,10 +67,16 @@ export default function CartSuccess({ route, navigation }){
         </View>
 
         <View>
+          {
+            url !== "" && 
+            <WebView source={{ uri: url }} style={{ height: 0, width: 0, }} />
+          }
+
           <CustomButton title={base.i18n.t("download_transaction")}
             color={base.color.white}
+            style={{  }}
             textColor={base.color.primary}
-            on_press={() => {}} />
+            on_press={() => download()} />
 
           <CustomButton title={base.i18n.t("back_to_home")}
             color={base.color.primary}

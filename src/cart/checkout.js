@@ -63,6 +63,7 @@ export default function Checkout({ route, navigation }){
       var response = await base.request(base.url_api + '/loan', 'post', {
         arr_detail: arr,
       })
+      console.log(response)
 
       set_is_please_wait(false)
       setTimeout(async () => {
@@ -123,7 +124,7 @@ export default function Checkout({ route, navigation }){
                   <Text style={{ fontWeight: 'bold', }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
                 </View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: base.size.size_1, }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: base.size.size_1, display: 'none', }}>
                   <Text style={{ color: base.color.grey7, fontSize: base.size.size_3 }}>{base.i18n.t("return_date")}</Text>
                   <Text style={{ color: base.color.grey7, fontSize: base.size.size_3 }}>{return_date.format('DD MMMM YYYY')}</Text>
                 </View>
@@ -132,7 +133,7 @@ export default function Checkout({ route, navigation }){
           </ScrollView>
 
           <View style={{ padding: base.size.size_5 }}>
-            <CustomButton title={base.i18n.t("submit")}
+            <CustomButton title={base.i18n.t("order_now")}
               style={{ marginTop: base.size.size_3 }}
               color={base.color.primary}
               textColor={base.color.white}

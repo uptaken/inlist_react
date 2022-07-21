@@ -173,7 +173,7 @@ export default function ProductDetail({ route, navigation }){
             textColor={base.color.white}
             on_press={() => add_to_cart()} />
 
-          <View style={{ marginTop: base.size.size_3, flexDirection: 'row',  }}>
+          <View style={{ marginTop: base.size.size_3, flexDirection: 'row', display: 'none', }}>
             <CustomButton title={base.i18n.t("cite_this")}
               color={base.color.white}
               textColor={base.color.primary}

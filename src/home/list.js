@@ -19,6 +19,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Snackbar from '@prince8verma/react-native-snackbar'
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -77,13 +78,27 @@ export default function HomeList(props){
         <View style={{ }}>
           <Text style={{ fontSize: base.size.size_5 }}>{props.title}</Text>
 
-          <FlatList
-            style={{ marginTop: base.size.size_1 }}
-            data={arr}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
-            keyExtractor={item => item.ID.toString()}/>
+          {
+            arr.length == 0 ?
+            <SkeletonPlaceholder>
+              <View style={{ paddingHorizontal: base.size.size_3, alignItems: 'center', width: base.size.custom_image1 }}>
+                <Image source={props.data.CoverURL} style={{ width: base.size.custom_image2, height: base.size.custom_image3 }}/>
+
+                <View style={{ marginTop: base.size.size_1, width: '100%', }}>
+                  <Text style={{ fontSize: base.size.size_3 }}>{props.data.Publisher != null && props.data.Publisher != '' ? props.data.Publisher : base.i18n.t("no_publisher")}</Text>
+                  <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }} numberOfLines={2}>{props.data.Title}</Text>
+                </View>
+              </View>
+            </SkeletonPlaceholder>
+            :
+            <FlatList
+              style={{ marginTop: base.size.size_1 }}
+              data={arr}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
+              keyExtractor={item => item.ID.toString()}/>
+          }
         </View>
       </TouchableWithoutFeedback>
     </View>

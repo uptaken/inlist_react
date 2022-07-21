@@ -45,8 +45,8 @@ export default function OrderListItem(props){
         </View>
 
         <CustomBadge
-          on_press={() => {}}
-          text={props.data.status}
+          no_press={true}
+          text={props.data.LoanStatus != null ? props.data.LoanStatus : '-'}
           style_template="primary"/>
       </View>
     </TouchableNativeFeedback>

@@ -18,6 +18,7 @@ export default class Base{
   color = Color
   locale_string = "id-ID"
   wait_time = 50
+  webview_wait_time = 500
   search_wait_time = 1500
 
   constructor(){
@@ -106,16 +107,16 @@ export default class Base{
   }
 
   show_error(message = ""){
-    showSnackBar({
-      message: message,
-      textColor: '#FFF',      // message text color
-      position: 'top',  // enum(top/bottom).
-      confirmText: '', // button text.
-      duration: 2000,   // (in ms), duartion for which snackbar is visible.
-    })
-    // Snackbar.show({
-    //   text: message,
-    //   duration: Snackbar.LENGTH_SHORT,
+    // showSnackBar({
+    //   message: message,
+    //   textColor: '#FFF',      // message text color
+    //   position: 'top',  // enum(top/bottom).
+    //   confirmText: '', // button text.
+    //   duration: 2000,   // (in ms), duartion for which snackbar is visible.
     // })
+    Snackbar.show({
+      text: message,
+      duration: Snackbar.LENGTH_SHORT,
+    })
   }
 }

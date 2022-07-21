@@ -32,6 +32,7 @@ import OrderDetail from './src/order/detail/detail'
 import Cart from './src/cart/cart'
 import Checkout from './src/cart/checkout'
 import CartSuccess from './src/cart/success'
+import Transaction from './src/cart/transaction'
 
 import SearchListPage from './src/search/search_list_page'
 
@@ -165,6 +166,13 @@ export default function App() {
     {
       name: "CartSuccess",
       component: CartSuccess,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "Transaction",
+      component: Transaction,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),
