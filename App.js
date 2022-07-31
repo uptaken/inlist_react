@@ -23,7 +23,9 @@ import AddressLiving from './src/auth/register/address_living'
 import Address from './src/auth/register/address'
 import DetailAddress from './src/auth/register/detail_address'
 import RegisterSuccess from './src/auth/register/success'
+import PickImage from './src/auth/register/pick_image'
 import ForgetPassword from './src/auth/forget_password'
+
 
 import ProductDetail from './src/home/product/detail'
 
@@ -96,6 +98,13 @@ export default function App() {
     {
       name: "DetailAddress",
       component: DetailAddress,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "PickImage",
+      component: PickImage,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),

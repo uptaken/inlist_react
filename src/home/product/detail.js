@@ -92,22 +92,26 @@ export default function ProductDetail({ route, navigation }){
     navigation.navigate('Cart')
   }
 
+  function on_detail_clicked(data){
+    navigation.push('ProductDetail', {data: data})
+  }
+
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, }}>
-        <CustomNavigation
-          style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
-          text_color={base.color.white}
-          navigation={navigation}/>
+    <View style={{ flex: 1, }}>
+      <CustomNavigation
+        style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
+        text_color={base.color.white}
+        navigation={navigation}/>
 
         <ScrollView>
-          <View style={{ flex: 1, padding: base.size.size_3 }}>
+          <View style={{ padding: base.size.size_3 }}>
             <Image source={data.CoverURL} style={{ width: '100%', height: base.size.large_image, resizeMode: 'contain' }}/>
 
-            <View style={{ alignItems: 'flex-start', marginTop: base.size.size_7 }}>
+            <View style={{ alignItems: 'flex-start', paddingTop: base.size.size_7 }}>
               {
                 data.status != null &&
                 <CustomBadge
+                  no_press={true}
                   is_translate={true}
                   text={data.status}
                   on_press={() => {}}
@@ -117,7 +121,7 @@ export default function ProductDetail({ route, navigation }){
               <Text>{data.Author}</Text>
             </View>
 
-            <View style={{ marginTop: base.size.size_7 }}>
+            <View style={{ paddingTop: base.size.size_7 }}>
               <TabView
                 navigationState={{ index, routes }}
                 renderScene={({ route, jumpTo }) => {
@@ -139,24 +143,25 @@ export default function ProductDetail({ route, navigation }){
                     activeColor={base.color.primary}
                     inactiveColor={base.color.grey3}
                     renderLabel={({ route }) => (
-                     <View>
-                       <Text style={{
-                         fontSize: base.size.size_4,
-                         textAlign: 'center',
-                         color: route.key === props.navigationState.routes[props.navigationState.index].key ? base.color.primary : base.color.grey3}}>
-                           {route.title}
-                       </Text>
-                     </View>
-                   )}/>
+                    <View>
+                      <Text style={{
+                        fontSize: base.size.size_4,
+                        textAlign: 'center',
+                        color: route.key === props.navigationState.routes[props.navigationState.index].key ? base.color.primary : base.color.grey3}}>
+                          {route.title}
+                      </Text>
+                    </View>
+                  )}/>
                 }
-                style={{  }}/>
+                style={{ height: 300, }}/>
             </View>
 
-            <View style={{ marginTop: base.size.size_7 }}>
+            <View style={{ paddingTop: base.size.size_7 }}>
               {
                 data.ID != null &&
                 <HomeList
                   type="related"
+                  on_detail_clicked={(data) => on_detail_clicked(data)}
                   subject={data.Subject}
                   not_id={data.ID}
                   title={base.i18n.t("related_product")}
@@ -167,29 +172,31 @@ export default function ProductDetail({ route, navigation }){
           </View>
         </ScrollView>
 
-        <View style={{ padding: base.size.size_5 }}>
+      <View style={{ padding: base.size.size_5 }}>
+        {
+          data.status === 'available' &&
           <CustomButton title={base.i18n.t("add_to_cart")}
             color={base.color.primary}
             textColor={base.color.white}
             on_press={() => add_to_cart()} />
+        }
+        
+        <View style={{ marginTop: base.size.size_3, flexDirection: 'row', display: 'none', }}>
+          <CustomButton title={base.i18n.t("cite_this")}
+            color={base.color.white}
+            textColor={base.color.primary}
+            borderColor={base.color.primary}
+            style={{ flex: 1, marginRight: base.size.size_1 }}
+            on_press={() => {}} />
 
-          <View style={{ marginTop: base.size.size_3, flexDirection: 'row', display: 'none', }}>
-            <CustomButton title={base.i18n.t("cite_this")}
-              color={base.color.white}
-              textColor={base.color.primary}
-              borderColor={base.color.primary}
-              style={{ flex: 1, marginRight: base.size.size_1 }}
-              on_press={() => {}} />
-
-            <CustomButton title={base.i18n.t("export_record")}
-              color={base.color.white}
-              textColor={base.color.primary}
-              borderColor={base.color.primary}
-              style={{ flex: 1, marginLeft: base.size.size_1 }}
-              on_press={() => {}} />
-          </View>
+          <CustomButton title={base.i18n.t("export_record")}
+            color={base.color.white}
+            textColor={base.color.primary}
+            borderColor={base.color.primary}
+            style={{ flex: 1, marginLeft: base.size.size_1 }}
+            on_press={() => {}} />
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 }

@@ -12,16 +12,33 @@ import {
   TouchableNativeFeedback,
   TouchableWithoutFeedback,
   Modal,
+  PermissionsAndroid,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker'
 
 import Base from '../../utils/base';
 
 export default function MediaPickerModal(props){
   const [is_show, set_is_show] = useState(false)
+  const [granted1, set_granted1] = useState(false)
+  const [granted2, set_granted2] = useState(false)
+  const [granted3, set_granted3] = useState(false)
   var base = new Base()
+
+  // useEffect(() => {
+  //   set_granted1(PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA))
+  // }, [])
+
+  // useEffect(() => {
+  //   set_granted2(PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE))
+  // }, [granted1])
+
+  // useEffect(() => {
+  //   set_granted3(PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE))
+  // }, [granted2])
 
   useEffect(() => {
     if(props.is_show != is_show)
@@ -33,18 +50,22 @@ export default function MediaPickerModal(props){
   }, [is_show])
 
   function camera(){
-    launchCamera({
+    ImagePicker.openCamera({
       includeBase64: true
-    }, response => {
+    }).then(response => {
+      response.fromType = "camera"
+      response.uri = response.path
       props.on_get_response(response)
     })
     set_is_show(false)
   }
 
   function gallery(){
-    launchImageLibrary({
+    ImagePicker.openPicker({
       includeBase64: true
-    }, response => {
+    }).then(response => {
+      response.fromType = "gallery"
+      response.uri = response.path
       props.on_get_response(response)
     })
     set_is_show(false)

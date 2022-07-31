@@ -77,7 +77,7 @@ export default function AddressLiving({ route, navigation }){
   async function next(){
     if(address === '')
       base.show_error(base.i18n.t("address_empty"))
-      else if(selected_city.id == null)
+      else if(selected_city.ID == null)
         base.show_error(base.i18n.t("city_not_choosen"))
     else if(rt === '')
       base.show_error(base.i18n.t("rt_empty"))
@@ -99,7 +99,9 @@ export default function AddressLiving({ route, navigation }){
       if(toggle_condition)
         data.address = {
           address: address,
-          village: selected_village,
+          city: selected_city,
+          sub_district: sub_district,
+          village: village,
           rt: rt,
           rw: rw,
         }
@@ -113,7 +115,7 @@ export default function AddressLiving({ route, navigation }){
   return (
     <View style={{ flex: 1, }}>
       <Snackbar id="root_app"/>
-      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+      {/* <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}> */}
         <View style={{ flex: 1, marginTop: base.size.large_title, }}>
           <CustomNavigation
             style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
@@ -188,7 +190,7 @@ export default function AddressLiving({ route, navigation }){
               on_press={() => next()} />
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </View>
   );
 }

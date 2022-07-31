@@ -27,31 +27,29 @@ export default function OrderHeader(props){
   var base = new Base()
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ padding: base.size.size_5, backgroundColor: base.color.primary }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-          <View style={{ }}>
-            <Text style={{ color: base.color.white, fontSize: base.size.icon }}>{base.i18n.t("order")}</Text>
-          </View>
-        </View>
-
-        <View style={{ marginTop: base.size.size_3 }}>
-          <CustomCard
-            padding={0}
-            paddingHorizontal={base.size.size_3}
-            color={base.color.white}
-            borderColor={base.color.white}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon name="magnify" size={base.size.icon} color={base.color.black1}/>
-
-              <TextInput style={{ color: base.color.black1, marginLeft: base.size.size_1, flex: 1, height: base.size.large_title, }}
-                onChangeText={value => props.on_search(value)}
-                value={props.search}
-                placeholder={base.i18n.t("search")}/>
-            </View>
-          </CustomCard>
+    <View style={{ padding: base.size.size_5, backgroundColor: base.color.primary }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+        <View style={{ }}>
+          <Text style={{ color: base.color.white, fontSize: base.size.icon }}>{base.i18n.t("order")}</Text>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+
+      <View style={{ marginTop: base.size.size_3 }}>
+        <CustomCard
+          padding={0}
+          paddingHorizontal={base.size.size_3}
+          color={base.color.white}
+          borderColor={base.color.white}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="magnify" size={base.size.icon} color={base.color.black1}/>
+
+            <TextInput style={{ color: base.color.black1, marginLeft: base.size.size_1, flex: 1, height: base.size.large_title, }}
+              onChangeText={value => props.on_search(value)}
+              value={props.search}
+              placeholder={base.i18n.t("search")}/>
+          </View>
+        </CustomCard>
+      </View>
+    </View>
   );
 }

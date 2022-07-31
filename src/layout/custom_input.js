@@ -10,12 +10,14 @@ import {
   Button,
   TextInput,
   Image,
+  PermissionsAndroid,
   TouchableNativeFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icon1 from 'react-native-vector-icons/FontAwesome5'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import SelectDropdown from 'react-native-select-dropdown'
+import ImagePicker from 'react-native-image-picker'
 
 import Base from '../utils/base';
 import CustomButton from './custom_button';
@@ -56,18 +58,34 @@ export default function CustomInput(props){
     }
   }, [props.value])
 
+  async function on_pick_image(){
+    // await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+    // await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE)
+    // await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE)
+
+    ImagePicker.showImagePicker({}, (response) => {
+      if(!response.didCancel && !response.error)
+        props.on_get_response(response)
+    })
+  }
+
+  function on_image_response(response){
+    props.on_get_response(response)
+  }
+
   return (
     <View style={[props.style, { marginTop: base.size.size_7 }]}>
       {
         props.type === 'file' &&
         <MediaPickerModal
           is_show={is_media_picker_show}
-          on_get_response={response => props.on_get_response(response)}
+          on_get_response={response => on_image_response(response)}
           on_change_show={is_show => set_is_media_picker_show(is_show)}/>
       }
 
       <Text style={{ fontSize: base.size.size_5 }}>{props.name}</Text>
 
+      <View style={{ marginTop: base.size.size_1, }}>
       {
         props.type === 'select' ?
           <SelectDropdown
@@ -108,7 +126,6 @@ export default function CustomInput(props){
             borderColor: base.color.grey1,
             borderRadius: base.size.size_1,
             paddingHorizontal: base.size.size_1,
-            marginTop: base.size.size_1,
             backgroundColor: (props.enabled != null && props.enabled) || props.enabled == null ? base.color.white : base.color.grey5,
             flexDirection: 'row',
             alignItems: 'center',
@@ -135,6 +152,7 @@ export default function CustomInput(props){
 
           </View>
       }
+      </View>
     </View>
   );
 };

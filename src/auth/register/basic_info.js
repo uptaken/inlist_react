@@ -93,11 +93,13 @@ export default function BasicInfo({ route, navigation }){
         id_no: id_no,
         gender: selected_gender,
         occupation: selected_occupation,
-        image_profile: image_profile,
-        image: {
-          image: image_profile.base64,
-        },
+        image: {},
       }
+      // if(image_profile.data != null)
+      //   data.image = {
+      //     original_rotation: image_profile.fromType === "camera" ? -90 : 0,
+      //     image: image_profile.data,
+      //   }
       await AsyncStorage.setItem('register_data', JSON.stringify(data))
       navigation.navigate('AddressLiving')
     }
@@ -106,7 +108,7 @@ export default function BasicInfo({ route, navigation }){
   return (
     <View style={{ flex: 1, }}>
       <Snackbar id="root_app"/>
-      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+      {/* <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}> */}
         <View style={{ flex: 1, marginTop: base.size.large_title, }}>
           <CustomNavigation
             style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
@@ -162,11 +164,11 @@ export default function BasicInfo({ route, navigation }){
                 on_selected={index => set_selected_occupation(arr_occupation[index])}
                 value={selected_occupation}/>
 
-              <CustomInput
+              {/* <CustomInput
                 type="file"
                 name={base.i18n.t("image_profile")}
                 on_get_response={response => set_image_profile(response)}
-                value={image_profile}/>
+                value={image_profile}/> */}
             </View>
           </ScrollView>
 
@@ -177,7 +179,7 @@ export default function BasicInfo({ route, navigation }){
               on_press={() => next()} />
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </View>
   );
 }

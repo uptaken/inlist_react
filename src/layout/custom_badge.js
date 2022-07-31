@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     color: base.color.primary
   },
   danger: {
-    backgroundColor: base.color.primaryLight,
-    borderColor: base.color.primaryLight,
+    backgroundColor: base.color.redLight,
+    borderColor: base.color.redLight,
     color: base.color.red
   },
 })

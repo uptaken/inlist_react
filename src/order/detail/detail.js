@@ -29,11 +29,13 @@ import CustomInput from '../../layout/custom_input';
 import CustomBadge from '../../layout/custom_badge';
 import CustomNavigation from '../../layout/custom_navigation';
 import OrderDetailItem from './list_item';
+import PleaseWaitModal from "../../layout/modal/please_wait_modal"
 
 export default function OrderDetail({ route, navigation }){
   var base = new Base()
   const [data, set_data] = useState({})
   const [url, set_url] = useState('')
+  const [is_please_wait, set_is_please_wait] = useState(false)
 
   useEffect(() => {
     set_data(route.params.data)
@@ -56,77 +58,111 @@ export default function OrderDetail({ route, navigation }){
   }, [url])
 
   function download(){
+    // navigation.navigate('Transaction', {data: {uri: base.host + "/export/loan?id=" + data.ID + "&rnd=" + moment().format("X")}})
     base.show_error(base.i18n.t("download_now"))
     set_url(base.host + "/export/loan?id=" + data.ID + "&rnd=" + moment().format("X"))
   }
 
+  async function cancel(){
+    set_is_please_wait(true)
+      var response = await base.request(base.url_api + '/loan?id=' + data.ID, 'delete')
+
+      set_is_please_wait(false)
+      setTimeout(async () => {
+        if(response.status === 'success'){
+          navigation.goBack()
+        }
+        else
+          base.show_error(response.message)
+      }, 100)
+  }
+
   return (
-    <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-      <View style={{ flex: 1, justifyContent: "space-between", }}>
-        <View style={{ flex: 1, }}>
-          <CustomNavigation
-            style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.white }}
-            title={base.i18n.t("detail_transaction")}
-            text_color={base.color.black}
-            navigation={navigation}/>
+    <View style={{ flex: 1, }}>
+      {/* <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}> */}
+      <PleaseWaitModal is_show={is_please_wait}/>
+        <View style={{ flex: 1, justifyContent: "space-between", }}>
+          <View style={{ flex: 1, }}>
+            <CustomNavigation
+              style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.white }}
+              title={base.i18n.t("detail_transaction")}
+              text_color={base.color.black}
+              navigation={navigation}/>
 
-          <View style={{ flex: 1, paddingHorizontal: base.size.size_3, paddingVertical: base.size.title }}>
-            <View style={{ alignItems: 'flex-start', }}>
-              <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_detail")}</Text>
+            <ScrollView>
+              <View style={{ flex: 1, paddingHorizontal: base.size.size_3, paddingVertical: base.size.title }}>
+                <View style={{ alignItems: 'flex-start', }}>
+                  <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_detail")}</Text>
 
-              <FlatList
-                style={{ marginTop: base.size.size_1 }}
-                data={data.collection_loan_item}
-                renderItem={({ item, index }) => <OrderDetailItem data={item}/>}
-                keyExtractor={item => item.ID.toString()}/>
-            </View>
+                  <View>
+                    {
+                      data.collection_loan_item != null &&
+                      data.collection_loan_item.map((item, index) => 
+                        <OrderDetailItem data={item} key={index}/>
+                      )
+                    }
+                  </View>
+                </View>
 
-            <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
-              <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_location")}</Text>
+                <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
+                  <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_location")}</Text>
 
-              <View style={{ marginTop: base.size.size_4 }}>
-                <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
-              </View>
-            </View>
+                  <View style={{ marginTop: base.size.size_4 }}>
+                    <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
+                  </View>
+                </View>
 
-            <View style={{ alignItems: 'flex-start', marginTop: base.size.icon, }}>
-              <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return")}</Text>
+                <View style={{ alignItems: 'flex-start', marginTop: base.size.icon, }}>
+                  {/* <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return")}</Text> */}
 
-              <View style={{ alignItems: 'flex-start', marginTop: base.size.size_4, }}>
-                {/* <CustomBadge
-                  on_press={() => {}}
-                  text={data.collection_loan_item != null ? data.collection_loan_item[0].due_date.format('DD MMMM YYYY') : '-'}
-                  style_template="primary"/> */}
+                  <View style={{ alignItems: 'flex-start', }}>
+                    {/* <CustomBadge
+                      on_press={() => {}}
+                      text={data.collection_loan_item != null ? data.collection_loan_item[0].due_date.format('DD MMMM YYYY') : '-'}
+                      style_template="primary"/> */}
 
-                <CustomBadge
-                  no_press={true}
-                  text={data.LoanStatus}
-                  style_template="primary"/>
+                    {/* <CustomBadge
+                      no_press={true}
+                      text={data.status}
+                      style_template={data.status === 'Canceled' ? 'danger' : 'primary'}/> */}
 
-                <View style={{ marginTop: base.size.size_5 }}>
-                  <Text style={{ color: base.color.grey6 }}>{base.i18n.t("return_location")}</Text>
-                  <Text>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
+                    <View style={{ marginTop: base.size.size_5 }}>
+                      <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return_location")}</Text>
+                      <Text style={{ marginTop: base.size.size_4 }}>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
+            </ScrollView>
           </View>
 
-          
-        </View>
+          <View style={{ padding: base.size.size_5, }}>
+            {
+              url !== "" && 
+              <WebView source={{ uri: url }} style={{ height: 0, width: 0, }} />
+            }
 
-        <View style={{ padding: base.size.size_5, }}>
-          {
-            url !== "" && 
-            <WebView source={{ uri: url }} style={{ height: 0, width: 0, }} />
-          }
-
-          <CustomButton title={base.i18n.t("download_transaction")}
-            color={base.color.white}
-            style={{  }}
-            textColor={base.color.primary}
-            on_press={() => download()} />
+            {
+              data.status !== "Canceled" &&
+              <CustomButton title={base.i18n.t("cancel_order")}
+                color={base.color.red}
+                style={{  }}
+                borderColor={base.color.red}
+                textColor={base.color.white}
+                on_press={() => cancel()} />
+            }
+            
+            {
+              data.status !== "Canceled" &&
+              <CustomButton title={base.i18n.t("download_transaction")}
+                color={base.color.white}
+                style={{ marginTop: base.size.size_1 }}
+                textColor={base.color.primary}
+                on_press={() => download()} />
+            }
+          </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
+    </View>
   );
 }

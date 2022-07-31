@@ -65,22 +65,27 @@ export default function DetailAddress({ route, navigation }){
       data.address_institute = address_institute
       data.phone_institute = phone_institute
 
-      set_is_please_wait(true)
-      var response = await base.request(base.url_api + '/auth/register', 'post', data)
+      await AsyncStorage.setItem('register_data', JSON.stringify(data))
+      navigation.navigate('PickImage', {
+        num_step: route.params != null ? route.params.num_step + 1 : '5',
+      })
 
-      set_is_please_wait(false)
-      setTimeout(async () => {
-        if(response.status === 'success'){
-          await AsyncStorage.removeItem('register_data')
-          response.data.RegisterDateFormat = moment(response.data.RegisterDateFormat, 'YYYY-MM-DD HH:mm:ss')
-          response.data.image_profile = {
-            uri: 'data:image/jpeg;base64,' + data.image_profile.base64,
-          }
-          navigation.navigate('RegisterSuccess', {member: response.data,})
-        }
-        else
-          base.show_error(response.message)
-      }, 100)
+      // set_is_please_wait(true)
+      // var response = await base.request(base.url_api + '/auth/register', 'post', data)
+
+      // set_is_please_wait(false)
+      // setTimeout(async () => {
+      //   if(response.status === 'success'){
+      //     await AsyncStorage.removeItem('register_data')
+      //     response.data.RegisterDateFormat = moment(response.data.RegisterDateFormat, 'YYYY-MM-DD HH:mm:ss')
+      //     response.data.image_profile = {
+      //       uri: 'data:image/jpeg;base64,' + data.image_profile.base64,
+      //     }
+      //     navigation.navigate('RegisterSuccess', {member: response.data,})
+      //   }
+      //   else
+      //     base.show_error(response.message)
+      // }, 100)
     }
   }
 
@@ -88,7 +93,7 @@ export default function DetailAddress({ route, navigation }){
     <View style={{ flex: 1 }}>
       <Snackbar id="root_app"/>
       <PleaseWaitModal is_show={is_please_wait}/>
-      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
+      {/* <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}> */}
         <View style={{ flex: 1, marginTop: base.size.large_title, }}>
           <CustomNavigation
             style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5 }}
@@ -146,7 +151,7 @@ export default function DetailAddress({ route, navigation }){
               on_press={() => submit()} />
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </View>
   );
 }

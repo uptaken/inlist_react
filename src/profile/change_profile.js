@@ -61,13 +61,17 @@ export default function ChangeProfile({ route, navigation }){
       base.show_error(base.i18n.t("name_empty"))
     else{
       set_is_please_wait(true)
-      var response = await base.request(base.url_api + '/auth/change-profile', 'put', {
+      var data = {
         name: name,
         address: address,
-        image: {
-          image: image.base64,
-        },
-      })
+        image: {},
+      }
+      if(image.data != null)
+        data.image = {
+          original_rotation: image.fromType === "camera" ? -90 : 0,
+          image: image.data,
+        }
+      var response = await base.request(base.url_api + '/auth/change-profile', 'put', data)
 
       set_is_please_wait(false)
       setTimeout(async () => {
@@ -83,6 +87,17 @@ export default function ChangeProfile({ route, navigation }){
 
   function on_get_response(response){
     set_image(response)
+  }
+
+  async function on_pick_image(){
+    // await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+    // await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE)
+    // await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE)
+    
+    ImagePicker.showImagePicker({}, (response) => {
+      if(!response.didCancel && !response.error)
+        set_image(response)
+    })
   }
 
   return (
@@ -105,7 +120,10 @@ export default function ChangeProfile({ route, navigation }){
             <View style={{ padding: base.size.size_5 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
                 <View>
-                  <Image source={image} style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.medium_image / 2, overflow: "hidden", }}/>
+                  <Image source={image} 
+                    style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.medium_image / 2, overflow: "hidden", }}
+                    onLoadStart={() => set_is_please_wait(true)}
+                    onLoadEnd={() => set_is_please_wait(false)}/>
                 </View>
 
                 <CustomButton

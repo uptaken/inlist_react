@@ -18,7 +18,7 @@ export default class Base{
   color = Color
   locale_string = "id-ID"
   wait_time = 50
-  webview_wait_time = 500
+  webview_wait_time = 1000
   search_wait_time = 1500
 
   constructor(){
@@ -26,44 +26,51 @@ export default class Base{
   }
 
   async request(url, method = 'get', data = {}, with_modal = true, onUploadProgress = response => {}){
-    axios.defaults.headers.common['Accept'] = 'application/json'
+    try{
+      axios.defaults.headers.common['Accept'] = 'application/json'
 
-    var header = {
-      "Content-Type": "application/json",
+      var header = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      }
+      var token = await AsyncStorage.getItem('token')
+      if(token != null && token != '')
+        header['Authorization'] = token
+
+
+      var response
+      if(method == 'get'){
+        for(let x in data)
+          url += (url.includes('?') ? '&' : '?') + x + "=" + (Array.isArray(data[x]) ? JSON.stringify(data[x]) : data[x])
+
+        response = await axios.get(url, {
+          headers: header,
+        })
+      }
+      else if(method == 'post')
+        response = await axios.post(url, data, {
+          headers: header,
+          onUploadProgress
+        })
+      else if(method == 'put')
+        response = await axios.put(url, data, {
+          headers: header,
+          onUploadProgress
+        })
+      else if(method == 'delete')
+        response = await axios.delete(url, {
+          headers: header,
+        })
+
+      if(with_modal){
+        setTimeout(() => {
+        }, 500)
+      }
+
+      return response.data
+    } catch(error){
+      console.log(error.response.data)
     }
-    var token = await AsyncStorage.getItem('token')
-    if(token != null && token != '')
-      header['Authorization'] = token
-
-
-    var response
-    if(method == 'get'){
-      for(let x in data)
-        url += (url.includes('?') ? '&' : '?') + x + "=" + (Array.isArray(data[x]) ? JSON.stringify(data[x]) : data[x])
-
-      response = await axios.get(url, {
-        headers: header,
-      })
-    }
-    else if(method == 'post')
-      response = await axios.post(url, data, {
-        headers: header,
-        onUploadProgress
-      })
-    else if(method == 'put')
-      response = await axios.put(url, data, {
-        headers: header,
-        onUploadProgress
-      })
-    else if(method == 'delete')
-      response = await axios.delete(url)
-
-    if(with_modal){
-      setTimeout(() => {
-      }, 500)
-    }
-
-    return response.data
   }
 
   set_white_status_bar(){

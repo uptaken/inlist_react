@@ -69,53 +69,51 @@ export default function Cart({ route, navigation }){
   return (
     <View style={{ flex: 1 }}>
       <Snackbar id="root_app"/>
-      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-        <View style={{ flex: 1, }}>
-          <CustomNavigation
-            style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
-            title={base.i18n.t("cart")}
-            text_color={base.color.white}
-            navigation={navigation}/>
+      <View style={{ flex: 1, }}>
+        <CustomNavigation
+          style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
+          title={base.i18n.t("cart")}
+          text_color={base.color.white}
+          navigation={navigation}/>
 
-          <View style={{ flex: 1, marginTop: base.size.size_1, justifyContent: 'center', alignItems: 'center', }}>
-            {
-              arr.length > 0 ?
-              <FlatList
-                style={{ flex: 1, }}
-                data={arr}
-                renderItem={({ item, index }) =>
-                  <CartListItem
-                    key={index}
-                    data={item}
-                    index={index}
-                    on_remove={() => on_remove(index)}
-                    on_set_ref={(ref) => (arr_ref[index] = ref)}
-                    on_swiped={() => on_swiped(index)}/>
-                }
-                keyExtractor={item => item.id.toString()}/>
-              :
-              <Text style={{ fontWeight: 'bold', fontSize: base.size.size_5,  }}>{base.i18n.t("no_data_found")}</Text>
-            }
+        <View style={{ flex: 1, marginTop: base.size.size_1, justifyContent: 'center', alignItems: 'center', }}>
+          {
+            arr.length > 0 ?
+            <FlatList
+              style={{ flex: 1, }}
+              data={arr}
+              renderItem={({ item, index }) =>
+                <CartListItem
+                  key={index}
+                  data={item}
+                  index={index}
+                  on_remove={() => on_remove(index)}
+                  on_set_ref={(ref) => (arr_ref[index] = ref)}
+                  on_swiped={() => on_swiped(index)}/>
+              }
+              keyExtractor={item => item.id.toString()}/>
+            :
+            <Text style={{ fontWeight: 'bold', fontSize: base.size.size_5,  }}>{base.i18n.t("no_data_found")}</Text>
+          }
 
-          </View>
-
-          <View style={{ padding: base.size.size_5 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-              <Text style={{ fontSize: base.size.size_4 }}>{base.i18n.t("total_borrowed_book")}</Text>
-              <Text style={{ fontWeight: 'bold', fontSize: base.size.size_4 }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
-            </View>
-
-            {
-              arr.length > 0 &&
-              <CustomButton title={base.i18n.t("next")}
-                style={{ marginTop: base.size.size_3 }}
-                color={base.color.primary}
-                textColor={base.color.white}
-                on_press={() => navigation.navigate('Checkout')} />
-            }
-          </View>
         </View>
-      </TouchableWithoutFeedback>
+
+        <View style={{ padding: base.size.size_5 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+            <Text style={{ fontSize: base.size.size_4 }}>{base.i18n.t("total_borrowed_book")}</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: base.size.size_4 }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
+          </View>
+
+          {
+            arr.length > 0 &&
+            <CustomButton title={base.i18n.t("next")}
+              style={{ marginTop: base.size.size_3 }}
+              color={base.color.primary}
+              textColor={base.color.white}
+              on_press={() => navigation.navigate('Checkout')} />
+          }
+        </View>
+      </View>
     </View>
   );
 }

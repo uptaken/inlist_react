@@ -63,7 +63,6 @@ export default function Checkout({ route, navigation }){
       var response = await base.request(base.url_api + '/loan', 'post', {
         arr_detail: arr,
       })
-      console.log(response)
 
       set_is_please_wait(false)
       setTimeout(async () => {
@@ -85,69 +84,67 @@ export default function Checkout({ route, navigation }){
     <View style={{ flex: 1 }}>
       <Snackbar id="root_app"/>
       <PleaseWaitModal is_show={is_please_wait}/>
-      <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
-        <View style={{ flex: 1, backgroundColor: base.color.grey4 }}>
-          <CustomNavigation
-            style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
-            title={base.i18n.t("checkout")}
-            text_color={base.color.white}
-            navigation={navigation}/>
+      <View style={{ flex: 1, backgroundColor: base.color.grey4 }}>
+        <CustomNavigation
+          style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
+          title={base.i18n.t("checkout")}
+          text_color={base.color.white}
+          navigation={navigation}/>
 
-          <ScrollView style={{ flex: 1, }}>
-            <View style={{ flex: 1, }}>
-              <View style={{ backgroundColor: base.color.white, padding: base.size.size_5, }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-                  <Text style={{ color: base.color.grey6, fontSize: base.size.size_5 }}>{base.i18n.t("borrower_info")}</Text>
-                </View>
-
-                <View style={{flex: 1, height: 1, backgroundColor: base.color.grey8, marginVertical: base.size.size_3}} />
-
-                <View style={{  }}>
-                  <Text>{base.i18n.t("borrower_name")} {user.member != null ? user.member.Fullname : '-'}</Text>
-                  <Text>{base.i18n.t("borrower_address")} {user.member != null && user.member.Address != null ? user.member.Address : '-'}</Text>
-                </View>
+        <ScrollView style={{ flex: 1, }}>
+          <View style={{ flex: 1, }}>
+            <View style={{ backgroundColor: base.color.white, padding: base.size.size_5, }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                <Text style={{ color: base.color.grey6, fontSize: base.size.size_5 }}>{base.i18n.t("borrower_info")}</Text>
               </View>
 
-              <View style={{ backgroundColor: base.color.white, marginTop: base.size.size_1, padding: base.size.size_5, }}>
-                <Text style={{ color: base.color.grey6, fontSize: base.size.size_6 }}>{base.i18n.t("book_list")}</Text>
+              <View style={{flex: 1, height: 1, backgroundColor: base.color.grey8, marginVertical: base.size.size_3}} />
 
-                <View style={{ marginTop: base.size.size_1 }}>
-                  {
-                    arr.map((data, index) => <CheckoutListItem key={index} data={data}/>)
-                  }
-                </View>
-
-                <View style={{flex: 1, height: 1, backgroundColor: base.color.grey8, marginVertical: base.size.size_2}} />
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-                  <Text>{base.i18n.t("total_borrowed_book")}</Text>
-                  <Text style={{ fontWeight: 'bold', }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: base.size.size_1, display: 'none', }}>
-                  <Text style={{ color: base.color.grey7, fontSize: base.size.size_3 }}>{base.i18n.t("return_date")}</Text>
-                  <Text style={{ color: base.color.grey7, fontSize: base.size.size_3 }}>{return_date.format('DD MMMM YYYY')}</Text>
-                </View>
+              <View style={{  }}>
+                <Text>{base.i18n.t("borrower_name")} {user.member != null ? user.member.Fullname : '-'}</Text>
+                <Text>{base.i18n.t("borrower_address")} {user.member != null && user.member.Address != null ? user.member.Address : '-'}</Text>
               </View>
             </View>
-          </ScrollView>
 
-          <View style={{ padding: base.size.size_5 }}>
-            <CustomButton title={base.i18n.t("order_now")}
-              style={{ marginTop: base.size.size_3 }}
-              color={base.color.primary}
-              textColor={base.color.white}
-              on_press={() => submit()} />
+            <View style={{ backgroundColor: base.color.white, marginTop: base.size.size_1, padding: base.size.size_5, }}>
+              <Text style={{ color: base.color.grey6, fontSize: base.size.size_6 }}>{base.i18n.t("book_list")}</Text>
 
-            <CustomButton title={base.i18n.t("cancel")}
-              style={{ marginTop: base.size.size_3 }}
-              color={base.color.red}
-              textColor={base.color.white}
-              borderColor={base.color.red}
-              on_press={() => navigation.navigate('Home')} />
+              <View style={{ marginTop: base.size.size_1 }}>
+                {
+                  arr.map((data, index) => <CheckoutListItem key={index} data={data}/>)
+                }
+              </View>
+
+              <View style={{flex: 1, height: 1, backgroundColor: base.color.grey8, marginVertical: base.size.size_2}} />
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                <Text>{base.i18n.t("total_borrowed_book")}</Text>
+                <Text style={{ fontWeight: 'bold', }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
+              </View>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: base.size.size_1, display: 'none', }}>
+                <Text style={{ color: base.color.grey7, fontSize: base.size.size_3 }}>{base.i18n.t("return_date")}</Text>
+                <Text style={{ color: base.color.grey7, fontSize: base.size.size_3 }}>{return_date.format('DD MMMM YYYY')}</Text>
+              </View>
+            </View>
           </View>
+        </ScrollView>
+
+        <View style={{ padding: base.size.size_5 }}>
+          <CustomButton title={base.i18n.t("order_now")}
+            style={{ marginTop: base.size.size_3 }}
+            color={base.color.primary}
+            textColor={base.color.white}
+            on_press={() => submit()} />
+
+          <CustomButton title={base.i18n.t("cancel")}
+            style={{ marginTop: base.size.size_3 }}
+            color={base.color.red}
+            textColor={base.color.white}
+            borderColor={base.color.red}
+            on_press={() => navigation.navigate('Home')} />
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 }

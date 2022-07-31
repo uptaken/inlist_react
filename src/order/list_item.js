@@ -44,10 +44,10 @@ export default function OrderListItem(props){
           </View>
         </View>
 
-        <CustomBadge
+        {/* <CustomBadge
           no_press={true}
-          text={props.data.LoanStatus != null ? props.data.LoanStatus : '-'}
-          style_template="primary"/>
+          text={props.data.status != null ? props.data.status : '-'}
+          style_template={props.data.status === 'Canceled' ? 'danger' : 'primary'}/> */}
       </View>
     </TouchableNativeFeedback>
   );

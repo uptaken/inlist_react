@@ -31,13 +31,20 @@ export default function OrderDetailItem(props){
 
   return (
     <View style={{ paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-      <View style={{ flexDirection: 'row', }}>
-        <Image source={props.data.collection.product.CoverURL} style={{ width: base.size.toolbar, height: base.size.small_image }}/>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+        <View style={{ flexDirection: 'row', flexShrink: 1, }}>
+          <Image source={props.data.collection.product.CoverURL} style={{ width: base.size.toolbar, height: base.size.small_image }}/>
 
-        <View style={{ marginLeft: base.size.size_3, flexShrink: 1, }}>
-          <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.collection.product.Title}</Text>
-          <Text style={{ fontSize: base.size.size_3 }}>{props.data.collection.product.Author}</Text>
+          <View style={{ marginLeft: base.size.size_3, flexShrink: 1, }}>
+            <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }}>{props.data.collection.product.Title}</Text>
+            <Text style={{ fontSize: base.size.size_3 }}>{props.data.collection.product.Author}</Text>
+          </View>
         </View>
+
+        <CustomBadge
+          no_press={true}
+          text={props.data.LoanStatus}
+          style_template={props.data.LoanStatus === 'Canceled' ? 'danger' : 'primary'}/>
       </View>
     </View>
   );
