@@ -18,7 +18,7 @@ export default class Base{
   color = Color
   locale_string = "id-ID"
   wait_time = 50
-  webview_wait_time = 1000
+  webview_wait_time = 2000
   search_wait_time = 1500
 
   constructor(){

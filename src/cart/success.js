@@ -28,6 +28,11 @@ import CustomNavigation from '../layout/custom_navigation';
 export default function CartSuccess({ route, navigation }){
   var base = new Base()
   const [url, set_url] = useState('')
+  const [data, set_data] = useState({})
+
+  useEffect(() => {
+    get_data()
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,9 +41,20 @@ export default function CartSuccess({ route, navigation }){
     }, base.webview_wait_time)
   }, [url])
 
+  async function get_data(){
+    var response = await base.request(base.url_api + '/auth/profile')
+
+    if(response.status === 'success'){
+      set_data(response.data)
+    }
+    else
+      base.show_error(response.message)
+  }
+
   function download(){
+    // navigation.navigate('Transaction', {data: {uri: base.host + "/export/loan?id=" + route.params.data.ID + "&user_id=" + data.ID + "&rnd=" + moment().format("X")}})
     base.show_error(base.i18n.t("download_now"))
-    set_url(base.host + "/export/loan?id=" + route.params.data.ID + "&rnd=" + moment().format("X"))
+    set_url(base.host + "/export/loan?id=" + route.params.data.ID + "&user_id=" + data.ID + "&rnd=" + moment().format("X"))
   }
 
   return (

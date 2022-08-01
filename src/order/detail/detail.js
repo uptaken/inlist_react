@@ -34,17 +34,18 @@ import PleaseWaitModal from "../../layout/modal/please_wait_modal"
 export default function OrderDetail({ route, navigation }){
   var base = new Base()
   const [data, set_data] = useState({})
+  const [user_data, set_user_data] = useState({})
   const [url, set_url] = useState('')
   const [is_please_wait, set_is_please_wait] = useState(false)
 
   useEffect(() => {
-    set_data(route.params.data)
     const unsubscribe = navigation.addListener('focus', () => {
       BackHandler.addEventListener('hardwareBackPress', function () {
         navigation.goBack()
         return true
       })
       set_data(route.params.data)
+      get_data()
     });
 
     return unsubscribe;
@@ -57,10 +58,21 @@ export default function OrderDetail({ route, navigation }){
     }, base.webview_wait_time)
   }, [url])
 
+  async function get_data(){
+    var response = await base.request(base.url_api + '/auth/profile')
+
+    if(response.status === 'success'){
+      set_user_data(response.data)
+    }
+    else
+      base.show_error(response.message)
+  }
+
   function download(){
-    // navigation.navigate('Transaction', {data: {uri: base.host + "/export/loan?id=" + data.ID + "&rnd=" + moment().format("X")}})
+    // console.log(user_data)
+    // navigation.navigate('Transaction', {data: {uri: base.host + "/export/loan?id=" + data.ID + "&user_id=" + user_data.ID + "&rnd=" + moment().format("X")}})
     base.show_error(base.i18n.t("download_now"))
-    set_url(base.host + "/export/loan?id=" + data.ID + "&rnd=" + moment().format("X"))
+    set_url(base.host + "/export/loan?id=" + data.ID + "&user_id=" + user_data.ID + "&rnd=" + moment().format("X"))
   }
 
   async function cancel(){
@@ -139,7 +151,7 @@ export default function OrderDetail({ route, navigation }){
           <View style={{ padding: base.size.size_5, }}>
             {
               url !== "" && 
-              <WebView source={{ uri: url }} style={{ height: 0, width: 0, }} />
+              <WebView source={{ uri: url }} style={{ height: 100, width: 100, }} />
             }
 
             {
