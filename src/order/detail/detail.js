@@ -77,7 +77,9 @@ export default function OrderDetail({ route, navigation }){
 
   async function cancel(){
     set_is_please_wait(true)
-      var response = await base.request(base.url_api + '/loan?id=' + data.ID, 'delete')
+      var response = await base.request(base.url_api + '/loan/delete', 'delete', {
+        id: data.ID,
+      })
 
       set_is_please_wait(false)
       setTimeout(async () => {
@@ -117,6 +119,14 @@ export default function OrderDetail({ route, navigation }){
                 </View>
 
                 <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
+                  <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("transaction_no")}</Text>
+
+                  <View style={{ marginTop: base.size.size_4 }}>
+                    <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', }}>{data.ID}</Text>
+                  </View>
+                </View>
+
+                <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
                   <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("borrowed_location")}</Text>
 
                   <View style={{ marginTop: base.size.size_4 }}>
@@ -124,7 +134,7 @@ export default function OrderDetail({ route, navigation }){
                   </View>
                 </View>
 
-                <View style={{ alignItems: 'flex-start', marginTop: base.size.icon, }}>
+                <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
                   {/* <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return")}</Text> */}
 
                   <View style={{ alignItems: 'flex-start', }}>
@@ -138,7 +148,7 @@ export default function OrderDetail({ route, navigation }){
                       text={data.status}
                       style_template={data.status === 'Canceled' ? 'danger' : 'primary'}/> */}
 
-                    <View style={{ marginTop: base.size.size_5 }}>
+                    <View style={{  }}>
                       <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return_location")}</Text>
                       <Text style={{ marginTop: base.size.size_4 }}>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
                     </View>
@@ -155,7 +165,7 @@ export default function OrderDetail({ route, navigation }){
             }
 
             {
-              data.status !== "Canceled" &&
+              data.status === "Reserved" &&
               <CustomButton title={base.i18n.t("cancel_order")}
                 color={base.color.red}
                 style={{  }}
@@ -164,14 +174,14 @@ export default function OrderDetail({ route, navigation }){
                 on_press={() => cancel()} />
             }
             
-            {
+            {/*
               data.status !== "Canceled" &&
               <CustomButton title={base.i18n.t("download_transaction")}
                 color={base.color.white}
                 style={{ marginTop: base.size.size_1 }}
                 textColor={base.color.primary}
                 on_press={() => download()} />
-            }
+            */}
           </View>
         </View>
       {/* </TouchableWithoutFeedback> */}

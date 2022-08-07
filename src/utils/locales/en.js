@@ -1,5 +1,5 @@
 export default {
-  app_name: "Inlist",
+  app_name: "Inlis",
   login: 'Login',
   email: 'Email',
   password: 'Password',

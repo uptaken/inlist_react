@@ -40,7 +40,7 @@ export default function Splash({ route, navigation }){
 
   return (
     <View style={{ flex: 1, backgroundColor: base.color.primary }}>
-
+      <Image source={require('../assets/Splash.png')} style={{ width: '100%', height: '100%' }}/>
     </View>
   );
 }

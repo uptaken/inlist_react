@@ -94,7 +94,8 @@ export default function Order({ route, navigation }){
         var cover_url = ''
         var due_date = null
         for(let item of data.collection_loan_item){
-          item.collection.product.CoverURL = require('../../assets/no_image_book.png')
+          var file_name = item.collection.product.CoverURL
+          item.collection.product.CoverURL = item.collection.product.CoverURL == null ? base.no_book_image : {uri: base.url_image + item.collection.product.worksheet.Name + '/' + file_name + "?rnd=" + moment().format('X')}
           cover_url = item.collection.product.CoverURL
           item.due_date = moment(item.due_date, 'YYYY-MM-DD HH:mm:ss')
           due_date = moment(item.due_date, 'YYYY-MM-DD HH:mm:ss')
@@ -125,11 +126,11 @@ export default function Order({ route, navigation }){
           <OrderHeader/>
 
           <SkeletonContent
-            containerStyle={{ }}
+            containerStyle={{ flex: 1, }}
             isLoading={is_loading}
             layout={arr_layout}>
             <FlatList
-              style={{ marginTop: base.size.size_1 }}
+              style={{ marginTop: base.size.size_1, flex: 1, }}
               data={arr}
               refreshControl={
                 <RefreshControl

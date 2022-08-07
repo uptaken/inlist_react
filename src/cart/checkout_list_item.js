@@ -20,6 +20,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import moment from 'moment';
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -34,7 +35,7 @@ export default function CheckoutListItem(props){
   return (
     <View style={{ paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: base.color.white, }}>
       <View style={{ flexDirection: 'row', }}>
-        <Image source={require('../../assets/no_image_book.png')} style={{ width: base.size.small_image, height: base.size.medium_image }}/>
+        <Image source={props.data.product.CoverURL == null ? base.no_book_image : {uri: base.url_image + props.data.product.worksheet.Name + '/' + props.data.product.CoverURL + "?rnd=" + moment().format('X')}} style={{ width: base.size.small_image, height: base.size.medium_image }}/>
 
         <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3, flexShrink: 1 }}>
           <View style={{  }}>

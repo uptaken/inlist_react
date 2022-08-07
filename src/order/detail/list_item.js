@@ -44,6 +44,7 @@ export default function OrderDetailItem(props){
         <CustomBadge
           no_press={true}
           text={props.data.LoanStatus}
+          is_translate={true}
           style_template={props.data.LoanStatus === 'Canceled' ? 'danger' : 'primary'}/>
       </View>
     </View>

@@ -10,15 +10,18 @@ import Size from "./size"
 import Color from "./color"
 
 export default class Base{
-  host = "https://inlist.quantumtri.com"
+  // host = "https://inlist.quantumtri.com"
+  host = "http://117.74.112.5/~apiinlis/public"
   url_api = this.host + "/api"
+  url_image = 'http://inlislite.dispustaka.sumselprov.go.id/uploaded_files/sampul_koleksi/original/'
+  no_book_image = require('../../assets/no_image_book.png')
   version = ""
   i18n = I18n
   size = Size
   color = Color
   locale_string = "id-ID"
   wait_time = 50
-  webview_wait_time = 2000
+  webview_wait_time = 1000
   search_wait_time = 1500
 
   constructor(){
@@ -39,7 +42,7 @@ export default class Base{
 
 
       var response
-      if(method == 'get'){
+      if(method === 'get'){
         for(let x in data)
           url += (url.includes('?') ? '&' : '?') + x + "=" + (Array.isArray(data[x]) ? JSON.stringify(data[x]) : data[x])
 
@@ -47,18 +50,18 @@ export default class Base{
           headers: header,
         })
       }
-      else if(method == 'post')
+      else if(method === 'post')
         response = await axios.post(url, data, {
           headers: header,
           onUploadProgress
         })
-      else if(method == 'put')
-        response = await axios.put(url, data, {
+      else if(method === 'put')
+        response = await axios.post(url, data, {
           headers: header,
           onUploadProgress
         })
-      else if(method == 'delete')
-        response = await axios.delete(url, {
+      else if(method === 'delete')
+        response = await axios.post(url, data, {
           headers: header,
         })
 
@@ -67,6 +70,7 @@ export default class Base{
         }, 500)
       }
 
+      // console.log(response)
       return response.data
     } catch(error){
       console.log(error.response.data)

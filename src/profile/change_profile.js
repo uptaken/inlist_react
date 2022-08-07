@@ -61,12 +61,13 @@ export default function ChangeProfile({ route, navigation }){
       base.show_error(base.i18n.t("name_empty"))
     else{
       set_is_please_wait(true)
+      console.log(image)
       var data = {
         name: name,
         address: address,
         image: {},
       }
-      if(image.data != null)
+      if(image != null && image.data != null)
         data.image = {
           original_rotation: image.fromType === "camera" ? -90 : 0,
           image: image.data,
@@ -122,7 +123,7 @@ export default function ChangeProfile({ route, navigation }){
                 <View>
                   <Image source={image} 
                     style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.medium_image / 2, overflow: "hidden", }}
-                    onLoadStart={() => set_is_please_wait(true)}
+                    onLoad={() => set_is_please_wait(true)}
                     onLoadEnd={() => set_is_please_wait(false)}/>
                 </View>
 

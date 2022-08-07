@@ -28,6 +28,10 @@ import CustomInput from '../layout/custom_input';
 export default function HomeListItem(props){
   var base = new Base()
 
+  useEffect(() => {
+    console.log(props.data.CoverURL)
+  }, [props.data])
+
   return (
     <TouchableNativeFeedback
       useForeground

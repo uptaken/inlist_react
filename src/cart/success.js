@@ -87,11 +87,11 @@ export default function CartSuccess({ route, navigation }){
           <WebView source={{ uri: url }} style={{ height: 0, width: 0, }} />
         }
 
-        <CustomButton title={base.i18n.t("download_transaction")}
+        {/* <CustomButton title={base.i18n.t("download_transaction")}
           color={base.color.white}
           style={{  }}
           textColor={base.color.primary}
-          on_press={() => download()} />
+          on_press={() => download()} /> */}
 
         <CustomButton title={base.i18n.t("back_to_home")}
           color={base.color.primary}

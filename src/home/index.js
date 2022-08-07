@@ -31,6 +31,9 @@ import HomeHeader from './header';
 import HomeList from './list';
 
 import banner from '../../assets/banner.png';
+import banner1 from '../../assets/banner1.jpg';
+import banner2 from '../../assets/banner2.jpg';
+import banner3 from '../../assets/banner3.jpg';
 
 export default function Home({ route, navigation }){
   var base = new Base()
@@ -38,7 +41,15 @@ export default function Home({ route, navigation }){
   const [arr_banner, set_arr_banner] = useState([
     {
       id: '1',
-      url_image: banner,
+      url_image: banner1,
+    },
+    {
+      id: '2',
+      url_image: banner2,
+    },
+    {
+      id: '3',
+      url_image: banner3,
     },
   ])
   const [arr_cart, set_arr_cart] = useState([])

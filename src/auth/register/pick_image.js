@@ -44,6 +44,7 @@ export default function PickImage({ route, navigation }){
         original_rotation: image_profile.fromType === "camera" ? -90 : 0,
         image: image_profile.data,
       }
+    // console.log(data)
       
     set_is_please_wait(true)
     var response = await base.request(base.url_api + '/auth/register', 'post', data)
@@ -55,7 +56,7 @@ export default function PickImage({ route, navigation }){
         response.data.image_profile = {
           uri: image_profile.uri
         }
-        console.log(response.data)
+        // console.log(response.data)
         await AsyncStorage.removeItem('register_data')
         navigation.navigate('RegisterSuccess', {member: response.data,})
       }
