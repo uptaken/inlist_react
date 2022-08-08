@@ -146,7 +146,7 @@ export default {
   Loan: 'Dipinjam',
   Return: 'Dikembalikan',
   transaction_no: 'No Transaksi',
-  full_name: 'Nama Lengkap',
+  member_type: 'Jenis Anggota',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',

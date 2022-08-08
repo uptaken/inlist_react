@@ -34,6 +34,7 @@ export default function BasicInfo({ route, navigation }){
   const [selected_gender, set_selected_gender] = useState({})
   const [selected_occupation, set_selected_occupation] = useState({})
   const [selected_id_type, set_selected_id_type] = useState({})
+  const [selected_member_type, set_selected_member_type] = useState({})
   const [image_profile, set_image_profile] = useState(require("../../../assets/no_profile_picture.png"))
   const [arr_id_type, set_arr_id_type] = useState([
     {
@@ -52,10 +53,12 @@ export default function BasicInfo({ route, navigation }){
     },
   ])
   const [arr_occupation, set_arr_occupation] = useState([])
+  const [arr_member_type, set_arr_member_type] = useState([])
 
   useEffect(() => {
     base.set_white_status_bar()
     get_occupation_data()
+    get_member_type_data()
   }, [])
 
   async function get_occupation_data(){
@@ -71,9 +74,24 @@ export default function BasicInfo({ route, navigation }){
       base.show_error(response.message)
   }
 
+  async function get_member_type_data(){
+    var response = await base.request(base.url_api + '/member-type')
+
+    if(response.status === 'success'){
+      for(let data of response.data.data){
+        data.name = data.jenisanggota
+      }
+      set_arr_member_type(response.data.data)
+    }
+    else
+      base.show_error(response.message)
+  }
+
   async function next(){
     if(selected_id_type.id == null)
       base.show_error(base.i18n.t("id_type_not_choosen"))
+    else if(selected_member_type.id == null)
+      base.show_error(base.i18n.t("member_type_not_choosen"))
     else if(full_name === '')
       base.show_error(base.i18n.t("full_name_empty"))
     else if(email === '')
@@ -92,7 +110,8 @@ export default function BasicInfo({ route, navigation }){
         email: email,
         id_no: id_no,
         gender: selected_gender,
-        occupation: selected_occupation,
+        // occupation: selected_occupation,
+        member_type: selected_member_type,
         image: {},
       }
       // if(image_profile.data != null)
@@ -157,12 +176,19 @@ export default function BasicInfo({ route, navigation }){
                 on_selected={index => set_selected_gender(arr_gender[index])}
                 value={selected_gender}/>
 
-              <CustomInput
+              {/* <CustomInput
                 type="select"
                 arr={arr_occupation}
                 name={base.i18n.t("occupation")}
                 on_selected={index => set_selected_occupation(arr_occupation[index])}
-                value={selected_occupation}/>
+                value={selected_occupation}/> */}
+
+              <CustomInput
+                type="select"
+                arr={arr_member_type}
+                name={base.i18n.t("member_type")}
+                on_selected={index => set_selected_member_type(arr_member_type[index])}
+                value={selected_member_type}/>
 
               {/* <CustomInput
                 type="file"
