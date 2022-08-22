@@ -44,16 +44,16 @@ export default function ProductDetail({ route, navigation }){
       title: base.i18n.t("exemplar"),
       component: <ProductInfo data={data}/>,
     },
-    {
-      key: 'digital_content',
-      title: base.i18n.t("digital_content"),
-      component: <ProductInfo data={data}/>,
-    },
-    {
-      key: 'marc',
-      title: base.i18n.t("marc"),
-      component: <ProductInfo data={data}/>,
-    },
+    // {
+    //   key: 'digital_content',
+    //   title: base.i18n.t("digital_content"),
+    //   component: <ProductInfo data={data}/>,
+    // },
+    // {
+    //   key: 'marc',
+    //   title: base.i18n.t("marc"),
+    //   component: <ProductInfo data={data}/>,
+    // },
   ])
 
   useEffect(() => {

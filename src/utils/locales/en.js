@@ -1,5 +1,5 @@
 export default {
-  app_name: "Inlis",
+  app_name: "KPOP'S",
   login: 'Login',
   email: 'Email',
   password: 'Password',
