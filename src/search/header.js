@@ -22,13 +22,16 @@ import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
 import CustomCard from '../layout/custom_card';
 import CustomInput from '../layout/custom_input';
+import CustomHeader from '../layout/custom_header';
 
 export default function SearchHeader(props){
   var base = new Base()
 
   return (
     <View style={{ padding: base.size.size_5, backgroundColor: base.color.primary }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+      <CustomHeader/>
+      
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: base.size.size_3, }}>
         <View style={{ }}>
           <Text style={{ color: base.color.white, fontSize: base.size.icon }}>{base.i18n.t("search")}</Text>
         </View>

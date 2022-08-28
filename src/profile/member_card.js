@@ -20,6 +20,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
+import Barcode from "react-native-barcode-builder"
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -48,16 +49,31 @@ export default function MemberCard(props){
               <View >
                 <Text style={{ fontSize: base.size.icon, color: base.color.white, fontWeight: 'bold', }}>{props.member != null ? props.member.Fullname : '-'}</Text>
                 <Text style={{ fontSize: base.size.size_5, color: base.color.white2 }}>{props.member != null ? props.member.MemberNo : '-'}</Text>
+
+                <View style={{ marginTop: base.size.title }}>
+                  {
+                    props.member != null && 
+                    <Barcode value={props.member.MemberNo} format="CODE128" height={base.size.icon} background="#ffffff" width={1.6}/>
+                  }
+                </View>
               </View>
 
-              <Image source={props.member != null && props.member.image_profile != null ? props.member.image_profile : require("../../assets/no_profile_picture.png")} 
-                style={{ height: base.size.small_image1, width: base.size.small_image }}
-                onLoadStart={() => set_is_please_wait(true)}
-                onLoadEnd={() => set_is_please_wait(false)}/>
+              <View>
+                <Text style={{ fontSize: base.size.size_3, color: base.color.white2, textAlign: 'center' }}>{props.member != null ? props.member.IdentityNo : '-'}</Text>
+
+                <Text style={{ fontSize: base.size.size_3, color: base.color.white2, textAlign: 'center', marginTop: base.size.size_3, }}>{base.i18n.t("unlimited_active_card")}</Text>
+              
+                <Image source={props.member != null && props.member.image_profile != null ? props.member.image_profile : require("../../assets/no_profile_picture.png")} 
+                  style={{ height: base.size.small_image1, width: base.size.small_image }}
+                  onLoadStart={() => set_is_please_wait(true)}
+                  onLoadEnd={() => set_is_please_wait(false)}/>
+              </View>
             </View>
 
-            <View style={{ marginTop: base.size.size_7, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{ fontSize: base.size.size_3, color: base.color.white2 }}>{base.i18n.t("joined_since")} {props.member != null ? props.member.RegisterDateFormat.format('DD/MM/YYYY') : '-'}</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              
+              
+              {/* <Text style={{ fontSize: base.size.size_3, color: base.color.white2 }}>{base.i18n.t("joined_since")} {props.member != null ? props.member.RegisterDateFormat.format('DD/MM/YYYY') : '-'}</Text> */}
             </View>
           </View>
         </ImageBackground>

@@ -24,6 +24,7 @@ import CustomButton from '../layout/custom_button';
 import CustomCard from '../layout/custom_card';
 import CustomInput from '../layout/custom_input';
 import MemberCard from './member_card';
+import CustomHeader from '../layout/custom_header';
 
 export default function ProfileHeader(props){
   var base = new Base()
@@ -31,10 +32,12 @@ export default function ProfileHeader(props){
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
       <View style={{ backgroundColor: base.color.white }}>
-        <View style={{ width: '100%', position: 'absolute', backgroundColor: base.color.primary, height: base.size.medium_image }}></View>
+        <View style={{ width: '100%', position: 'absolute', backgroundColor: base.color.primary, height: base.size.large_image }}></View>
 
         <View style={{ padding: base.size.size_5, }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+          <CustomHeader/>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: base.size.size_3, }}>
             <View style={{ }}>
               <Text style={{ color: base.color.white, fontSize: base.size.icon }}>{base.i18n.t("profile")}</Text>
             </View>

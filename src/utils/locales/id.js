@@ -134,6 +134,7 @@ export default {
   male: 'Laki-Laki',
   female: 'Perempuan',
   joined_since: 'Bergabung sejak',
+  unlimited_active_card: 'Masa Berlaku Kartu\nSeumur Hidup',
   not_email_format: 'Alamat email tidak dalam format email',
   upload_photo: 'Unggah Foto',
   image_profile: 'Foto Diri',
