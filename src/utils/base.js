@@ -10,8 +10,8 @@ import Size from "./size"
 import Color from "./color"
 
 export default class Base{
-  // host = "https://inlist.quantumtri.com"
-  host = "http://117.74.112.5/~apiinlis/public"
+  host = "https://inlist.quantumtri.com"
+  // host = "http://117.74.112.5/~apiinlis/public"
   url_api = this.host + "/api"
   url_image = 'https://inlislite.dispustaka.sumselprov.go.id/uploaded_files/sampul_koleksi/original/'
   no_book_image = require('../../assets/no_image_book.png')

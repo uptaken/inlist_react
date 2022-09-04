@@ -23,7 +23,7 @@ export default function CustomHeader(props){
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
       <Image source={require("../../assets/logo.png")} style={{ width: base.size.title, height: base.size.title }}/>
 
-      <Text style={{ color: base.color.white, fontSize: base.size.icon, fontWeight: 'bold', }}>{base.i18n.t("app_name")}</Text>
+      <Text style={{ color: props.backgroundColor ? base.color.white : base.color.black, fontSize: base.size.icon, fontWeight: 'bold', }}>{base.i18n.t("app_name")}</Text>
 
       <View style={{ width: base.size.title, }}>
         {

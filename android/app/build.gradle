@@ -132,8 +132,8 @@ android {
         applicationId "com.kpops.inlist"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "1.0.0010"
+        versionCode 100013
+        versionName "1.0.0013"
         ndkVersion "25.0.8775105"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

@@ -40,13 +40,13 @@ export default function Register({ route, navigation }){
   return (
     <TouchableWithoutFeedback style={{ flex: 1, }} onPress={() => Keyboard.dismiss()}>
       <View style={{ flex: 1, justifyContent: "space-between", }}>
-        <View style={{ marginTop: base.size.large_title, }}>
+        <View style={{ padding: base.size.size_5, marginTop: base.size.large_title, }}>
           <CustomNavigation title={base.i18n.t("register")}
             navigation={navigation}
             padding={base.size.size_5}
             with_back={false}/>
 
-          <View style={{ padding: base.size.size_5, }}>
+          <View style={{  }}>
             <CustomCard
               color={base.color.grey1}
               on_press={() => {}}
