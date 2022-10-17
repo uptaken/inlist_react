@@ -35,7 +35,8 @@ export default function ProfileHeader(props){
         <View style={{ width: '100%', position: 'absolute', backgroundColor: base.color.primary, height: base.size.large_image }}></View>
 
         <View style={{ padding: base.size.size_5, }}>
-          <CustomHeader/>
+          <CustomHeader
+            backgroundColor={true}/>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: base.size.size_3, }}>
             <View style={{ }}>

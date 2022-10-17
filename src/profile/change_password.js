@@ -61,7 +61,11 @@ export default function ChangePassword({ route, navigation }){
       set_is_please_wait(false)
       setTimeout(async () => {
         if(response.status === 'success'){
-          navigation.goBack()
+          base.show_error(base.i18n.t("change_password_success"))
+
+          setTimeout(async () => {
+            navigation.goBack()
+          }, 1000)
         }
         else
           base.show_error(response.message)

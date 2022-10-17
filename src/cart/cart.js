@@ -50,6 +50,7 @@ export default function Cart({ route, navigation }){
   async function get_arr_cart(){
     var arr_cart = await AsyncStorage.getItem('arr_cart')
     arr_cart = arr_cart == null ? [] : JSON.parse(arr_cart)
+    console.log(arr_cart[0].product.CoverURL)
 
     set_arr(arr_cart)
   }

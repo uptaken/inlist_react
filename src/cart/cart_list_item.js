@@ -40,7 +40,7 @@ export default function CartListItem(props){
       ref={(ref) => props.on_set_ref(ref)}>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: base.color.white, }}>
         <View style={{ flexDirection: 'row', }}>
-          <Image source={props.data.product.CoverURL == null ? base.no_book_image : {uri: base.url_image + props.data.product.worksheet.Name + '/' + props.data.product.CoverURL + "?rnd=" + moment().format('X')}} 
+          <Image source={props.data.product.CoverURL == null ? base.no_book_image : props.data.product.CoverURL} 
             style={{ width: base.size.small_image, height: base.size.medium_image }}/>
 
           <View style={{ justifyContent: 'space-between', alignItems: 'flex-start', marginLeft: base.size.size_3, flexShrink: 1 }}>

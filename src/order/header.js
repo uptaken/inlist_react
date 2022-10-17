@@ -29,7 +29,8 @@ export default function OrderHeader(props){
 
   return (
     <View style={{ padding: base.size.size_5, backgroundColor: base.color.primary }}>
-      <CustomHeader/>
+      <CustomHeader
+        backgroundColor={true}/>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: base.size.size_3, }}>
         <View style={{ }}>

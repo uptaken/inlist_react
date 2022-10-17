@@ -148,8 +148,8 @@ export default {
   Return: 'Dikembalikan',
   transaction_no: 'No Transaksi',
   member_type: 'Jenis Anggota',
-  full_name: 'Nama Lengkap',
-  full_name: 'Nama Lengkap',
+  change_password_success: 'Ubah Kata Sandi Berhasil',
+  change_profile_success: 'Ubah Profil Berhasil',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',
 }

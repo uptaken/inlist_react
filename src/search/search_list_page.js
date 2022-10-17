@@ -31,7 +31,7 @@ export default function SearchListPage({ route, navigation }){
   const [sort, set_sort] = useState({})
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <CustomNavigation
         style={{ paddingHorizontal: base.size.size_5, paddingTop: base.size.size_5, backgroundColor: base.color.primary }}
         title={route.params.data.name}

@@ -113,7 +113,7 @@ export default function SearchList(props){
   }
 
   return (
-    <View>
+    <View style={{ flex: 1, }}>
       <Snackbar id="root_app"/>
       <View style={{ paddingHorizontal: base.size.size_5, paddingVertical: base.size.size_3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
         <Text style={{ color: base.color.grey2, }}>{arr.length + ' ' + base.i18n.t("num_book")}</Text>
@@ -129,11 +129,11 @@ export default function SearchList(props){
       </View>
 
       <SkeletonContent
-        containerStyle={{ }}
+        containerStyle={{ flex: 1 }}
         isLoading={is_loading}
         layout={arr_layout}>
         <FlatList
-          style={{  }}
+          style={{ flex: 1, }}
           data={arr}
           refreshControl={
             <RefreshControl

@@ -82,7 +82,7 @@ export default function Search({ route, navigation }){
             on_search={value => set_search(value)}
             search={search}/>
 
-          <View style={{ }}>
+          <View style={{ flex: 1, }}>
             {
               search === '' ?
               <View>

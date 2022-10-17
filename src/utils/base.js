@@ -56,12 +56,12 @@ export default class Base{
           onUploadProgress
         })
       else if(method === 'put')
-        response = await axios.post(url, data, {
+        response = await axios.put(url, data, {
           headers: header,
           onUploadProgress
         })
       else if(method === 'delete')
-        response = await axios.post(url, data, {
+        response = await axios.delete(url, data, {
           headers: header,
         })
 

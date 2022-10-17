@@ -32,6 +32,7 @@ export default function HomeHeader(props){
     <View style={{ padding: base.size.size_5, backgroundColor: base.color.primary }}>
       <CustomHeader
         navigation={props.navigation}
+        backgroundColor={true}
         side_component={
           <TouchableNativeFeedback
             useForeground
