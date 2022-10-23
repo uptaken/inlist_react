@@ -28,16 +28,19 @@ export default function ProductInfo(props){
   var base = new Base()
 
   return (
-    <View style={{ padding: base.size.size_3, backgroundColor: base.color.grey9, }}>
-      <Text>{base.i18n.t("title") + ': ' + props.data.Title}</Text>
-      <Text>{base.i18n.t("author") + ': ' + props.data.Author}</Text>
-      <Text>{base.i18n.t("edition") + ': ' + props.data.Edition}</Text>
-      <Text>{base.i18n.t("publisher") + ': ' + props.data.Publisher}</Text>
-      <Text>{base.i18n.t("description") + ': ' + props.data.PhysicalDescription}</Text>
-      <Text>{base.i18n.t("isbn") + ': ' + props.data.ISBN}</Text>
-      <Text>{base.i18n.t("subject") + ': ' + props.data.Subject}</Text>
-      <Text>{base.i18n.t("notes") + ': ' + props.data.Note}</Text>
-      <Text>{base.i18n.t("language") + ': ' + props.data.Languages}</Text>
-    </View>
+    <ScrollView
+      nestedScrollEnabled={true}>
+      <View style={{ padding: base.size.size_3, backgroundColor: base.color.grey9, }}>
+        <Text>{base.i18n.t("title") + ': ' + props.data.Title}</Text>
+        <Text>{base.i18n.t("author") + ': ' + props.data.Author}</Text>
+        <Text>{base.i18n.t("edition") + ': ' + props.data.Edition}</Text>
+        <Text>{base.i18n.t("publisher") + ': ' + props.data.Publisher}</Text>
+        <Text>{base.i18n.t("description") + ': ' + props.data.PhysicalDescription}</Text>
+        <Text>{base.i18n.t("isbn") + ': ' + props.data.ISBN}</Text>
+        <Text>{base.i18n.t("subject") + ': ' + props.data.Subject}</Text>
+        <Text>{base.i18n.t("notes") + ': ' + props.data.Note}</Text>
+        <Text>{base.i18n.t("language") + ': ' + props.data.Languages}</Text>
+      </View>
+    </ScrollView>
   );
 }

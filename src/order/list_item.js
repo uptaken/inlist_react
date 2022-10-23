@@ -47,6 +47,7 @@ export default function OrderListItem(props){
         <CustomBadge
           no_press={true}
           text={props.data.status != null ? props.data.status : '-'}
+          is_translate={true}
           style_template={props.data.status === 'Canceled' ? 'danger' : 'primary'}/>
       </View>
     </TouchableNativeFeedback>

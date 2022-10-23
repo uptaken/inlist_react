@@ -50,6 +50,7 @@ export default function SearchListItem(props){
               <CustomBadge
                 text={props.data.status}
                 on_press={() => {}}
+                is_translate={true}
                 style_template={props.data.status === 'available' ? 'primary' : 'danger'}/>
             }
           </View>

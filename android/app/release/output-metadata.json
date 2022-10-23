@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.kpops.inlist",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 100019,
+      "versionName": "1.0.0019",
+      "enabled": true,
+      "outputFile": "app-release.apk"
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Snackbar from '@prince8verma/react-native-snackbar'
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
+import moment from 'moment';
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -99,8 +100,11 @@ export default function SearchList(props){
 
     set_is_loading(false)
     if(response.status === 'success'){
-      for(let data of response.data.data)
-        data.CoverURL = require('../../assets/no_image_book.png')
+      for(let data of response.data.data){
+        var file_name = data.CoverURL
+        data.CoverURL = data.CoverURL == null ? base.no_book_image : {uri: base.url_image + data.worksheet.Name + '/' + file_name + "?rnd=" + moment().format('X')}
+        console.log(data)
+      }
 
       set_arr(response.data.data)
     }
