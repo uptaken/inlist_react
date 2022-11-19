@@ -42,29 +42,33 @@ export default function MemberCard(props){
       <CustomCard
         padding={0}
         no_border={true}
+        borderRadius={base.size.size_5}
         paddingHorizontal={0}>
-        <ImageBackground source={require("../../assets/member_card_bg.png")} resizeMode="cover" style={{ width: '100%' }}>
+        <ImageBackground source={require("../../assets/member_card_bg.png")} resizeMode="cover" style={{ width: '100%', }} imageStyle={{ borderRadius: base.size.size_5}}>
           <View style={{ padding: base.size.size_7 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <View >
-                <Text style={{ fontSize: base.size.icon, color: base.color.white, fontWeight: 'bold', }}>{props.member != null ? props.member.Fullname : '-'}</Text>
+              <View style={{ marginRight: base.size.size_1, alignItems: 'flex-start', flexShrink: 1, }}>
+                <Text style={{ fontSize: base.size.size_7, color: base.color.white, fontWeight: 'bold', }}>{props.member != null ? props.member.Fullname : '-'}</Text>
                 <Text style={{ fontSize: base.size.size_5, color: base.color.white2 }}>{props.member != null ? props.member.MemberNo : '-'}</Text>
 
-                <View style={{ marginTop: base.size.title }}>
+                <View style={{ marginTop: base.size.size_1 }}>
                   {
                     props.member != null && 
-                    <Barcode value={props.member.MemberNo} format="CODE128" height={base.size.icon} background="#ffffff" width={1.6}/>
+                    <Barcode value={props.member.MemberNo} format="CODE128" height={base.size.icon} background="#ffffff" width={1.3}/>
                   }
                 </View>
+
+                {/* <Text style={{ fontSize: base.size.size_3, color: base.color.white2, marginTop: base.size.size_3, }}>{base.i18n.t("unlimited_active_card")}</Text> */}
+
+                <Text style={{ fontSize: base.size.size_3, color: base.color.white2, marginTop: base.size.size_3, }}>{base.i18n.t("id_no")}</Text>
+                <Text style={{ fontSize: base.size.size_3, color: base.color.white2, }}>{props.member != null ? props.member.IdentityNo : '-'}</Text>
               </View>
 
-              <View>
-                <Text style={{ fontSize: base.size.size_3, color: base.color.white2, textAlign: 'center' }}>{props.member != null ? props.member.IdentityNo : '-'}</Text>
+              <View style={{ marginLeft: base.size.size_1, }}>
+                
 
-                <Text style={{ fontSize: base.size.size_3, color: base.color.white2, textAlign: 'center', marginTop: base.size.size_3, }}>{base.i18n.t("unlimited_active_card")}</Text>
-              
                 <Image source={props.member != null && props.member.image_profile != null ? props.member.image_profile : require("../../assets/no_profile_picture.png")} 
-                  style={{ height: base.size.small_image1, width: base.size.small_image }}
+                  style={{ height: base.size.small_image1, width: base.size.small_image,  }}
                   onLoadStart={() => set_is_please_wait(true)}
                   onLoadEnd={() => set_is_please_wait(false)}/>
               </View>

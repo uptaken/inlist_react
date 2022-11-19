@@ -28,6 +28,7 @@ import ForgetPassword from './src/auth/forget_password'
 
 
 import ProductDetail from './src/home/product/detail'
+import ArticleDetail from './src/home/article/detail'
 
 import OrderDetail from './src/order/detail/detail'
 
@@ -126,6 +127,13 @@ export default function App() {
     {
       name: "ProductDetail",
       component: ProductDetail,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "ArticleDetail",
+      component: ArticleDetail,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),

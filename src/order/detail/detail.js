@@ -135,20 +135,24 @@ export default function OrderDetail({ route, navigation }){
                 </View>
 
                 <View style={{ alignItems: 'flex-start', marginTop: base.size.size_5, }}>
-                  {/* <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return")}</Text> */}
-
                   <View style={{ alignItems: 'flex-start', }}>
-                    {/* <CustomBadge
+                    <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return_deadline")}</Text>
+                    <CustomBadge
                       on_press={() => {}}
                       text={data.collection_loan_item != null ? data.collection_loan_item[0].due_date.format('DD MMMM YYYY') : '-'}
-                      style_template="primary"/> */}
+                      style={{ marginTop: base.size.size_4 }}
+                      style_template="primary"/>
+                  </View>
+
+                  <View style={{ alignItems: 'flex-start', }}>
+                    
 
                     {/* <CustomBadge
                       no_press={true}
                       text={data.status}
                       style_template={data.status === 'Canceled' ? 'danger' : 'primary'}/> */}
 
-                    <View style={{  }}>
+                    <View style={{ marginTop: base.size.size_5 }}>
                       <Text style={{ color: base.color.grey6, fontSize: base.size.size_5, fontWeight: 'bold', }}>{base.i18n.t("return_location")}</Text>
                       <Text style={{ marginTop: base.size.size_4 }}>{data.collection_loan_item != null ? data.collection_loan_item[0].collection.location.Name : '-'}</Text>
                     </View>

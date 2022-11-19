@@ -26,9 +26,9 @@ import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
 import CustomCard from '../layout/custom_card';
 import CustomInput from '../layout/custom_input';
-import HomeListItem from './list_item';
+import ArticleListItem from './article_list_item';
 
-export default function HomeList(props){
+export default function ArticleList(props){
   var base = new Base()
   const [arr, set_arr] = useState([])
   const [arr_layout, set_arr_layout] = useState([])
@@ -37,10 +37,7 @@ export default function HomeList(props){
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       set_is_loading(true)
-      if(props.type === 'related')
-        get_related_data()
-      else
-        get_data()
+      get_data()
     });
 
     var arr_temp = []
@@ -65,42 +62,29 @@ export default function HomeList(props){
   useEffect(() => {
     if(props.rnd != null){
       set_is_loading(true)
-      if(props.type === 'related')
-        get_related_data()
-      else
-        get_data()
+      get_data()
     }
   }, [props.rnd])
 
   async function get_data(){
-    var response = await base.request(base.url_api + '/product', 'get', {
+    var response = await base.request(base.url_api + '/article', 'get', {
       type: props.type,
-    })
-
-    set_is_loading(false)
-    if(response.status === 'success'){
-      for(let data of response.data.data){
-        var file_name = data.CoverURL
-        data.CoverURL = data.CoverURL == null ? base.no_book_image : {uri: base.url_image + data.worksheet.Name + '/' + file_name + "?rnd=" + moment().format('X')}
-      }
-      set_arr(response.data.data)
-    }
-    else
-      base.show_error(response.message)
-  }
-
-  async function get_related_data(){
-    var response = await base.request(base.url_api + '/product', 'get', {
-      subject: props.subject,
       arr_not_id: JSON.stringify([props.not_id,])
     })
 
     set_is_loading(false)
     if(response.status === 'success'){
       for(let data of response.data.data){
-        var file_name = data.CoverURL
-        data.CoverURL = data.CoverURL == null ? require('../../assets/no_image_book.png') : {uri: 'http://inlislite.dispustaka.sumselprov.go.id/uploaded_files/sampul_koleksi/original/' + data.worksheet.Name + '/' + file_name + "?rnd=" + moment().format('X')}
+        var category_str = ""
+        for(let x in data.category){
+          if(x > 0)
+            category_str += ", "
+          category_str += data.category[x].category.category
+        }
+        data.category_str = category_str
+        data.created_at = moment(data.createdate.replace('T', ' ').replace('Z', ''), 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY')
       }
+      
       set_arr(response.data.data)
     }
     else
@@ -116,19 +100,24 @@ export default function HomeList(props){
       <Snackbar id="root_app"/>
       <TouchableWithoutFeedback style={{  }} onPress={() => Keyboard.dismiss()}>
         <View style={{ }}>
-          <Text style={{ fontSize: base.size.size_5 }}>{props.title}</Text>
+          <Text style={{ fontSize: base.size.size_5 }}>{props.title != null ? props.title : base.i18n.t("article")}</Text>
 
           <SkeletonContent
             containerStyle={{  }}
             isLoading={is_loading}
             layout={arr_layout}>
-            <FlatList
+            {
+              arr.map((value, index) => (
+                <ArticleListItem key={'article'+index} data={value} on_press={() => on_clicked(index)}/>
+              ))
+            }
+            {/* <FlatList
               style={{ marginTop: base.size.size_1 }}
               data={arr}
               horizontal={props.is_horizontal == null || (props.is_horizontal != null && props.is_horizontal)}
               showsHorizontalScrollIndicator={false}
-              renderItem={({ item, index }) => <HomeListItem data={item} on_press={() => on_clicked(index)}/>}
-              keyExtractor={item => item.ID.toString()}/>
+              renderItem={({ item, index }) => <ArticleListItem data={item} on_press={() => on_clicked(index)}/>}
+              keyExtractor={item => item.ID.toString()}/> */}
           </SkeletonContent>
         </View>
       </TouchableWithoutFeedback>

@@ -34,6 +34,8 @@ export default function SearchList(props){
   const [arr, set_arr] = useState([])
   const [is_loading, set_is_loading] = useState(false)
   const [sort, set_sort] = useState({})
+  const [page, set_page] = useState(1)
+  const [total_data, set_total_data] = useState(0)
   const [arr_layout, set_arr_layout] = useState([])
   var timeout = null
 
@@ -85,28 +87,35 @@ export default function SearchList(props){
     timeout = setTimeout(() => {
       get_data()
     }, base.search_wait_time)
-  }, [props.search, props.subject])
+  }, [props.search, props.subject, page])
 
   function onRefresh(){
     set_is_loading(true)
-    get_data()
+    set_arr([])
+    set_page(1)
   }
 
   async function get_data(){
     var response = await base.request(base.url_api + '/product', 'get', {
       search: props.search != null ? props.search : '',
+      page: page,
       subject: props.subject != null ? props.subject : '',
     })
 
     set_is_loading(false)
     if(response.status === 'success'){
-      for(let data of response.data.data){
-        var file_name = data.CoverURL
-        data.CoverURL = data.CoverURL == null ? base.no_book_image : {uri: base.url_image + data.worksheet.Name + '/' + file_name + "?rnd=" + moment().format('X')}
-        console.log(data)
-      }
+      set_total_data(response.data.total)
+      if(response.data.data.length > 0){
+        for(let data of response.data.data){
+          var file_name = data.CoverURL
+          data.CoverURL = data.CoverURL == null ? base.no_book_image : {uri: base.url_image + data.worksheet.Name + '/' + file_name + "?rnd=" + moment().format('X')}
+        }
 
-      set_arr(response.data.data)
+        set_arr(response.data.data)
+      }
+      else if(page > 1){
+        set_page(page - 1)
+      }
     }
     else
       base.show_error(response.message)
@@ -145,7 +154,11 @@ export default function SearchList(props){
               onRefresh={onRefresh}/>
           }
           renderItem={({ item, index }) => <SearchListItem data={item} key={index} on_press={() => on_clicked(index)}/>}
-          keyExtractor={item => item.ID.toString()}/>
+          keyExtractor={item => item.ID.toString()}
+          onEndReached={() => {
+            if(arr.length < total_data)
+              set_page(page + 1)
+          }}/>
       </SkeletonContent>
     </View>
   );

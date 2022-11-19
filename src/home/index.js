@@ -29,6 +29,8 @@ import CustomButton from '../layout/custom_button';
 import CustomInput from '../layout/custom_input';
 import HomeHeader from './header';
 import HomeList from './list';
+import ArticleList from './article_list';
+
 
 import banner from '../../assets/banner.png';
 import banner1 from '../../assets/banner1.jpg';
@@ -55,6 +57,7 @@ export default function Home({ route, navigation }){
   const [arr_cart, set_arr_cart] = useState([])
   const [rnd, set_rnd] = useState(null)
   const [is_loading, set_is_loading] = useState(false)
+  
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -82,6 +85,10 @@ export default function Home({ route, navigation }){
     navigation.navigate('ProductDetail', {data: data})
   }
 
+  function on_article_detail_clicked(data){
+    navigation.navigate('ArticleDetail', {data: data})
+  }
+
   function onRefresh(){
     set_is_loading(true)
     set_rnd(moment().format('X'))
@@ -93,6 +100,7 @@ export default function Home({ route, navigation }){
 
   return (
     <View style={{ flex: 1, backgroundColor: base.color.white, }}>
+
       <HomeHeader
         navigation={navigation}
         total_new={arr_cart.length}
@@ -133,6 +141,15 @@ export default function Home({ route, navigation }){
                 navigation={navigation}
                 rnd={rnd}
                 on_detail_clicked={(data) => on_detail_clicked(data)}
+                on_setup_backhandler={() => setup_backhandler()}/>
+            </View>
+
+            <View style={{ marginTop: base.size.size_3 }}>
+              <ArticleList
+                navigation={navigation}
+                is_horizontal={false}
+                rnd={rnd}
+                on_detail_clicked={(data) => on_article_detail_clicked(data)}
                 on_setup_backhandler={() => setup_backhandler()}/>
             </View>
           </View>

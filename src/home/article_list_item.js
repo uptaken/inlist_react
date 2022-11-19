@@ -19,13 +19,14 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import moment from 'moment';
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
 import CustomCard from '../layout/custom_card';
 import CustomInput from '../layout/custom_input';
 
-export default function HomeListItem(props){
+export default function ArticleListItem(props){
   var base = new Base()
 
   useEffect(() => {
@@ -37,12 +38,15 @@ export default function HomeListItem(props){
       useForeground
       background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
       onPress={() => props.on_press()}>
-      <View style={{ paddingHorizontal: base.size.size_3, alignItems: 'center', width: base.size.custom_image1 }}>
-        <Image source={props.data.CoverURL} style={{ width: base.size.custom_image2, height: base.size.custom_image3, borderRadius: base.size.size_3, }}/>
+      <View style={{ alignItems: 'flex-start', flexDirection: 'row', paddingVertical: base.size.size_1, }}>
+        <Image source={props.data.image == null || props.data.image === "" ? require('../../assets/no_image_book.png') : {uri: base.url_article_image + '/' + props.data.image + "?rnd=" + moment().format('X')}} style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.size_3, }}/>
 
-        <View style={{ marginTop: base.size.size_1, width: '100%', }}>
-          <Text style={{ fontSize: base.size.size_3 }}>{props.data.Publisher != null && props.data.Publisher != '' ? props.data.Publisher : base.i18n.t("no_publisher")}</Text>
-          <Text style={{ fontSize: base.size.size_4, fontWeight: 'bold' }} numberOfLines={2}>{props.data.Title}</Text>
+        <View style={{ marginTop: base.size.size_1, width: '100%', marginLeft: base.size.size_5, flexShrink: 1, }}>
+          <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', flexShrink: 1 }} numberOfLines={2}>{props.data.title}</Text>
+
+          <Text style={{ fontSize: base.size.size_3, color: base.color.grey7, }}>{props.data.category_str != "" ? props.data.category_str + ' | ' : ""}{props.data.created_at}</Text>
+          
+          
         </View>
       </View>
     </TouchableNativeFeedback>

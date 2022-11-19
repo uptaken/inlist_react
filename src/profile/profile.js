@@ -88,9 +88,10 @@ export default function Profile({ route, navigation }){
       <Snackbar id="root_app"/>
 
       <View style={{ flex: 1, backgroundColor: base.color.white, }}>
-        <ProfileHeader data={data}/>
-
         <ScrollView>
+          <ProfileHeader data={data}/>
+
+        
           <View style={{ backgroundColor: base.color.grey4 }}>
             <View style={{ marginTop: base.size.size_3, backgroundColor: base.color.white }}>
               <TouchableNativeFeedback
