@@ -15,6 +15,7 @@ export default class Base{
   url_api = this.host + "/api"
   url_image = 'https://inlislite.dispustaka.sumselprov.go.id/uploaded_files/sampul_koleksi/original/'
   url_article_image = 'https://inlislite.dispustaka.sumselprov.go.id/inlismobile/assets/img/article/thumb/'
+  url_article_image_original = 'https://inlislite.dispustaka.sumselprov.go.id/inlismobile/assets/img/article/original/'
   no_book_image = require('../../assets/no_image_book.png')
   version = ""
   i18n = I18n

@@ -68,7 +68,7 @@ export default function ArticleList(props){
 
   async function get_data(){
     var response = await base.request(base.url_api + '/article', 'get', {
-      type: props.type,
+      type: "newest",
       arr_not_id: JSON.stringify([props.not_id,])
     })
 

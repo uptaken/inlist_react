@@ -65,7 +65,7 @@ export default function ArticleDetail({ route, navigation }){
 
       <ScrollView>
         <View style={{ padding: base.size.size_3 }}>
-          <Image source={data.image == null || data.image === "" ? require('../../../assets/no_image_book.png') : {uri: base.url_article_image + '/' + data.image + "?rnd=" + moment().format('X')}} style={{ width: '100%', height: base.size.large_image, resizeMode: 'contain' }}/>
+          <Image source={data.image == null || data.image === "" ? require('../../../assets/no_image_book.png') : {uri: base.url_article_image_original + '/' + data.image + "?rnd=" + moment().format('X')}} style={{ width: '100%', height: base.size.large_image, resizeMode: 'contain' }}/>
 
           <View style={{ alignItems: 'flex-start', paddingTop: base.size.size_7 }}>
             <Text style={{ fontSize: base.size.size_7, fontWeight: 'bold' }}>{data.title}</Text>

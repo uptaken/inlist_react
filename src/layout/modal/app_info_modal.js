@@ -48,10 +48,9 @@ export default function AppInfoModal(props){
             </View>
 
             <View style={{ marginTop: base.size.size_5, }}>
-              <Text style={{ textAlign: 'center', }}>PT. ABCD</Text>
-              <Text style={{ textAlign: 'center', }}>JL. asdads</Text>
-              <Text style={{ textAlign: 'center', }}>Surabaya, Jawa Timur</Text>
-              <Text style={{ textAlign: 'center', }}>08112312312</Text>
+              <Text style={{ textAlign: 'center', }}>PT. SRIWIJAYA INTERNET SERVICES</Text>
+              <Text style={{ textAlign: 'center', }}>Palembang, Sumatera Selatan</Text>
+              <Text style={{ textAlign: 'center', }}>085210101718</Text>
             </View>
           </View>
         </View>
