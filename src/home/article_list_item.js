@@ -38,11 +38,11 @@ export default function ArticleListItem(props){
       useForeground
       background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
       onPress={() => props.on_press()}>
-      <View style={{ alignItems: 'flex-start', flexDirection: 'row', paddingVertical: base.size.size_1, }}>
-        <Image source={props.data.image == null || props.data.image === "" ? require('../../assets/no_image_book.png') : {uri: base.url_article_image + '/' + props.data.image + "?rnd=" + moment().format('X')}} style={{ width: base.size.medium_image, height: base.size.medium_image, borderRadius: base.size.size_3, }}/>
+      <View style={{ alignItems: 'flex-start', padding: base.size.size_1, width: base.size.custom_image1 }}>
+        <Image source={props.data.image == null || props.data.image === "" ? require('../../assets/no_image_book.png') : {uri: base.url_article_image + '/' + props.data.image + "?rnd=" + moment().format('X')}} style={{ width: '100%', height: base.size.medium_image, borderRadius: base.size.size_3, }}/>
 
-        <View style={{ marginTop: base.size.size_1, width: '100%', marginLeft: base.size.size_5, flexShrink: 1, }}>
-          <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', flexShrink: 1 }} numberOfLines={2}>{props.data.title}</Text>
+        <View style={{ marginTop: base.size.size_1, width: '100%', flexShrink: 1, }}>
+          <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', flexShrink: 1 }} >{props.data.title}</Text>
 
           <Text style={{ fontSize: base.size.size_3, color: base.color.grey7, }}>{props.data.category_str != "" ? props.data.category_str + ' | ' : ""}{props.data.created_at}</Text>
           

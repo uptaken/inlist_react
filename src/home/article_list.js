@@ -69,7 +69,8 @@ export default function ArticleList(props){
   async function get_data(){
     var response = await base.request(base.url_api + '/article', 'get', {
       type: "newest",
-      arr_not_id: JSON.stringify([props.not_id,])
+      arr_not_id: JSON.stringify([props.not_id,]),
+      num_data: 10,
     })
 
     set_is_loading(false)
@@ -107,17 +108,17 @@ export default function ArticleList(props){
             isLoading={is_loading}
             layout={arr_layout}>
             {
-              arr.map((value, index) => (
-                <ArticleListItem key={'article'+index} data={value} on_press={() => on_clicked(index)}/>
-              ))
+              // arr.map((value, index) => (
+              //   <ArticleListItem key={'article'+index} data={value} on_press={() => on_clicked(index)}/>
+              // ))
             }
-            {/* <FlatList
+            <FlatList
               style={{ marginTop: base.size.size_1 }}
               data={arr}
               horizontal={props.is_horizontal == null || (props.is_horizontal != null && props.is_horizontal)}
               showsHorizontalScrollIndicator={false}
-              renderItem={({ item, index }) => <ArticleListItem data={item} on_press={() => on_clicked(index)}/>}
-              keyExtractor={item => item.ID.toString()}/> */}
+              renderItem={({ item, index }) => <ArticleListItem key={'article'+index} data={item} on_press={() => on_clicked(index)}/>}
+              keyExtractor={item => item.id.toString()}/>
           </SkeletonContent>
         </View>
       </TouchableWithoutFeedback>

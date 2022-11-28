@@ -41,16 +41,22 @@ export default function AppInfoModal(props){
         <View style={{ backgroundColor : '#000000B3', flex : 1, justifyContent : 'center' }}>
           <View style={{ margin : base.size.size_5, backgroundColor : 'white', radius : 4, paddingHorizontal: base.size.size_5, alignItems : 'center', paddingVertical: base.size.large_title, }}>
             <Image source={require("../../../assets/logo.png")} style={{ width: base.size.large_title, height: base.size.large_title }}/>
+            <Text style={{ textAlign: 'center', fontSize: base.size.icon, fontWeight: 'bold', }}>{base.i18n.t("app_name")}</Text>
 
-            <View style={{  }}>
-              <Text style={{ textAlign: 'center', fontSize: base.size.icon, fontWeight: 'bold', }}>{base.i18n.t("app_name")}</Text>
-              <Text style={{ textAlign: 'center', }}>{base.i18n.t("developed_by")}</Text>
+            <View style={{ marginTop: base.size.title, }}>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>Dinas Perpustakaan Provinsi Sumatera Selatan</Text>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>Palembang, Sumatera Selatan</Text>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>(0711) 357175</Text>
             </View>
 
-            <View style={{ marginTop: base.size.size_5, }}>
-              <Text style={{ textAlign: 'center', }}>PT. SRIWIJAYA INTERNET SERVICES</Text>
-              <Text style={{ textAlign: 'center', }}>Palembang, Sumatera Selatan</Text>
-              <Text style={{ textAlign: 'center', }}>085210101718</Text>
+            <View style={{ marginTop: base.size.title, }}>
+              <Text style={{ textAlign: 'center', color: base.color.black1, fontSize: base.size.size_5, }}>{base.i18n.t("developed_by")}</Text>
+            </View>
+
+            <View style={{ marginTop: base.size.size_1, }}>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>PT. SRIWIJAYA INTERNET SERVICES</Text>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>Palembang, Sumatera Selatan</Text>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>085210101718</Text>
             </View>
           </View>
         </View>

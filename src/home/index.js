@@ -125,12 +125,12 @@ export default function Home({ route, navigation }){
 
           <View style={{ paddingHorizontal: base.size.size_5, paddingBottom: base.size.size_5, marginTop: base.size.size_5 }}>
             <View style={{  }}>
-              <HomeList
-                type="most_loaned"
-                title={base.i18n.t("most_borrowed_collection")}
+              <ArticleList
                 navigation={navigation}
+                title={base.i18n.t("new_info")}
+                is_horizontal={true}
                 rnd={rnd}
-                on_detail_clicked={(data) => on_detail_clicked(data)}
+                on_detail_clicked={(data) => on_article_detail_clicked(data)}
                 on_setup_backhandler={() => setup_backhandler()}/>
             </View>
 
@@ -145,11 +145,12 @@ export default function Home({ route, navigation }){
             </View>
 
             <View style={{ marginTop: base.size.size_3 }}>
-              <ArticleList
+              <HomeList
+                type="most_loaned"
+                title={base.i18n.t("most_borrowed_collection")}
                 navigation={navigation}
-                is_horizontal={false}
                 rnd={rnd}
-                on_detail_clicked={(data) => on_article_detail_clicked(data)}
+                on_detail_clicked={(data) => on_detail_clicked(data)}
                 on_setup_backhandler={() => setup_backhandler()}/>
             </View>
           </View>
