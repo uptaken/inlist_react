@@ -20,4 +20,5 @@ export default {
   red: '#DB4545',
   redLight: '#EBC2C2',
   orange: '#F48116',
+  blue: '#336699',
 }

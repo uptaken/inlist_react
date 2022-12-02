@@ -33,9 +33,11 @@ export default function CustomHeader(props){
         <Image source={require("../../assets/logo.png")} style={{ width: base.size.title, height: base.size.title }}/>
       </TouchableNativeFeedback>
 
-      <Text style={{ color: props.backgroundColor ? base.color.white : base.color.black, fontSize: base.size.icon, fontWeight: 'bold', }}>{base.i18n.t("app_name")}</Text>
+      <View style={{ position: 'absolute', width: '100%', alignItems: 'center', }}>
+        <Text style={{ color: props.backgroundColor ? base.color.white : base.color.black, fontSize: base.size.icon, fontWeight: 'bold', }}>{base.i18n.t("app_name")}</Text>
+      </View>
 
-      <View style={{ width: base.size.title, }}>
+      <View style={{  }}>
         {
           props.side_component != null &&
           props.side_component

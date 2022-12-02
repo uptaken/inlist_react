@@ -26,6 +26,8 @@ import RegisterSuccess from './src/auth/register/success'
 import PickImage from './src/auth/register/pick_image'
 import ForgetPassword from './src/auth/forget_password'
 
+import Tutorial from './src/auth/tutorial'
+import Help from './src/home/help'
 
 import ProductDetail from './src/home/product/detail'
 import ArticleDetail from './src/home/article/detail'
@@ -190,6 +192,20 @@ export default function App() {
     {
       name: "Transaction",
       component: Transaction,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "Help",
+      component: Help,
+      header_shown: false,
+      header_transparent: true,
+      header_right: () => (<View></View>),
+    },
+    {
+      name: "Tutorial",
+      component: Tutorial,
       header_shown: false,
       header_transparent: true,
       header_right: () => (<View></View>),

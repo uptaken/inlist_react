@@ -34,20 +34,33 @@ export default function HomeHeader(props){
         navigation={props.navigation}
         backgroundColor={true}
         side_component={
-          <TouchableNativeFeedback
-            useForeground
-            background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-            onPress={() => props.navigation.navigate('Cart', {on_setup_backhandler: () => props.on_setup_backhandler()})}>
-            <View>
-              <Icon name="cart" size={base.size.icon} color={base.color.white}/>
-              {
-                (props.total_new != null && props.total_new > 0) &&
-                <View style={{ height: base.size.size_3, width: base.size.size_3, borderRadius: base.size.size_3 / 2, backgroundColor: base.color.red, position: 'absolute', justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={{ color: base.color.white, }}></Text>
-                </View>
-              }
-            </View>
-          </TouchableNativeFeedback>
+          <View style={{ flexDirection: 'row',  }}>
+            <TouchableNativeFeedback
+              useForeground
+              background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+              onPress={() => props.navigation.navigate('Help')}
+              >
+              <View style={{ marginRight: base.size.size_3 }}>
+                <Icon name="help-circle" size={base.size.icon} color={base.color.white}/>
+              </View>
+            </TouchableNativeFeedback>
+
+            <TouchableNativeFeedback
+              useForeground
+              background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+              onPress={() => props.navigation.navigate('Cart', {on_setup_backhandler: () => props.on_setup_backhandler()})}
+              >
+              <View>
+                <Icon name="cart" size={base.size.icon} color={base.color.white}/>
+                {
+                  (props.total_new != null && props.total_new > 0) &&
+                  <View style={{ height: base.size.size_3, width: base.size.size_3, borderRadius: base.size.size_3 / 2, backgroundColor: base.color.red, position: 'absolute', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ color: base.color.white, }}></Text>
+                  </View>
+                }
+              </View>
+            </TouchableNativeFeedback>
+          </View>
         }/>
 
       <View style={{ marginTop: base.size.size_3 }}>

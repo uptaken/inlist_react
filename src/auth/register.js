@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableNativeFeedback,
   BackHandler,
   TouchableOpacity,
 } from 'react-native';
@@ -68,6 +69,14 @@ export default function Register({ route, navigation }){
                 <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("rules_detail")}</Text>
               </View>
             </CustomCard>
+
+            <TouchableNativeFeedback
+              useForeground
+              background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
+              onPress={() => navigation.navigate('Tutorial')}
+              >
+              <Text style={{ marginTop: base.size.size_5, textDecorationLine: 'underline', color: base.color.blue, }}>{base.i18n.t('register_tutorial')}</Text>
+            </TouchableNativeFeedback>
           </View>
         </View>
 
