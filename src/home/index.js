@@ -58,6 +58,9 @@ export default function Home({ route, navigation }){
   const [rnd, set_rnd] = useState(null)
   const [is_loading, set_is_loading] = useState(false)
   
+  useEffect(() => {
+    base.set_primary_status_bar()
+  })
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {

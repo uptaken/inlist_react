@@ -158,7 +158,7 @@ export default {
   library_profile: 'Profil Perpustakaan',
   new_info: 'Informasi Terbaru',
   register_tutorial: 'Tutorial Pendaftaran Anggota',
-  tutorial: 'Tutorial',
+  tutorial: 'Tutorial Daftar Anggota',
   help: 'Bantuan',
   full_name: 'Nama Lengkap',
   full_name: 'Nama Lengkap',

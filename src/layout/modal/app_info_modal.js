@@ -54,9 +54,9 @@ export default function AppInfoModal(props){
             </View>
 
             <View style={{ marginTop: base.size.size_1, }}>
-              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>PT. SRIWIJAYA INTERNET SERVICES</Text>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>PT. Sriwijaya Internet Services</Text>
               <Text style={{ textAlign: 'center', color: base.color.grey10, }}>Palembang, Sumatera Selatan</Text>
-              <Text style={{ textAlign: 'center', color: base.color.grey10, }}>085210101718</Text>
+              <Text style={{ textAlign: 'center', color: base.color.grey10, display: 'none' }}>085210101718</Text>
             </View>
           </View>
         </View>

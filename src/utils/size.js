@@ -8,6 +8,7 @@ export default {
   "size_6": 18,
   "size_7": 20,
   "border": 1,
+  "border1": 2,
   "icon": 24,
   "title": 30,
   "large_title": 40,
