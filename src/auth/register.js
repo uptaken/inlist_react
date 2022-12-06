@@ -17,6 +17,7 @@ import {
   BackHandler,
   TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import Base from '../utils/base';
 import CustomButton from '../layout/custom_button';
@@ -53,6 +54,24 @@ export default function Register({ route, navigation }){
               on_press={() => {}}
               borderColor={base.color.grey1}
               style={{ marginTop: base.size.size_5 }}>
+              <View style={{  }}>
+                <TouchableOpacity
+                  useForeground
+                  onPress={() => navigation.navigate('Tutorial')}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                    <Icon name="help-circle" size={base.size.icon} color={base.color.primary}/>
+                    
+                    <Text style={{ marginLeft: base.size.size_5, textDecorationLine: 'underline', color: base.color.blue, }}>{base.i18n.t('register_tutorial')}</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </CustomCard>
+
+            <CustomCard
+              color={base.color.grey1}
+              on_press={() => {}}
+              borderColor={base.color.grey1}
+              style={{ marginTop: base.size.size_5 }}>
               <View>
                 <Text style={{ color: base.color.black1, fontWeight: 'bold', fontSize: base.size.size_5, }}>{base.i18n.t("condition")}</Text>
                 <Text style={{ color: base.color.black1, marginTop: base.size.size_1 }}>{base.i18n.t("condition_detail")}</Text>
@@ -70,13 +89,7 @@ export default function Register({ route, navigation }){
               </View>
             </CustomCard>
 
-            <TouchableNativeFeedback
-              useForeground
-              background={TouchableNativeFeedback.Ripple(base.color.colorPrimaryDark, false)}
-              onPress={() => navigation.navigate('Tutorial')}
-              >
-              <Text style={{ marginTop: base.size.size_5, textDecorationLine: 'underline', color: base.color.blue, }}>{base.i18n.t('register_tutorial')}</Text>
-            </TouchableNativeFeedback>
+            
           </View>
         </View>
 
