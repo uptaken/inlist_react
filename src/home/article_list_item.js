@@ -42,7 +42,7 @@ export default function ArticleListItem(props){
         <Image source={props.data.image == null || props.data.image === "" ? require('../../assets/no_image_book.png') : {uri: base.url_article_image + '/' + props.data.image + "?rnd=" + moment().format('X')}} style={{ width: '100%', height: base.size.medium_image, borderRadius: base.size.size_3, }}/>
 
         <View style={{ marginTop: base.size.size_1, width: '100%', flexShrink: 1, }}>
-          <Text style={{ fontSize: base.size.size_5, fontWeight: 'bold', flexShrink: 1 }} >{props.data.title}</Text>
+          <Text numberOfLines={2} style={{ fontSize: base.size.size_5, fontWeight: 'bold', flexShrink: 1 }} >{props.data.title}</Text>
 
           <Text style={{ fontSize: base.size.size_3, color: base.color.grey7, }}>{props.data.category_str != "" ? props.data.category_str + ' | ' : ""}{props.data.created_at}</Text>
           
